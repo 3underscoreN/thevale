@@ -16,7 +16,7 @@ export default function WelcomeText(props: Props) {
           山谷
         </h1>
         <h2 className="py-8 animated-text text-lg md:text-2xl">
-          關於自傷，有什麼想說的嗎？
+          內心有什麼想說的嗎？
         </h2>
       </div>
     </div>
