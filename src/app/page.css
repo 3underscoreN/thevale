@@ -7,3 +7,13 @@
   filter: brightness(50%);
   z-index: -1;
 }
+
+.foreground-mountain {
+  width: 100%;
+  height: 100%;
+  background-image: url(/asset/foreground.png);
+  background-size: cover;
+  background-position: center;
+  filter: brightness(55%);
+  z-index: 1;
+}
