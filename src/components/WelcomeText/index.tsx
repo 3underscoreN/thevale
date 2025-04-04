@@ -1,9 +1,5 @@
 import "./WelcomeText.css"
 
-import localFont from "next/font/local"
-
-const iansuiFont = localFont({src: './font/Iansui-Regular.ttf'})
-
 type Props = {
   className?: string
 }
@@ -11,7 +7,7 @@ type Props = {
 export default function WelcomeText(props: Props) {
   return (
     <div className={props.className}>
-      <div className={`text-shadow-lg/30 tracking-widest text-center ${iansuiFont.className}`}>
+      <div className="text-shadow-lg/30 tracking-widest text-center">
         <h1 className="animated-text text-6xl md:text-8xl">
           山谷
         </h1>

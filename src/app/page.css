@@ -1,0 +1,9 @@
+.background-mountain {
+  width: 100%;
+  height: 100%;
+  background-image: url(/asset/background.jpg);
+  background-size: cover;
+  background-position: center;
+  filter: brightness(50%);
+  z-index: -1;
+}
