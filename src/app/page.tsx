@@ -6,7 +6,6 @@ import './page.css'
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import Footer from "@/components/Footer";
 
 export default function Home() {
 
