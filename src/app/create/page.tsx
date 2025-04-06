@@ -32,6 +32,7 @@ export default function CreatePage() {
               <HotLineCard />
             </div>
           </CardHeader>
+          <CardContent />
         </Card>
       </div>
     </>

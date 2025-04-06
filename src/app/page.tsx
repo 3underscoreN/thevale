@@ -3,9 +3,6 @@
 import WelcomeText from "@/components/WelcomeText";
 import './page.css'
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCode, faExternalLink } from "@fortawesome/free-solid-svg-icons";
-
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
