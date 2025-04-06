@@ -1,19 +1,19 @@
 'use server'
 
 import { neon } from '@neondatabase/serverless';
+import { z } from 'zod';
 
-export type stateType = {
-  success: boolean;
-  error: unknown | null;
-  lastSubmitted: {
-    name: string;
-    content: string;
-  };
-}
+const FormDataSchema = z.object({
+  name: z.string().max(64).default('佚名'),
+  content: z.string().max(65535),
+});
 
-export async function submitData(_: stateType, formData: FormData) {
-  const name = formData.get('name')?.toString() || '佚名';
-  const content = formData.get('content')?.toString() || '';
+export async function submitData(_: any, formData: FormData) {
+  const parsedData = FormDataSchema.safeParse(Object.fromEntries(formData));
+  if (!parsedData.success) {
+    throw parsedData.error;
+  }
+  const { name, content } = parsedData.data;
   const currentDate = new Date().toISOString();
   const status = 'pending';
   const sql = (process.env.NODE_ENV === 'production') ? 
