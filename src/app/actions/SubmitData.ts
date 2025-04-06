@@ -8,7 +8,16 @@ const FormDataSchema = z.object({
   content: z.string().max(65535),
 });
 
-export async function submitData(_: any, formData: FormData) {
+export type SubmitState = {
+  success: boolean;
+  error: any;
+  lastSubmitted: {
+    name: string;
+    content: string;
+  };
+}
+
+export async function submitData(_: SubmitState, formData: FormData) {
   const parsedData = FormDataSchema.safeParse(Object.fromEntries(formData));
   if (!parsedData.success) {
     throw parsedData.error;
