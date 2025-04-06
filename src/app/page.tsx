@@ -34,18 +34,15 @@ export default function Home() {
       <hr />
       <div className="section">
         <div className="flex flex-col md:flex-row gap-8 text-center overflow-clip text-2xl justify-center w-full">
-          <Button className="text-2xl min-h-12 bg-[#F4C430]" asChild>
+          <Button className="text-2xl min-h-12 bg-amber-400 hover:bg-amber-100" asChild>
             <Link href="/create">
               創造回聲
             </Link>
           </Button>
-          <Button className="text-2xl min-h-12 bg-[#87CEEB]">傾聽回聲</Button>
+          <Button className="text-2xl min-h-12 bg-blue-400 hover:bg-blue-100">傾聽回聲</Button>
         </div>
       </div>
       <hr />
-      {/* footer */}
-      <Footer className="section" />
-      <div className="end-footer" />
     </>
   );
 }

@@ -3,7 +3,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { faExternalLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-
 import { Button } from "@/components/ui/button";
 import { Badge } from "../ui/badge";
 
@@ -79,7 +78,7 @@ export default function HotLineCard() {
             <div className="ps-8 text-sm overflow-clip">2852 5222<Badge className="ms-2" variant="outline">24/7</Badge></div>
           </li>
         </ul>
-        <h2 className="text-xl font-bold my-2">其他國家/地區</h2>
+        <h2 className="text-xl font-bold my-2">其他地區</h2>
         <ul className="space-y-2 text-lg">
           <li>
             <Button variant="link" asChild>
@@ -87,11 +86,13 @@ export default function HotLineCard() {
                 <span className="text-lg">find a helpline</span>
               </a>
             </Button>
-            <div className="ps-8 text-sm overflow-clip">尋找你所在國家/地區的熱線</div>
+            <div className="ps-8 text-sm overflow-clip">尋找你所在地區的熱線</div>
           </li>
         </ul>
         <div className="flex justify-end mt-2">
-          <h6 className="inline-block text-md text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-400 to-orange-300">Because you matter.</h6>
+          <h6 className="inline-block text-md text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-400 to-orange-300">
+            因為你很重要。
+          </h6>
         </div>
       </CardContent>
     </Card>
