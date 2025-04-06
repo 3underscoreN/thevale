@@ -38,10 +38,13 @@ export default function Home() {
               創造回聲
             </Link>
           </Button>
-          <Button className="text-2xl min-h-12 bg-blue-400 hover:bg-blue-100">傾聽回聲</Button>
+          <Button className="text-2xl min-h-12 bg-blue-400 hover:bg-blue-100">
+            <Link href="/view">
+              傾聽回聲
+            </Link>
+          </Button>
         </div>
       </div>
-      <hr />
     </>
   );
 }

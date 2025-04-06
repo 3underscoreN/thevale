@@ -51,7 +51,7 @@ export default function HotLineCard() {
           </li>
           <li>
             <Button variant="link" asChild>
-              <a href="https://www.twtaiwan.com.tw/" target="_blank" rel="noreferrer">
+              <a href="https://www.1980.org.tw/service_item_show.php?service_item_id=1" target="_blank" rel="noreferrer">
                 <span className="text-lg">張老師 網路輔導</span>
               </a>
             </Button>
@@ -71,7 +71,7 @@ export default function HotLineCard() {
           </li>
           <li>
             <Button variant="link" asChild>
-              <a href="https://www.ias.gov.mo/zh" target="_blank" rel="noreferrer">
+              <a href="https://www.caritas.org.mo/youth-and-community-service/213" target="_blank" rel="noreferrer">
                 <span className="text-lg">澳門明愛生命熱線</span>
               </a>
             </Button>
