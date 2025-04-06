@@ -42,7 +42,7 @@ export default function CommandForm() {
             className="border border-gray-300 rounded-md p-2"
             rows={4}
             placeholder="在這裏留下你的回聲..."
-            maxLength={65535}
+            maxLength={2048}
             defaultValue={state.lastSubmitted.content || ''}
             required
           />

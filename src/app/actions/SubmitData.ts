@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 const FormDataSchema = z.object({
   name: z.string().max(64).default('佚名'),
-  content: z.string().max(65535),
+  content: z.string().max(2048),
 });
 
 export type SubmitState = {
