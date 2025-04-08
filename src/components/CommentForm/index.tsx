@@ -16,7 +16,7 @@ const initialState = {
   },
 };
 
-export default function CommandForm() {
+export default function CommentForm() {
   const [state, formAction, isPending] = useActionState(submitData, initialState);
 
   return (
