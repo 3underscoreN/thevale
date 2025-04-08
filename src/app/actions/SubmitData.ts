@@ -1,3 +1,5 @@
+/* eslint @typescript-eslint/no-explicit-any: "warn" */
+
 "use server";
 
 import { neon } from "@neondatabase/serverless";
@@ -10,6 +12,7 @@ const FormDataSchema = z.object({
 
 export type SubmitState = {
   success: boolean;
+  error: any;
   lastSubmitted: {
     name: string;
     content: string;
