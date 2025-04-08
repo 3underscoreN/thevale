@@ -6,7 +6,11 @@ import { neon } from "@neondatabase/serverless";
 import { z } from "zod";
 
 const FormDataSchema = z.object({
-  name: z.string().max(64).default("佚名"),
+  name: z.preprocess((arg) => {
+    if (typeof arg === "string" && arg.trim() === "") {
+      return '佚名';
+    }
+  }, z.string().max(64)),
   content: z.string().max(2048),
 });
 
