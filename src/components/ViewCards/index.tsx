@@ -11,7 +11,14 @@ import {
   CardContent,
 } from "@/components/ui/card";
 
-import { Pagination, PaginationContent, PaginationPrevious, PaginationNext, PaginationItem, PaginationLink } from "@/components/ui/pagination";
+import { 
+  Pagination, 
+  PaginationContent, 
+  PaginationPrevious, 
+  PaginationNext, 
+  PaginationItem, 
+  PaginationLink 
+} from "@/components/ui/pagination";
 
 export default function ViewCards() {
   const PAGE_LIMIT = 10;
@@ -22,14 +29,12 @@ export default function ViewCards() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("Fetching data for page:", currentPage); // TODO: remove this line
     fetch(`/api/fetchdata?page=${currentPage}`)
       .then((res) => res.json())
       .then((resj) => {
         if (resj.success) {
           setData(resj.data);
           setTotalData(Math.ceil(resj.totalCount / PAGE_LIMIT));
-          console.log(resj); // TODO: remove this line
         } else {
           console.error("Error fetching data:", resj.error);
         }
