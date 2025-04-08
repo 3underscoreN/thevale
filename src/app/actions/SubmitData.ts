@@ -10,6 +10,7 @@ const FormDataSchema = z.object({
     if (typeof arg === "string" && arg.trim() === "") {
       return '佚名';
     }
+    return arg;
   }, z.string().max(64)),
   content: z.string().max(2048),
 });
