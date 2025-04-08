@@ -27,6 +27,7 @@ export default function RootLayout({
       <body className={`${iansuiFont.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark">
           {children}
+          <hr />
           <Footer className="w-full py-16 px-8" />
         </ThemeProvider>
       </body>
