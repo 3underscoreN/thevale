@@ -103,7 +103,7 @@ export default function ViewCards() {
             <PaginationLink>{currentPage}</PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext href="#" aria-disabled={currentPage === totalPage / 10} isActive={currentPage !== totalPage} onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPage))}/>
+            <PaginationNext href="#" aria-disabled={currentPage === totalPage} isActive={currentPage !== totalPage} onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPage))}/>
           </PaginationItem>
         </PaginationContent>
       </Pagination>
