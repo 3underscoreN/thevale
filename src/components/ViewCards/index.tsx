@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/no-explicit-any: "warn" */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -77,7 +78,6 @@ export default function ViewCards() {
 
   return (
     <>
-      {" "}
       {/* Normal */}
       {data.map((item: any, index: number) => (
         <Card key={index} className="my-4">
