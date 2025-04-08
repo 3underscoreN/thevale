@@ -50,13 +50,13 @@ export default function CommandForm() {
         <Button type="submit" className="w-full mt-4" disabled={isPending}>
           {isPending ? '請稍後...' : '發送'}
         </Button>
-        {(state.error !== null) && <div className="text-red-500 mt-2">發送失敗，請稍後再試。</div>}
+        {(state.error) && <div className="text-red-500 mt-2">發送失敗，請稍後再試。</div>}
       </form>}
       {/* After receiving success response */}
       {(state.success) &&
       <div className="flex flex-col space-y-4">
         <div className="text-green-500 mt-2 text-lg font-bold">發送成功！</div>
-        <div className="text-gray-500 mt-2">感謝你的回聲。正如聲音傳播需要時間，我們也需時處理你的訊息，故請請耐心等待。</div>
+        <div className="text-gray-500 mt-2">感謝你的回聲。正如聲音傳播需要時間，我們也需時處理你的訊息，故請耐心等待。</div>
         <Button type="button" asChild className="w-full mt-4">
           <Link href="/">
             返回首頁

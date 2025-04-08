@@ -1,4 +1,13 @@
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+"use client";
+
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+
+import ViewCards from "@/components/ViewCards";
 
 export default function ViewPage() {
   return (
@@ -20,8 +29,11 @@ export default function ViewPage() {
               </CardDescription>
             </CardHeader>
           </Card>
+          <div className="my-8 w-full md:w-3/4">
+            <ViewCards />
+          </div>
         </div>
       </div>
     </>
-  )
+  );
 }
