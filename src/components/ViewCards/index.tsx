@@ -35,7 +35,6 @@ export default function ViewCards() {
         if (resj.success) {
           setData(resj.data);
           setTotalPage(Math.ceil(resj.totalCount / PAGE_LIMIT));
-          console.log(totalPage);
         } else {
           console.error("Error fetching data:", resj.error);
         }
@@ -92,7 +91,15 @@ export default function ViewCards() {
               暱稱：{item.name}
             </CardDescription>
           </CardHeader>
-          <CardContent className="text-lg mb-4">{item.content}</CardContent>
+          <CardContent className="text-lg mb-4">
+            {item.content.split("\n").map((line: string, index: number) => {
+              return (
+                <p key={index}>
+                  {line}
+                </p>
+              );
+            })}
+          </CardContent>
         </Card>
       ))}
       <Pagination>
