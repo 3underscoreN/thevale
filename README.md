@@ -22,8 +22,8 @@ npm install
 3. Create a `.env` file in the root directory and add the URL to the database:
 ```bash
 // File: .env.local
-DATABASE_URL="postgres://..."
-DATABASE_URL_DEV="postgres://..."
+DATABASE_URL="postgresql://..."
+DATABASE_URL_DEV="postgresql://..."
 ```
 4. Run the server
 ```bash
