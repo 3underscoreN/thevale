@@ -2,13 +2,16 @@
 
 A simple website for people to leave their emotion as an echo, and for listening to other people's emotions.
 
-This project is deployed on [Vercel](https://the-vale-zeta.vercel.app/).
+This project is deployed on [Vercel](https://thevale.top).
 
 ## Stack
 
 ![Next.js](https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/tailwind%20css-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+
+## Contribution
+Contribution to the project is welcomed. Please open a pull request to `develop` if the branch exists, or `main` if not. 
 
 ## Deployment
 1. Clone the repository
@@ -30,4 +33,3 @@ DATABASE_URL_DEV="postgresql://..."
 npm run dev
 ```
 5. Open your browser and go to `http://localhost:3000`.
-
