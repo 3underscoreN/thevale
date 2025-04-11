@@ -25,7 +25,7 @@ export default function ViewCards() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
-  const [totalPage, setTotalData] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function ViewCards() {
       .then((resj) => {
         if (resj.success) {
           setData(resj.data);
-          setTotalData(Math.ceil(resj.totalCount / PAGE_LIMIT));
+          setTotalPage(Math.ceil(resj.totalCount / PAGE_LIMIT));
         } else {
           console.error("Error fetching data:", resj.error);
         }
@@ -91,19 +91,27 @@ export default function ViewCards() {
               暱稱：{item.name}
             </CardDescription>
           </CardHeader>
-          <CardContent className="text-lg mb-4">{item.content}</CardContent>
+          <CardContent className="text-lg mb-4">
+            {item.content.split("\n").map((line: string, index: number) => {
+              return (
+                <p key={index}>
+                  {line}
+                </p>
+              );
+            })}
+          </CardContent>
         </Card>
       ))}
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious href="#" aria-disabled={currentPage === 1} isActive={currentPage !== 1} onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}/>
+            <PaginationPrevious className={currentPage === 1 ? 'text-gray-500' : ''} href="#" aria-disabled={currentPage === 1} isActive={currentPage !== 1} onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}/>
           </PaginationItem>
           <PaginationItem>
             <PaginationLink>{currentPage}</PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext href="#" aria-disabled={currentPage === totalPage} isActive={currentPage !== totalPage} onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPage))}/>
+            <PaginationNext className={currentPage === totalPage ? 'text-gray-500' : ''} href="#" aria-disabled={currentPage === totalPage} isActive={currentPage !== totalPage} onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPage))}/>
           </PaginationItem>
         </PaginationContent>
       </Pagination>
