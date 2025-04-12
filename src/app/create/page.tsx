@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 
 import CommentForm from "@/components/CommentForm";
 
+import Link from "next/link";
 /**
  * This page is for creating a new post.
  */
@@ -29,9 +30,9 @@ export default function CreatePage() {
                 </ol>
                 <p className="text-md mt-4">如果想跟誰傾訴的話，山谷亦有
                   <Button variant="link" size="icon" className="text-blue-500 inline text-md" asChild>
-                    <a href="/helpline">
+                    <Link href="/helpline">
                       指引
-                    </a>
+                    </Link>
                   </Button>
                   相伴。
                 </p>
