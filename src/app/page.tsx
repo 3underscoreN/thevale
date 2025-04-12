@@ -14,8 +14,8 @@ export default function Home() {
       <div className="static w-full h-svh">
         <div className="absolute top-0 left-0 background-mountain" />
         <div className="absolute top-0 left-0 foreground-mountain" />
-        <div className="absolute top-1/6 left-0 w-full">
-          <div className="flex w-full justify-center transform -translate-y-[30%]">
+        <div className="absolute top-3/12 left-0 w-full">
+          <div className="flex w-full justify-center">
             <WelcomeText />
           </div>
         </div>
