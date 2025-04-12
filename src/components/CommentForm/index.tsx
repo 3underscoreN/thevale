@@ -47,6 +47,7 @@ export default function CommentForm() {
             required
           />
         </label>
+        <p className="text-md text-gray-400">提交前，請閱讀<Link href="/privacy" className="underline underline-offset-2">私隱聲明</Link>。</p>
         <Button type="submit" className="w-full mt-4" disabled={isPending}>
           {isPending ? '請稍後...' : '發送'}
         </Button>

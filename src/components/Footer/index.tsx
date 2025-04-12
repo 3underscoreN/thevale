@@ -37,6 +37,11 @@ export default function Footer(props: React.HTMLProps<HTMLDivElement>) {
             </Button>
             <FontAwesomeIcon icon={faExternalLink} />
           </p>
+          <p>私隱： 
+            <Button variant="link" size="sm" asChild>
+              <Link href="/privacy">私隱聲明</Link>
+            </Button>
+          </p>
         </div>
       </div>
     </div>
