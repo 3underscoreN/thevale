@@ -18,6 +18,17 @@
   filter: brightness(55%);
   z-index: 1;
   box-shadow: 8px 10px 12px rgba(14, 33, 75, .5);
+  animation: change-opacity 0.5s linear forwards;
+  animation-delay: 2.3s; /* This is based on duration of fade in, in WelcomeText.css */
+}
+
+@keyframes change-opacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
 }
 
 .section {

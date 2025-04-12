@@ -11,7 +11,7 @@ export default function WelcomeText(props: Props) {
         <h1 className="animated-text text-6xl md:text-8xl">
           山谷
         </h1>
-        <h2 className="py-8 animated-text text-lg md:text-2xl">
+        <h2 className="py-6 animated-text text-lg md:text-2xl">
           有什麼想說的嗎？
         </h2>
       </div>
