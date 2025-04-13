@@ -20,7 +20,7 @@ import {
   PaginationLink 
 } from "@/components/ui/pagination";
 
-export default function ViewCards() {
+export default function ViewCardsN() {
   const PAGE_LIMIT = 10;
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,7 +29,7 @@ export default function ViewCards() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`/api/fetchdata?page=${currentPage}`)
+    fetch(`/api/fetchdatan?page=${currentPage}`)
       .then((res) => res.json())
       .then((resj) => {
         if (resj.success) {

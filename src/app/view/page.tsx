@@ -7,7 +7,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
-import ViewCards from "@/components/ViewCards";
+import ViewCardsN from "@/components/ViewCardsN";
 
 export default function ViewPage() {
   return (
@@ -30,7 +30,7 @@ export default function ViewPage() {
             </CardHeader>
           </Card>
           <div className="my-8 w-full md:w-3/4">
-            <ViewCards />
+            <ViewCardsN />
           </div>
         </div>
       </div>
