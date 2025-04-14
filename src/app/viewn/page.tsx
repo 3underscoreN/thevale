@@ -30,7 +30,7 @@ export default function ViewPage() {
             </CardHeader>
           </Card>
           <div className="my-8 w-full md:w-3/4">
-            <ViewCards cardtype="viewn"/>
+            <ViewCards cardType="viewn"/>
           </div>
         </div>
       </div>

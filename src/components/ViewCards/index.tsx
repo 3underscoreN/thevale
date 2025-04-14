@@ -21,12 +21,12 @@ import {
 } from "@/components/ui/pagination";
 
 type ViewCardProps = {
-  cardtype: "viewn" | "viewp";
+  cardType: "viewn" | "viewp";
   props?: React.PropsWithChildren<any>;
 }
 
-export default function ViewCardsN({cardtype, props}: ViewCardProps) {
-  const fetchFrom = cardtype === "viewn" ? "fetchdatan" : "fetchdatap";
+export default function ViewCards({cardType, props}: ViewCardProps) {
+  const fetchFrom = cardType === "viewn" ? "fetchdatan" : "fetchdatap";
 
   const PAGE_LIMIT = 10;
 
