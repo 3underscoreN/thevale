@@ -20,7 +20,14 @@ import {
   PaginationLink 
 } from "@/components/ui/pagination";
 
-export default function ViewCardsN() {
+type ViewCardProps = {
+  cardtype: "viewn" | "viewp";
+  props?: React.PropsWithChildren<any>;
+}
+
+export default function ViewCardsN({cardtype, props}: ViewCardProps) {
+  const fetchFrom = cardtype === "viewn" ? "fetchdatan" : "fetchdatap";
+
   const PAGE_LIMIT = 10;
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,7 +36,7 @@ export default function ViewCardsN() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`/api/fetchdatan?page=${currentPage}`)
+    fetch(`/api/${fetchFrom}?page=${currentPage}`)
       .then((res) => res.json())
       .then((resj) => {
         if (resj.success) {
@@ -50,7 +57,7 @@ export default function ViewCardsN() {
     return (
       <>
         {/* Error handling*/}
-        <Card>
+        <Card {...props}>
           <CardHeader>
             <CardTitle className="text-2xl font-bold mb-2 text-red-500">
               哎呀！發生了錯誤
