@@ -4,7 +4,8 @@ import "./globals.css";
 
 import localFont from "next/font/local"
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-const iansuiFont = localFont({src: './font/Iansui-Regular.ttf'})
+
+const iansuiFont = localFont({src: '../../public/font/Iansui-Regular.ttf'})
 
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
