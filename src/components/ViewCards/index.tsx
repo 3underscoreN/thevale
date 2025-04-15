@@ -95,7 +95,12 @@ export default function ViewCards({cardType, props}: ViewCardProps) {
         <Card key={index} className="my-4">
           <CardHeader>
             <CardDescription className="text-md font-bold mb-2">
-              暱稱：{item.name}
+              <div className="flex justify-between">
+                <span className="text-left">暱稱：{item.name}</span>
+                <span className="text-right">
+                  {(item.created_at as string).split('T')[0] }
+                </span>
+              </div>
             </CardDescription>
           </CardHeader>
           <CardContent className="text-lg mb-4">
