@@ -14,7 +14,7 @@ export default function ViewPage() {
     <>
       <div className="bg-[url(/asset/background.jpg)] bg-fixed bg-cover bg-no-repeat bg-center">
         <div className="flex flex-col items-center justify-center px-4 py-16 backdrop-blur-md backdrop-brightness-50">
-          <h1 className="text-4xl font-bold mt-16 mb-8">星光回聲</h1>
+          <h1 className="text-4xl font-bold mt-16 mb-8">星光之聲</h1>
           <p className="text-lg mb-8">聆聽夜空中綻放的溫柔回聲。</p>
           <Card className="my-16 w-full md:w-3/4">
             <CardHeader>

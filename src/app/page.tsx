@@ -45,7 +45,7 @@ export default function Home() {
           </Button>
           <Button className="text-2xl min-h-12 bg-orange-400 hover:bg-yellow-50" asChild>
             <Link href="/viewp">
-              星光回聲
+              星光之聲
             </Link>
           </Button>
         </div>

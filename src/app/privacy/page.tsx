@@ -14,7 +14,7 @@ export default function Privacy() {
                 山谷 —— 私隱聲明
               </CardTitle>
               <CardDescription className="text-md">
-                <p className="text-md mt-4">最後更新日期：2025年4月12日</p>
+                <p className="text-md mt-4">最後更新日期：2025年4月15日</p>
               </CardDescription>
             </CardHeader>
             <hr />
@@ -29,7 +29,7 @@ export default function Privacy() {
               <ul className="list-disc list-inside space-y-2">
                 <li>互聯網協議（IP）地址：當你瀏覽「山谷」時，Vercel或會記錄IP地址，用於檢測和應對網絡威脅、以及防止濫用。</li>
                 <li>裝置元數據：包括你的瀏覽器類型（如Chrome、Safari）和操作系統（如Windows、iOS），用於了解訪客的技術環境。</li>
-                <li>匿名留言內容：你在「創造回聲」提交的留言或會被顯示於「傾聽回聲」頁面中。</li>
+                <li>匿名留言內容：你在「創造回聲」提交的留言或會被顯示於「靜谷之聲」或「星光之聲」頁面中。</li>
               </ul>
                 <p>我們不會收集任何可直接識別你身份的個人資料（如姓名、電郵或電話號碼）。</p>
               <h2 className="pt-8 text-lg font-bold">資料分享與披露</h2>
