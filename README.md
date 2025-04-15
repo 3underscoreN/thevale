@@ -1,4 +1,6 @@
 # The Vale
+![Website Deploy](https://deploy-badge.vercel.app/?url=https://thevale.top&name=Vercel)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 A simple website for people to leave their emotion as an echo, and for listening to other people's emotions.
 
