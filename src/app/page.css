@@ -19,7 +19,7 @@
   z-index: 1;
   box-shadow: 8px 10px 12px rgba(14, 33, 75, .5);
   animation: change-opacity 0.25s ease-in-out forwards;
-  animation-delay: 2.3s; /* This is based on duration of fade in, in WelcomeText.css */
+  animation-delay: 1.8s; /* This is based on duration of fade in, in WelcomeText.css */
 }
 
 @keyframes change-opacity {
