@@ -5,6 +5,9 @@ import "./globals.css";
 import localFont from "next/font/local"
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
+import Image from "next/image";
+import Link from "next/link";
+
 const iansuiFont = localFont({src: '../../public/font/Iansui-Regular.ttf'})
 
 import { config } from '@fortawesome/fontawesome-svg-core'
@@ -34,6 +37,20 @@ export default function RootLayout({
     <html lang="zh" suppressHydrationWarning>
       <body className={`${iansuiFont.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark">
+          <div className="relative">
+            <div className="absolute top-8 left-16 z-2">
+              <Link href="/">
+                <Image
+                  src="/icon/vale.svg"
+                  alt="The Vale logo"
+                  width={80}
+                  height={80}
+                  className="rounded-full invert-75"
+                  priority
+                />
+              </Link>
+            </div>
+          </div>
           {children}
           <hr />
           <Footer className="w-full py-16 px-8" />
