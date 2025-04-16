@@ -38,7 +38,7 @@ export default function RootLayout({
       <body className={`${iansuiFont.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark">
           <div className="relative">
-            <div className="absolute top-8 left-16 z-2">
+            <div className="absolute top-4 left-4 md:top-8 md:left-16 z-2">
               <Link href="/">
                 <Image
                   src="/icon/vale.svg"
