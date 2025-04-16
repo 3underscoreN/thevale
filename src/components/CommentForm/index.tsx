@@ -1,11 +1,14 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 import { useActionState } from 'react';
 
 import { submitData } from '@/app/actions/SubmitData';
+
 import Link from 'next/link';
+import Form from 'next/form';
 
 const initialState = {
   success: false,
@@ -23,7 +26,7 @@ export default function CommentForm() {
     <>
       {/* Before receiving success response */}
       {!(state.success) &&
-        <form className="flex flex-col space-y-4" action={formAction}>
+        <Form className="flex flex-col space-y-4" action={formAction}>
           <label className="flex flex-col">
             <span className="text-lg font-semibold mb-2">化名</span>
             <input
@@ -34,6 +37,25 @@ export default function CommentForm() {
               maxLength={64}
               defaultValue={state.lastSubmitted.name || ''}
             />
+          </label>
+          <label>
+            <span className="text-lg font-semibold mb-2">類別</span>
+            <div className="pt-2 space-y-2">
+              <div>
+                <input type="radio" name="category" value="neg" id="neg" defaultChecked />
+                <label className="ml-2 text-md" htmlFor="neg">
+                  <span className="text-md">靜谷之聲</span> <br />
+                  <span className="text-sm text-gray-400">向其他旅人分享你的故事、情緒。</span>
+                </label>
+              </div>
+              <div>
+                <input type="radio" name="category" value="pos" id="pos" />
+                <label className="ml-2 text-md" htmlFor="pos">
+                  <span className="text-md">星光之聲</span> <br />
+                  <span className="text-sm text-gray-400">用溫暖、鼓勵的言語點亮山谷的夜空。</span>
+                </label>
+              </div>
+            </div>
           </label>
           <label className="flex flex-col">
             <span className="text-lg font-semibold mb-2">回聲</span>
@@ -55,11 +77,11 @@ export default function CommentForm() {
             </Button>
             。
           </p>
-          <Button type="submit" className="w-full mt-4" disabled={isPending}>
+          <Button type="submit" className="w-full mt-4 cursor-pointer" disabled={isPending}>
             {isPending ? '請稍後...' : '發送'}
           </Button>
           {(state.error) && <div className="text-red-500 mt-2">發送失敗，請稍後再試。</div>}
-        </form>}
+        </Form>}
       {/* After receiving success response */}
       {(state.success) &&
         <div className="flex flex-col space-y-4">

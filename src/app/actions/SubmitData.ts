@@ -30,14 +30,24 @@ export async function submitData(_: SubmitState, formData: FormData) {
     throw parsedData.error;
   }
   const { name, content } = parsedData.data;
+
+  const category = formData.get("category");
+  if (category !== "neg" && category !== "pos") {
+    throw new Error("Invalid category");
+  }
+
   const currentDate = new Date().toISOString();
   const status = "pending";
+
   const sql =
     process.env.NODE_ENV === "production"
       ? neon(`${process.env.DATABASE_URL}`)
       : neon(`${process.env.DATABASE_URL_DEV}`);
   try {
-    await sql`INSERT INTO comments (name, content, created_at, status) VALUES (${name}, ${content}, ${currentDate}, ${status});`;
+    await sql`
+      INSERT INTO comments (name, content, created_at, status, positivity) 
+      VALUES (${name}, ${content}, ${currentDate}, ${status}, ${category});
+    `;
     return {
       success: true,
       error: null,
