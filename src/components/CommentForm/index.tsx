@@ -41,15 +41,15 @@ export default function CommentForm() {
             <span className="text-lg font-semibold mb-2">類別</span>
             <div className="pt-2 space-y-2">
               <div>
-                <input type="radio" name="category" value="neg" id="neg" defaultChecked />
-                <label className="ml-2 text-md" htmlFor="neg">
+                <input type="radio" name="category" value="slient_comments" id="slient_comments" defaultChecked />
+                <label className="ml-2 text-md" htmlFor="slient_comments">
                   <span className="text-md">靜谷之聲</span> <br />
                   <span className="text-sm text-gray-400">向其他旅人分享你的故事、情緒。</span>
                 </label>
               </div>
               <div>
-                <input type="radio" name="category" value="pos" id="pos" />
-                <label className="ml-2 text-md" htmlFor="pos">
+                <input type="radio" name="category" value="starlight_comments" id="starlight_comments" />
+                <label className="ml-2 text-md" htmlFor="starlight_comments">
                   <span className="text-md">星光之聲</span> <br />
                   <span className="text-sm text-gray-400">用溫暖、鼓勵的言語點亮山谷的夜空。</span>
                 </label>
@@ -79,7 +79,7 @@ export default function CommentForm() {
           <Button type="submit" className="w-full mt-4 cursor-pointer" disabled={isPending}>
             {isPending ? '請稍後...' : '發送'}
           </Button>
-          {(state.error) && <div className="text-red-500 mt-2">發送失敗，請稍後再試。</div>}
+          {(state.error) && <div className="text-red-500 mt-2">發送失敗，請稍後再試。{state.error.toString()}</div>}
         </Form>}
       {/* After receiving success response */}
       {(state.success) &&

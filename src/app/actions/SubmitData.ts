@@ -32,7 +32,8 @@ export async function submitData(_: SubmitState, formData: FormData) {
   const { name, content } = parsedData.data;
 
   const category = formData.get("category");
-  if (category !== "neg" && category !== "pos") {
+  
+  if (category !== "slient_comments" && category !== "starlight_comments") {
     throw new Error("Invalid category");
   }
 
@@ -44,10 +45,18 @@ export async function submitData(_: SubmitState, formData: FormData) {
       ? neon(`${process.env.DATABASE_URL}`)
       : neon(`${process.env.DATABASE_URL_DEV}`);
   try {
-    await sql`
-      INSERT INTO comments (name, content, created_at, status, positivity) 
-      VALUES (${name}, ${content}, ${currentDate}, ${status}, ${category});
-    `;
+    if (category === "slient_comments") {
+      await sql`
+        INSERT INTO slient_comments (name, content, created_at, status) 
+        VALUES (${name}, ${content}, ${currentDate}, ${status});
+      `;
+    }
+    if (category === "starlight_comments") {
+      await sql`
+        INSERT INTO starlight_comments (name, content, created_at, status) 
+        VALUES (${name}, ${content}, ${currentDate}, ${status});
+      `;
+    }
     return {
       success: true,
       error: null,
