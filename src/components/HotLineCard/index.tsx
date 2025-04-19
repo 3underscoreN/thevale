@@ -16,7 +16,7 @@ export default function HotLineCard() {
           <li>
             <Button variant="link" asChild>
               <a href="https://www.samaritans.org.hk/" target="_blank" rel="noreferrer">
-                <span className="text-lg">香港撒瑪利亞防止自殺會</span>
+                <span className="text-lg">香港撒瑪利亞會</span>
               </a>
             </Button>
             <div className="ps-8 text-sm overflow-clip">2896 0000<Badge className="ms-2" variant="outline">24/7</Badge></div>
