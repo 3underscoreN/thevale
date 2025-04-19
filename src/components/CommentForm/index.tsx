@@ -41,8 +41,8 @@ export default function CommentForm() {
             <span className="text-lg font-semibold mb-2">類別</span>
             <div className="pt-2 space-y-2">
               <div>
-                <input type="radio" name="category" value="slient_comments" id="slient_comments" defaultChecked />
-                <label className="ml-2 text-md" htmlFor="slient_comments">
+                <input type="radio" name="category" value="silent_comments" id="silent_comments" defaultChecked />
+                <label className="ml-2 text-md" htmlFor="silent_comments">
                   <span className="text-md">靜谷之聲</span> <br />
                   <span className="text-sm text-gray-400">向其他旅人分享你的故事、情緒。</span>
                 </label>

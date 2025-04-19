@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
       neon(`${process.env.DATABASE_URL}`) :
       neon(`${process.env.DATABASE_URL_DEV}`);
 
-  const MAX_PAGE_RESULT = await sql`SELECT COUNT(*) FROM slient_comments WHERE status = 'approved';`;
+  const MAX_PAGE_RESULT = await sql`SELECT COUNT(*) FROM silent_comments WHERE status = 'approved';`;
   const MAX_PAGE = MAX_PAGE_RESULT as { count: number }[];
 
   const totalPages = Math.ceil(MAX_PAGE[0].count / PAGE_SIZE);
@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     pageNumber = 1;
   }
   const offset = (pageNumber - 1) * PAGE_SIZE;
-  const data = await sql`SELECT * FROM slient_comments
+  const data = await sql`SELECT * FROM silent_comments
     WHERE status = 'approved'
     ORDER BY created_at DESC
     LIMIT ${PAGE_SIZE}
