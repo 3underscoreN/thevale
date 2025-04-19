@@ -13,6 +13,7 @@ const FormDataSchema = z.object({
     return arg;
   }, z.string().max(64)),
   content: z.string().max(2048),
+  category: z.enum(["silent_comments", "starlight_comments"]),
 });
 
 export type SubmitState = {
@@ -29,12 +30,7 @@ export async function submitData(_: SubmitState, formData: FormData) {
   if (!parsedData.success) {
     throw parsedData.error;
   }
-  const { name, content } = parsedData.data;
-
-  const category = formData.get("category");
-  if (category !== "neg" && category !== "pos") {
-    throw new Error("Invalid category");
-  }
+  const { name, content, category } = parsedData.data;
 
   const currentDate = new Date().toISOString();
   const status = "pending";
@@ -44,10 +40,18 @@ export async function submitData(_: SubmitState, formData: FormData) {
       ? neon(`${process.env.DATABASE_URL}`)
       : neon(`${process.env.DATABASE_URL_DEV}`);
   try {
-    await sql`
-      INSERT INTO comments (name, content, created_at, status, positivity) 
-      VALUES (${name}, ${content}, ${currentDate}, ${status}, ${category});
-    `;
+    if (category === "silent_comments") {
+      await sql`
+        INSERT INTO silent_comments (name, content, created_at, status) 
+        VALUES (${name}, ${content}, ${currentDate}, ${status});
+      `;
+    }
+    if (category === "starlight_comments") {
+      await sql`
+        INSERT INTO starlight_comments (name, content, created_at, status) 
+        VALUES (${name}, ${content}, ${currentDate}, ${status});
+      `;
+    }
     return {
       success: true,
       error: null,

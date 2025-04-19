@@ -41,15 +41,15 @@ export default function CommentForm() {
             <span className="text-lg font-semibold mb-2">類別</span>
             <div className="pt-2 space-y-2">
               <div>
-                <input type="radio" name="category" value="neg" id="neg" defaultChecked />
-                <label className="ml-2 text-md" htmlFor="neg">
+                <input type="radio" name="category" value="silent_comments" id="silent_comments" defaultChecked />
+                <label className="ml-2 text-md" htmlFor="silent_comments">
                   <span className="text-md">靜谷之聲</span> <br />
                   <span className="text-sm text-gray-400">向其他旅人分享你的故事、情緒。</span>
                 </label>
               </div>
               <div>
-                <input type="radio" name="category" value="pos" id="pos" />
-                <label className="ml-2 text-md" htmlFor="pos">
+                <input type="radio" name="category" value="starlight_comments" id="starlight_comments" />
+                <label className="ml-2 text-md" htmlFor="starlight_comments">
                   <span className="text-md">星光之聲</span> <br />
                   <span className="text-sm text-gray-400">用溫暖、鼓勵的言語點亮山谷的夜空。</span>
                 </label>
