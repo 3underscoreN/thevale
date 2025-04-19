@@ -79,7 +79,7 @@ export default function CommentForm() {
           <Button type="submit" className="w-full mt-4 cursor-pointer" disabled={isPending}>
             {isPending ? '請稍後...' : '發送'}
           </Button>
-          {(state.error) && <div className="text-red-500 mt-2">發送失敗，請稍後再試。{state.error.toString()}</div>}
+          {(state.error) && <div className="text-red-500 mt-2">發送失敗，請稍後再試。</div>}
         </Form>}
       {/* After receiving success response */}
       {(state.success) &&
