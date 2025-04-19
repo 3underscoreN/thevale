@@ -13,6 +13,7 @@ const FormDataSchema = z.object({
     return arg;
   }, z.string().max(64)),
   content: z.string().max(2048),
+  category: z.enum(["silent_comments", "starlight_comments"]),
 });
 
 export type SubmitState = {
@@ -29,13 +30,7 @@ export async function submitData(_: SubmitState, formData: FormData) {
   if (!parsedData.success) {
     throw parsedData.error;
   }
-  const { name, content } = parsedData.data;
-
-  const category = formData.get("category");
-  
-  if (category !== "silent_comments" && category !== "starlight_comments") {
-    throw new Error("Invalid category");
-  }
+  const { name, content, category } = parsedData.data;
 
   const currentDate = new Date().toISOString();
   const status = "pending";
