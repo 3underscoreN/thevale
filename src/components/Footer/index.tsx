@@ -41,6 +41,10 @@ export default function Footer(props: React.HTMLProps<HTMLDivElement>) {
             <Button variant="link" size="sm" asChild>
               <Link href="/privacy">私隱聲明</Link>
             </Button>
+            ｜關於：
+            <Button variant="link" size="sm" asChild>
+              <Link href="/about">關於山谷</Link>
+            </Button>
           </p>
         </div>
       </div>
