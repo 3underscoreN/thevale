@@ -98,7 +98,7 @@ export default function ViewCards({cardType, props}: ViewCardProps) {
               <div className="flex justify-between">
                 <span className="text-left">暱稱：{item.name}</span>
                 <span className="text-right">
-                  {(item.created_at as string).split('T')[0] }
+                  {(new Date(Date.parse(item.created_at))).toLocaleDateString("zh-TW")}
                 </span>
               </div>
             </CardDescription>
