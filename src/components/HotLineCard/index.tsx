@@ -90,9 +90,9 @@ export default function HotLineCard() {
           </li>
         </ul>
         <div className="flex justify-end mt-2">
-          <h6 className="inline-block text-md text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-400 to-orange-300">
+          <h3 className="inline-block text-md text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-400 to-orange-300">
             因為你很重要。
-          </h6>
+          </h3>
         </div>
       </CardContent>
     </Card>

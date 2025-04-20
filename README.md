@@ -1,5 +1,8 @@
 # The Vale
-![Website Deploy](https://deploy-badge.vercel.app/?url=https://thevale.top&name=Vercel)
+
+_Also available in [繁體中文](README-zh-TW.md)._
+
+[![Website Deploy](https://deploy-badge.vercel.app/?url=https://thevale.top&name=Vercel)](https://thevale.top)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 A simple website for people to leave their emotion as an echo, and for listening to other people's emotions.
@@ -16,6 +19,8 @@ This project is deployed on [Vercel](https://thevale.top).
 Contribution to the project is welcomed. Please open a pull request to `develop` if the branch exists, or `main` if not. 
 
 ## Deployment
+You need to have a PostgreSQL database running. This project uses Neon for the database. You can sign up for an account at [Neon](https://neon.tech/).
+
 1. Clone the repository
 ```bash
 git clone https://github.com/3underscoreN/theVale; cd theVale

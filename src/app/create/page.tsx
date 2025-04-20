@@ -11,7 +11,7 @@ import Link from "next/link";
 export default function CreatePage() {
   return (
     <>
-      <div className="bg-[url(/asset/background.jpg)] bg-fixed bg-cover bg-no-repeat bg-center">
+      <div className="bg-[url(/asset/background.jpg)] bg-fixed bg-cover bg-no-repeat bg-center" tabIndex={-1}>
         <div className="flex flex-col items-center justify-center px-4 py-16 backdrop-blur-md backdrop-brightness-50">
           <h1 className="text-4xl font-bold mt-16 mb-8">創造回聲</h1>
           <p className="text-lg mb-8">哪怕只是一聲嘆息，也會在這裏化作回聲。</p>

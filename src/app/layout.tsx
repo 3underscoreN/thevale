@@ -37,7 +37,7 @@ export default function RootLayout({
     <html lang="zh" suppressHydrationWarning>
       <body className={`${iansuiFont.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark">
-          <div className="relative">
+          <div className="relative" aria-hidden="false">
             <div className="absolute top-4 left-4 md:top-8 md:left-16 z-2">
               <Link href="/">
                 <Image
@@ -51,9 +51,11 @@ export default function RootLayout({
               </Link>
             </div>
           </div>
-          {children}
+          <main role="main">
+            {children}
+          </main>
           <hr />
-          <Footer className="w-full py-16 px-8" />
+          <Footer className="w-full py-16 px-8" aria-hidden="false" />
         </ThemeProvider>
       </body>
     </html>
