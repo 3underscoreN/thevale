@@ -90,6 +90,7 @@ export default function ViewCards({cardType, props}: ViewCardProps) {
 
   return (
     <>
+      <div aria-hidden="true" id="top" />
       {/* Normal */}
       {data.map((item: any, index: number) => (
         <Card key={index} className="my-4" {...props}>
@@ -117,13 +118,27 @@ export default function ViewCards({cardType, props}: ViewCardProps) {
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious className={currentPage === 1 ? 'text-gray-500' : ''} href="#" aria-disabled={currentPage === 1} isActive={currentPage !== 1} onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}/>
+            <PaginationPrevious 
+              className={currentPage === 1 ? 'text-gray-500' : ''} 
+              href="#top" 
+              aria-disabled={currentPage === 1} 
+              aria-label="Previous Page 上一頁"
+              isActive={currentPage !== 1} 
+              onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+            />
           </PaginationItem>
           <PaginationItem>
             <PaginationLink>{currentPage}</PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext className={currentPage === totalPage ? 'text-gray-500' : ''} href="#" aria-disabled={currentPage === totalPage} isActive={currentPage !== totalPage} onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPage))}/>
+            <PaginationNext 
+              className={currentPage === totalPage ? 'text-gray-500' : ''} 
+              href="#top" 
+              aria-disabled={currentPage === totalPage} 
+              aria-label="Next Page 下一頁"
+              isActive={currentPage !== totalPage} 
+              onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPage))}
+            />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
