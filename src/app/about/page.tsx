@@ -91,6 +91,15 @@ export default function AboutPage() {
                 </li>
                 <li>
                   <h2 className="text-lg font-semibold">
+                    朋友們
+                  </h2>
+                  <p className="text-md text-gray-300">
+                    感謝你們一直以來的支持跟陪伴，尤其台灣的朋友們:謝謝你們帶我走出低谷，順便認識台灣。<br />
+                    人太多了，怕漏掉誰，所以就不一一列舉了。<br />
+                  </p>
+                </li>
+                <li>
+                  <h2 className="text-lg font-semibold">
                     留下回聲的每一位旅人
                   </h2>
                   <p className="text-md text-gray-300">
