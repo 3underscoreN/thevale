@@ -42,12 +42,12 @@ export default function Footer(props: React.HTMLProps<HTMLDivElement>) {
           <li>
             <div className="flex flex-col md:flex-row justify-start space-x-0 md:space-x-4 space-y-2 md:space-y-0">
               <Button variant="outline" size="icon" className="text-lg" asChild>
-                <Link href="https://github.com/3underscoreN/theVale" target="_blank" aria-label="Github Repository">
+                <Link href="https://github.com/3underscoreN/theVale" target="_blank" rel="noopener noreferrer" aria-label="Github Repository">
                   <FontAwesomeIcon icon={faGithub}/>
                 </Link>
               </Button>
               <Button variant="outline" size="icon" className="text-lg" asChild>
-                <Link href="https://www.instagram.com/thevale_echo/" target="_blank" aria-label="Instagram">
+                <Link href="https://www.instagram.com/thevale_echo/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                   <FontAwesomeIcon icon={faInstagram}/>
                 </Link>
               </Button>
