@@ -76,7 +76,7 @@ export default function ViewCards({cardType, props}: ViewCardProps) {
     return (
       <>
         {/* No data */}
-        <Card>
+        <Card {...props}>
           <CardHeader>
             <CardTitle className="text-2xl font-bold mb-2">好靜啊...</CardTitle>
             <CardDescription className="text-md">
@@ -92,7 +92,7 @@ export default function ViewCards({cardType, props}: ViewCardProps) {
     <>
       {/* Normal */}
       {data.map((item: any, index: number) => (
-        <Card key={index} className="my-4">
+        <Card key={index} className="my-4" {...props}>
           <CardHeader>
             <CardDescription className="text-md font-bold mb-2">
               <div className="flex justify-between">
