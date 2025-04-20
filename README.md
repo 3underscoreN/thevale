@@ -1,6 +1,6 @@
 # The Vale
 
-_Also available in [Traditional Chinese](README-zh-TW.md)._
+_Also available in [繁體中文](README-zh-TW.md)._
 
 [![Website Deploy](https://deploy-badge.vercel.app/?url=https://thevale.top&name=Vercel)](https://thevale.top)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)

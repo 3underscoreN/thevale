@@ -1,6 +1,6 @@
 # 山谷 / The Vale
 
-_也有 [英文版](README.md)。_
+_也有 [English](README.md)。_
 
 部署狀態：[![Website Deploy](https://deploy-badge.vercel.app/?url=https://thevale.top&name=Vercel)](https://thevale.top) ｜
 授權條款：[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
