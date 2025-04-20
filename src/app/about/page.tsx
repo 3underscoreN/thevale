@@ -70,29 +70,29 @@ export default function AboutPage() {
             <CardContent>
               <ul className="space-y-4">
                 <li>
-                  <h3 className="text-lg font-semibold">
+                  <h2 className="text-lg font-semibold">
                     <Link href="https://twitter.com/iaramallows" target="_blank" className="underline-offset-2 hover:underline">
                       iara
                     </Link>
-                  </h3>
+                  </h2>
                   <p className="text-md text-gray-300">
                     雖然可能看不懂（笑），但是謝謝你一直以來作為朋友的支持；以及當我提出「山谷」設想時的建議與注意事項。
                   </p>
                 </li>
                 <li>
-                  <h3 className="text-lg font-semibold">
+                  <h2 className="text-lg font-semibold">
                     <Link href="https://smokingpuddle58.github.io/" target="_blank" className="underline-offset-2 hover:underline">
                       SmokingPuddle58
                     </Link>
-                  </h3>
+                  </h2>
                   <p className="text-md text-gray-300">
                     感謝你成為第一位codebase的貢獻者，還一起討論了不少關於UX跟accessibility的問題。
                   </p>
                 </li>
                 <li>
-                  <h3 className="text-lg font-semibold">
+                  <h2 className="text-lg font-semibold">
                     留下回聲的每一位旅人
-                  </h3>
+                  </h2>
                   <p className="text-md text-gray-300">
                     感謝你們願意分享自己的故事，或是把心中的情緒展現出來；又或者在這裏留下些許溫暖的語言。<br />
                     沒有你們任何一位旅人，「山谷」會截然不同。
