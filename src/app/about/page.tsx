@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function AboutPage() {
   return (
     <>
-      <div className="bg-[url(/asset/background.jpg)] bg-fixed bg-cover bg-no-repeat bg-center">
+      <div className="bg-[url(/asset/background.jpg)] bg-fixed bg-cover bg-no-repeat bg-center" tabIndex={-1}>
         <div className="flex flex-col items-center justify-center px-4 py-16 backdrop-blur-md backdrop-brightness-50">
           <h1 className="text-4xl font-bold mt-16 mb-8">關於山谷</h1>
           <p className="text-lg mb-8">這裏記載著關於山谷的故事。</p>
@@ -58,7 +58,7 @@ export default function AboutPage() {
               </p>
               <div className="flex flex-col my-4 mx-4">
                 <span className="text-md font-semibold text-right">3_n</span>
-                <span className="text-sm text-gray-500 text-right">2025年4月</span>
+                <span className="text-sm text-right">2025年4月</span>
               </div>
             </CardContent>
             <hr /> 

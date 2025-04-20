@@ -6,7 +6,7 @@ import React from "react";
 
 export default function Footer(props: React.HTMLProps<HTMLDivElement>) {
   return (
-    <div {...props}>
+    <footer role="contentinfo" {...props}>
       <div className="w-full">
         <div className="overflow-clip text-md ps-2 mb-4">
           <p>山谷 / The Vale - by:&nbsp;
@@ -37,6 +37,6 @@ export default function Footer(props: React.HTMLProps<HTMLDivElement>) {
           </li>
         </ul>
       </div>
-    </div>
+    </footer>
   )
 }
