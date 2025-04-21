@@ -40,7 +40,7 @@ export default function Footer(props: React.HTMLProps<HTMLDivElement>) {
             </div>
           </li>
           <li>
-            <div className="flex flex-col md:flex-row justify-start space-x-0 md:space-x-4 space-y-2 md:space-y-0">
+            <div className="flex flex-row justify-start space-x-4">
               <Button variant="outline" size="icon" className="text-lg" asChild>
                 <Link href="https://github.com/3underscoreN/theVale" target="_blank" rel="noopener noreferrer" aria-label="Github Repository">
                   <FontAwesomeIcon icon={faGithub}/>
