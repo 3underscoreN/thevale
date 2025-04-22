@@ -18,7 +18,7 @@ type ViewCardProps = {
 }
 
 export default function ViewCard({datum, cardType, isReply, className}: ViewCardProps) {
-  const replyDestionation = cardType === "silent" ? "viewsilent" : "viewstarlight";
+  const replyDestination = cardType === "silent" ? "viewsilent" : "viewstarlight";
 
   return (
     <>
@@ -45,7 +45,7 @@ export default function ViewCard({datum, cardType, isReply, className}: ViewCard
         <CardFooter>
           <div className={`flex w-full justify-end place-items-end ${isReply ? "hidden" : ""}`}>
             <Button variant="outline" size="sm" asChild>
-              <Link href={`/${replyDestionation}/${datum.id}`}>
+              <Link href={`/${replyDestination}/${datum.id}`}>
                 <span className="">共鳴&nbsp;<FontAwesomeIcon icon={faArrowRight} /></span>
               </Link>
             </Button>

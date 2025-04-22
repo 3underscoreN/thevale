@@ -38,7 +38,7 @@ type ViewCardsProps = {
 
 export default function ViewCards({cardType, id, isReply, className}: ViewCardsProps) {
   if (id === 0 && isReply) {
-    throw new Error("for reply, id should not be 0");
+    throw new Error("If the cards are shown in a page for replies, id must be provided.");
   }
 
   const [currentPage, setCurrentPage] = useState(1);
