@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-  CardContent,
 } from "@/components/ui/card";
 
 import { 
@@ -20,23 +19,31 @@ import {
   PaginationLink 
 } from "@/components/ui/pagination";
 
-type ViewCardProps = {
-  cardType: "viewn" | "viewp";
-  props?: React.PropsWithChildren<any>;
+import ViewCard from "@/components/ViewCards/ViewCard";
+
+type ViewCardsProps = {
+  cardType: "silent" | "starlight";
+  props?: React.PropsWithChildren<unknown>;
 }
 
-export default function ViewCards({cardType, props}: ViewCardProps) {
-  const fetchFrom = cardType === "viewn" ? "fetchdatan" : "fetchdatap";
+export interface Item {
+  id: number;
+  name: string;
+  content: string;
+  created_at: string;
+}
+
+export default function ViewCards({cardType, props}: ViewCardsProps) {
 
   const PAGE_LIMIT = 10;
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Item[]>([]);
   const [totalPage, setTotalPage] = useState(0);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`/api/${fetchFrom}?page=${currentPage}`)
+    fetch(`/api/fetchpost?page=${currentPage}&fetchType=${cardType}`)
       .then((res) => res.json())
       .then((resj) => {
         if (resj.success) {
@@ -51,7 +58,7 @@ export default function ViewCards({cardType, props}: ViewCardProps) {
         setError(error);
       }
       );
-  }, [currentPage]);
+  }, [currentPage, cardType]);
 
   if (error) {
     return (
@@ -92,29 +99,11 @@ export default function ViewCards({cardType, props}: ViewCardProps) {
     <>
       <div aria-hidden="true" id="top" />
       {/* Normal */}
-      {data.map((item: any, index: number) => (
-        <Card key={index} className="my-4" {...props}>
-          <CardHeader>
-            <CardDescription className="text-md font-bold mb-2">
-              <div className="flex justify-between">
-                <span className="text-left">暱稱：{item.name}</span>
-                <span className="text-right">
-                  {(new Date(Date.parse(item.created_at))).toLocaleDateString("zh-TW")}
-                </span>
-              </div>
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="text-lg mb-4">
-            {item.content.split("\n").map((line: string, index: number) => {
-              return (
-                <p key={index}>
-                  {line}
-                </p>
-              );
-            })}
-          </CardContent>
-        </Card>
+      {data.map((item: Item, index: number) => (
+        <ViewCard key={index} datum={item} className="my-4"/>
       ))}
+
+      {/* Pagination part */}
       <Pagination>
         <PaginationContent>
           <PaginationItem>

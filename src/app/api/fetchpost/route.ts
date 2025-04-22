@@ -6,6 +6,16 @@ export async function GET(request: NextRequest) {
   const PAGE_SIZE = 10;
   const searchParams = request.nextUrl.searchParams;
   const page = searchParams.get("page");
+  const fetchType = searchParams.get("fetchType");
+  
+  if (fetchType !== "silent" && fetchType !== "starlight") {
+    return NextResponse.json({
+      success: false,
+      error: "Invalid fetchType",
+      data: null,
+    });
+  }
+
   let pageNumber = parseInt(page as string, 10);
 
   const sql = (process.env.NODE_ENV === 'production') ? 
@@ -26,12 +36,24 @@ export async function GET(request: NextRequest) {
     pageNumber = 1;
   }
   const offset = (pageNumber - 1) * PAGE_SIZE;
-  const data = await sql`SELECT * FROM silent_comments
-    WHERE status = 'approved'
-    ORDER BY created_at DESC
-    LIMIT ${PAGE_SIZE}
-    OFFSET ${offset};`;
 
+  let data;
+  switch (fetchType) {
+    case "silent":
+      data = await sql`SELECT id, name, content, created_at FROM silent_comments
+        WHERE status = 'approved'
+        ORDER BY created_at DESC
+        LIMIT ${PAGE_SIZE}
+        OFFSET ${offset};`;
+      break;
+    case "starlight":
+      data = await sql`SELECT id, name, content, created_at FROM starlight_comments
+        WHERE status = 'approved'
+        ORDER BY created_at DESC
+        LIMIT ${PAGE_SIZE}
+        OFFSET ${offset};`;
+      break;
+  }
   return NextResponse.json({
     success: true,
     error: null,
