@@ -82,7 +82,6 @@ export async function GET(request: NextRequest) {
         OFFSET ${offset};`;
       break;
   }
-  console.log(maxPage);
   return NextResponse.json({
     success: true,
     error: null,
