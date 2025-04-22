@@ -132,6 +132,20 @@ export default function ViewCards({cardType, id, isReply, className}: ViewCardsP
                 </span>
               </Link>
             </Button>
+            <Card className="my-16">
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold mb-2">
+                  須知事項
+                </CardTitle>
+                <CardDescription className="text-md">
+                  <ol className="list-decimal list-inside space-y-4">
+                    <li>禁止引用或轉載此處之內容，讓回聲僅在山谷中迴盪。</li>
+                    <li>旅人無需全盤接受此處之建議或鼓勵；感受由你定義。</li>
+                    <li>如感不適，請隨時離開此地。山谷隨時靜候你的回歸。</li>
+                  </ol>
+                </CardDescription>
+              </CardHeader>
+            </Card>
             {op ? <ViewCard datum={op} cardType={cardType} className="my-4" isReply={isReply}/> : null}
             <hr className="my-4" />
             <h2 className="text-2xl font-bold my-4">共鳴</h2>
