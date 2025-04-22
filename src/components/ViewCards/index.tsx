@@ -27,7 +27,7 @@ type ViewCardsProps = {
   cardType: "silent" | "starlight";
   isReply?: boolean;
   id?: number;
-  props?: React.PropsWithChildren<unknown>;
+  props?: React.ComponentProps<"div">;
 }
 
 export default function ViewCards({cardType, id, isReply, props}: ViewCardsProps) {
