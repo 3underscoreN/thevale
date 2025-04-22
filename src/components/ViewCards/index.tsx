@@ -45,7 +45,7 @@ export default function ViewCards({cardType, id, isReply, className}: ViewCardsP
   const [data, setData] = useState<Item[] | null>(null);
   const [totalPage, setTotalPage] = useState(0);
   const [error, setError] = useState(null);
-  const [op, setOp] = useState<Item | null>(null);
+  const [op, setOp] = useState<Item | null>(null); {/* This is the original card in viewing replies */ }
 
   useEffect(() => {
     const apiToFetch = isReply ? "fetchreply" : "fetchpost";
@@ -132,7 +132,7 @@ export default function ViewCards({cardType, id, isReply, className}: ViewCardsP
                 </span>
               </Link>
             </Button>
-            <ViewCard datum={op!} cardType={cardType} className="my-4" isReply={isReply}/>
+            {op ? <ViewCard datum={op} cardType={cardType} className="my-4" isReply={isReply}/> : null}
             <hr className="my-4" />
             <h2 className="text-2xl font-bold my-4">共鳴</h2>
           </>
