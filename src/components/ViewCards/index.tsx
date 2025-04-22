@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-  CardContent,
 } from "@/components/ui/card";
 
 import { 
@@ -20,28 +19,43 @@ import {
   PaginationLink 
 } from "@/components/ui/pagination";
 
-type ViewCardProps = {
-  cardType: "viewn" | "viewp";
-  props?: React.PropsWithChildren<any>;
+import ViewCard from "@/components/ViewCards/ViewCard";
+import ViewCardsReplyForm from "./ViewCardsReplyForm";
+
+import Item from "@/interfaces/item";
+import { Button } from "../ui/button";
+import Link from "next/link";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+
+type ViewCardsProps = {
+  cardType: "silent" | "starlight";
+  isReply?: boolean;
+  id: number;
+  className?: string;
 }
 
-export default function ViewCards({cardType, props}: ViewCardProps) {
-  const fetchFrom = cardType === "viewn" ? "fetchdatan" : "fetchdatap";
-
-  const PAGE_LIMIT = 10;
+export default function ViewCards({cardType, id, isReply, className}: ViewCardsProps) {
+  if (id === 0 && isReply) {
+    throw new Error("If the cards are shown in a page for replies, id must be provided.");
+  }
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Item[] | null>(null);
   const [totalPage, setTotalPage] = useState(0);
   const [error, setError] = useState(null);
+  const [op, setOp] = useState<Item | null>(null); {/* This is the original card in viewing replies */ }
 
   useEffect(() => {
-    fetch(`/api/${fetchFrom}?page=${currentPage}`)
+    const apiToFetch = isReply ? "fetchreply" : "fetchpost";
+    fetch(`/api/${apiToFetch}?page=${currentPage}&fetchType=${cardType}&id=${id}`)
       .then((res) => res.json())
       .then((resj) => {
         if (resj.success) {
           setData(resj.data);
-          setTotalPage(Math.ceil(resj.totalCount / PAGE_LIMIT));
+          setOp(resj.op);
+          setTotalPage(Math.ceil(resj.totalPage));
         } else {
           console.error("Error fetching data:", resj.error);
         }
@@ -51,13 +65,29 @@ export default function ViewCards({cardType, props}: ViewCardProps) {
         setError(error);
       }
       );
-  }, [currentPage]);
+  }, [currentPage, cardType, id, isReply]);
+
+  if (!data) {
+    return (
+      <>
+        {/* Loading */}
+        <Card className={className}>
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold mb-2">加載中</CardTitle>
+            <CardDescription className="text-md">
+              <div>靜靜地等待回聲的到來...</div>
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </>
+    );
+  }
 
   if (error) {
     return (
       <>
         {/* Error handling*/}
-        <Card {...props}>
+        <Card className={className}>
           <CardHeader>
             <CardTitle className="text-2xl font-bold mb-2 text-red-500">
               哎呀！發生了錯誤
@@ -72,11 +102,11 @@ export default function ViewCards({cardType, props}: ViewCardProps) {
     );
   }
 
-  if (data === null) {
+  if (data.length === 0 && !isReply) {
     return (
       <>
         {/* No data */}
-        <Card {...props}>
+        <Card className={className}>
           <CardHeader>
             <CardTitle className="text-2xl font-bold mb-2">好靜啊...</CardTitle>
             <CardDescription className="text-md">
@@ -92,29 +122,27 @@ export default function ViewCards({cardType, props}: ViewCardProps) {
     <>
       <div aria-hidden="true" id="top" />
       {/* Normal */}
-      {data.map((item: any, index: number) => (
-        <Card key={index} className="my-4" {...props}>
-          <CardHeader>
-            <CardDescription className="text-md font-bold mb-2">
-              <div className="flex justify-between">
-                <span className="text-left">暱稱：{item.name}</span>
-                <span className="text-right">
-                  {(new Date(Date.parse(item.created_at))).toLocaleDateString("zh-TW")}
+      {/* This is to show the original card in viewing replies*/
+        isReply ? ( 
+          <>
+            <Button variant="outline" asChild>
+              <Link href={cardType === "silent" ? "/viewsilent" : "/viewstarlight"}>
+                <span className="text-md">
+                  <FontAwesomeIcon icon={faArrowLeft} />&nbsp;返回{cardType === "silent" ? "靜默" : "星光"}之聲
                 </span>
-              </div>
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="text-lg mb-4">
-            {item.content.split("\n").map((line: string, index: number) => {
-              return (
-                <p key={index}>
-                  {line}
-                </p>
-              );
-            })}
-          </CardContent>
-        </Card>
+              </Link>
+            </Button>
+            {op ? <ViewCard datum={op} cardType={cardType} className="my-4" isReply={isReply}/> : null}
+            <hr className="my-4" />
+            <h2 className="text-2xl font-bold my-4">共鳴</h2>
+          </>
+        ) : null
+      }
+      {data.map((item: Item, index: number) => (
+        <ViewCard key={index} datum={item} cardType={cardType} className="my-4" isReply={isReply}/>
       ))}
+
+      {/* Pagination part */}
       <Pagination>
         <PaginationContent>
           <PaginationItem>
@@ -142,6 +170,7 @@ export default function ViewCards({cardType, props}: ViewCardProps) {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
+      <ViewCardsReplyForm cardType={cardType} cardId={id} className={`${isReply ? "block" : "hidden"} my-4`} />
     </>
   );
 }

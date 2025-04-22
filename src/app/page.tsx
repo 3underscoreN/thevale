@@ -39,12 +39,12 @@ export default function Home() {
             </Link>
           </Button>
           <Button className="text-2xl min-h-12 bg-blue-400 hover:bg-blue-100" asChild>
-            <Link href="/viewn">
+            <Link href="/viewsilent">
               靜谷之聲
             </Link>
           </Button>
           <Button className="text-2xl min-h-12 bg-orange-400 hover:bg-yellow-50" asChild>
-            <Link href="/viewp">
+            <Link href="/viewstarlight">
               星光之聲
             </Link>
           </Button>

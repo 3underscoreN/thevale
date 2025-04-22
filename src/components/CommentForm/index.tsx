@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 
 import { useActionState } from 'react';
 
-import { submitData } from '@/app/actions/SubmitData';
+import { submitPost } from '@/app/actions/submitpost';
 
 import Link from 'next/link';
 import Form from 'next/form';
@@ -19,7 +19,7 @@ const initialState = {
 };
 
 export default function CommentForm() {
-  const [state, formAction, isPending] = useActionState(submitData, initialState);
+  const [state, formAction, isPending] = useActionState(submitPost, initialState);
 
   return (
     <>
@@ -79,7 +79,7 @@ export default function CommentForm() {
           <Button type="submit" className="w-full mt-4 cursor-pointer" disabled={isPending}>
             {isPending ? '請稍後...' : '發送'}
           </Button>
-          {(state.error) && <div className="text-red-500 mt-2">發送失敗，請稍後再試。</div>}
+          {(state.error) ? <div className="text-red-500 mt-2">發送失敗，請稍後再試。</div> : null}
         </Form>}
       {/* After receiving success response */}
       {(state.success) &&

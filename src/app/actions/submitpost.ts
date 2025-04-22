@@ -18,14 +18,14 @@ const FormDataSchema = z.object({
 
 export type SubmitState = {
   success: boolean;
-  error: any;
+  error: unknown;
   lastSubmitted: {
     name: string;
     content: string;
   };
 };
 
-export async function submitData(_: SubmitState, formData: FormData) {
+export async function submitPost(_: SubmitState, formData: FormData) {
   const parsedData = FormDataSchema.safeParse(Object.fromEntries(formData));
   if (!parsedData.success) {
     throw parsedData.error;
@@ -60,7 +60,7 @@ export async function submitData(_: SubmitState, formData: FormData) {
         content: content,
       },
     };
-  } catch (error: any) {
+  } catch (error) {
     return {
       success: false,
       error: error,
