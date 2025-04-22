@@ -112,7 +112,7 @@ export default function ViewCards({cardType, id, isReply, props}: ViewCardsProps
     <>
       <div aria-hidden="true" id="top" />
       {/* Normal */}
-      {/* This is to show replies*/
+      {/* This is to show the original card in viewing replies*/
         isReply ? ( 
           <>
             <ViewCard datum={op!} cardType={cardType} className="my-4" isReply={isReply}/>
