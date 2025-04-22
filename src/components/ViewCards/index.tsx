@@ -20,17 +20,27 @@ import {
 } from "@/components/ui/pagination";
 
 import ViewCard from "@/components/ViewCards/ViewCard";
+import ViewCardsReplyForm from "./ViewCardsReplyForm";
 
 import Item from "@/interfaces/item";
+import { Button } from "../ui/button";
+import Link from "next/link";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 type ViewCardsProps = {
   cardType: "silent" | "starlight";
   isReply?: boolean;
-  id?: number;
-  props?: React.ComponentProps<"div">;
+  id: number;
+  className?: string;
 }
 
-export default function ViewCards({cardType, id, isReply, props}: ViewCardsProps) {
+export default function ViewCards({cardType, id, isReply, className}: ViewCardsProps) {
+  if (id === 0 && isReply) {
+    throw new Error("for reply, id should not be 0");
+  }
+
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState<Item[] | null>(null);
   const [totalPage, setTotalPage] = useState(0);
@@ -61,7 +71,7 @@ export default function ViewCards({cardType, id, isReply, props}: ViewCardsProps
     return (
       <>
         {/* Loading */}
-        <Card {...props}>
+        <Card className={className}>
           <CardHeader>
             <CardTitle className="text-2xl font-bold mb-2">加載中</CardTitle>
             <CardDescription className="text-md">
@@ -77,7 +87,7 @@ export default function ViewCards({cardType, id, isReply, props}: ViewCardsProps
     return (
       <>
         {/* Error handling*/}
-        <Card {...props}>
+        <Card className={className}>
           <CardHeader>
             <CardTitle className="text-2xl font-bold mb-2 text-red-500">
               哎呀！發生了錯誤
@@ -96,7 +106,7 @@ export default function ViewCards({cardType, id, isReply, props}: ViewCardsProps
     return (
       <>
         {/* No data */}
-        <Card {...props}>
+        <Card className={className}>
           <CardHeader>
             <CardTitle className="text-2xl font-bold mb-2">好靜啊...</CardTitle>
             <CardDescription className="text-md">
@@ -115,7 +125,16 @@ export default function ViewCards({cardType, id, isReply, props}: ViewCardsProps
       {/* This is to show the original card in viewing replies*/
         isReply ? ( 
           <>
+            <Button variant="outline" asChild>
+              <Link href={cardType === "silent" ? "/viewsilent" : "/viewstarlight"}>
+                <span className="text-md">
+                  <FontAwesomeIcon icon={faArrowLeft} />&nbsp;返回{cardType === "silent" ? "靜默" : "星光"}之聲
+                </span>
+              </Link>
+            </Button>
             <ViewCard datum={op!} cardType={cardType} className="my-4" isReply={isReply}/>
+            <hr className="my-4" />
+            <h2 className="text-2xl font-bold my-4">共鳴</h2>
           </>
         ) : null
       }
@@ -151,6 +170,7 @@ export default function ViewCards({cardType, id, isReply, props}: ViewCardsProps
           </PaginationItem>
         </PaginationContent>
       </Pagination>
+      <ViewCardsReplyForm cardType={cardType} cardId={id} className={`${isReply ? "block" : "hidden"} my-4`} />
     </>
   );
 }

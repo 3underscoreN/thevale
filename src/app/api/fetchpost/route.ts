@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
   switch (fetchType) {
     case "silent":
       itemCount = (await sql`SELECT COUNT(*) FROM silent_comments WHERE status = 'approved';`) as { count: number }[];
-      maxPage = Math.ceil(itemCount[0].count / PAGE_SIZE);
+      maxPage = Math.max(1, Math.ceil(itemCount[0].count / PAGE_SIZE));
       actualPage = normalizePage(pageNumber, maxPage);
       offset = (actualPage - 1) * PAGE_SIZE;
       data = await sql`SELECT id, name, content, created_at FROM silent_comments
@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
       break;
     case "starlight":
       itemCount = (await sql`SELECT COUNT(*) FROM starlight_comments WHERE status = 'approved';`) as { count: number }[];
-      maxPage = Math.ceil(itemCount[0].count / PAGE_SIZE);
+      maxPage = Math.max(1, Math.ceil(itemCount[0].count / PAGE_SIZE));
       actualPage = normalizePage(pageNumber, maxPage);
       offset = (actualPage - 1) * PAGE_SIZE;
       data = await sql`SELECT id, name, content, created_at FROM starlight_comments

@@ -56,32 +56,33 @@ export async function GET(request: NextRequest) {
     offset: number;
   switch (fetchType) {
     case "silent":
-      itemCount = (await sql`SELECT COUNT(*) FROM silent_comments_replies WHERE status = 'approved' AND id = ${id};`) as { count: number }[];
+      itemCount = (await sql`SELECT COUNT(*) FROM silent_comments_replies WHERE status = 'approved' AND parent_id = ${id};`) as { count: number }[];
       op = (await sql`SELECT id, name, content, created_at FROM silent_comments WHERE id = ${id};`)[0];
-      maxPage = Math.ceil(itemCount[0].count / PAGE_SIZE);
+      maxPage = Math.max(1, Math.ceil(itemCount[0].count / PAGE_SIZE));
       actualPage = normalizePage(pageNumber, maxPage);
       offset = (actualPage - 1) * PAGE_SIZE;
       data = await sql`SELECT id, name, content, created_at FROM silent_comments_replies
         WHERE status = 'approved'
-        AND id = ${id}
+        AND parent_id = ${id}
         ORDER BY created_at DESC
         LIMIT ${PAGE_SIZE}
         OFFSET ${offset};`;
       break;
     case "starlight":
-      itemCount = (await sql`SELECT COUNT(*) FROM starlight_comments_reply WHERE status = 'approved' AND id = ${id};`) as { count: number }[];
+      itemCount = (await sql`SELECT COUNT(*) FROM starlight_comments_replies WHERE status = 'approved' AND parent_id = ${id};`) as { count: number }[];
       op = (await sql`SELECT id, name, content, created_at FROM starlight_comments WHERE id = ${id};`)[0];
-      maxPage = Math.ceil(itemCount[0].count / PAGE_SIZE);
+      maxPage = Math.max(1, Math.ceil(itemCount[0].count / PAGE_SIZE));
       actualPage = normalizePage(pageNumber, maxPage);
       offset = (actualPage - 1) * PAGE_SIZE;
-      data = await sql`SELECT id, name, content, created_at FROM starlight_comments
+      data = await sql`SELECT id, name, content, created_at FROM starlight_comments_replies
         WHERE status = 'approved'
-        AND id = ${id}
+        AND parent_id = ${id}
         ORDER BY created_at DESC
         LIMIT ${PAGE_SIZE}
         OFFSET ${offset};`;
       break;
   }
+  console.log(maxPage);
   return NextResponse.json({
     success: true,
     error: null,

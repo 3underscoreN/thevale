@@ -25,7 +25,7 @@ export type SubmitState = {
   };
 };
 
-export async function submitData(_: SubmitState, formData: FormData) {
+export async function submitPost(_: SubmitState, formData: FormData) {
   const parsedData = FormDataSchema.safeParse(Object.fromEntries(formData));
   if (!parsedData.success) {
     throw parsedData.error;

@@ -31,7 +31,7 @@ export default function ViewPage() {
             </CardHeader>
           </Card>
           <div className="my-8 w-full md:w-3/4">
-            <ViewCards cardType="starlight"/>
+            <ViewCards id={0} cardType="starlight"/>
           </div>
         </div>
       </div>

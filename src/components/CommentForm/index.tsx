@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 
 import { useActionState } from 'react';
 
-import { submitData } from '@/app/actions/submitpost';
+import { submitPost } from '@/app/actions/submitpost';
 
 import Link from 'next/link';
 import Form from 'next/form';
@@ -19,7 +19,7 @@ const initialState = {
 };
 
 export default function CommentForm() {
-  const [state, formAction, isPending] = useActionState(submitData, initialState);
+  const [state, formAction, isPending] = useActionState(submitPost, initialState);
 
   return (
     <>

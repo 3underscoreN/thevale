@@ -46,7 +46,7 @@ export default function ViewCard({datum, cardType, isReply, className}: ViewCard
           <div className={`flex w-full justify-end place-items-end ${isReply ? "hidden" : ""}`}>
             <Button variant="outline" size="sm" asChild>
               <Link href={`/${replyDestionation}/${datum.id}`}>
-                <span className="">查看回覆&nbsp;<FontAwesomeIcon icon={faArrowRight} /></span>
+                <span className="">共鳴&nbsp;<FontAwesomeIcon icon={faArrowRight} /></span>
               </Link>
             </Button>
           </div>
