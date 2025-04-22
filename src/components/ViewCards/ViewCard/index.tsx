@@ -1,14 +1,25 @@
 /* eslint @typescript-eslint/no-explicit-any: "warn" */
+"use client";
 
-import { Card, CardHeader, CardDescription, CardContent } from "@/components/ui/card"
-import { Item } from "@/components/ViewCards"
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
+import Item from "@/interfaces/item";
+
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import Link from "next/link";
 
 type ViewCardProps = {
   datum: Item;
+  cardType: "silent" | "starlight" | "replies";
+  isReply?: boolean;
   className?: string;
 }
 
-export default function ViewCard({datum, className}: ViewCardProps) {
+export default function ViewCard({datum, cardType, isReply, className}: ViewCardProps) {
+  const replyDestionation = cardType === "silent" ? "viewsilent" : "viewstarlight";
+
   return (
     <>
       <Card className={className}>
@@ -31,6 +42,15 @@ export default function ViewCard({datum, className}: ViewCardProps) {
             );
           })}
         </CardContent>
+        <CardFooter>
+          <div className={`flex w-full justify-end place-items-end ${isReply ? "hidden" : ""}`}>
+            <Button variant="outline" size="sm" asChild>
+              <Link href={`/${replyDestionation}/${datum.id}`}>
+                <span className="">查看回覆&nbsp;<FontAwesomeIcon icon={faArrowRight} /></span>
+              </Link>
+            </Button>
+          </div>
+        </CardFooter>
       </Card>
     </>
   );

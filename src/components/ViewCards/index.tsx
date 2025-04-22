@@ -21,34 +21,31 @@ import {
 
 import ViewCard from "@/components/ViewCards/ViewCard";
 
+import Item from "@/interfaces/item";
+
 type ViewCardsProps = {
   cardType: "silent" | "starlight";
+  isReply?: boolean;
+  id?: number;
   props?: React.PropsWithChildren<unknown>;
 }
 
-export interface Item {
-  id: number;
-  name: string;
-  content: string;
-  created_at: string;
-}
-
-export default function ViewCards({cardType, props}: ViewCardsProps) {
-
-  const PAGE_LIMIT = 10;
-
+export default function ViewCards({cardType, id, isReply, props}: ViewCardsProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState<Item[]>([]);
+  const [data, setData] = useState<Item[] | null>(null);
   const [totalPage, setTotalPage] = useState(0);
   const [error, setError] = useState(null);
+  const [op, setOp] = useState<Item | null>(null);
 
   useEffect(() => {
-    fetch(`/api/fetchpost?page=${currentPage}&fetchType=${cardType}`)
+    const apiToFetch = isReply ? "fetchreply" : "fetchpost";
+    fetch(`/api/${apiToFetch}?page=${currentPage}&fetchType=${cardType}&id=${id}`)
       .then((res) => res.json())
       .then((resj) => {
         if (resj.success) {
           setData(resj.data);
-          setTotalPage(Math.ceil(resj.totalCount / PAGE_LIMIT));
+          setOp(resj.op);
+          setTotalPage(Math.ceil(resj.totalPage));
         } else {
           console.error("Error fetching data:", resj.error);
         }
@@ -58,7 +55,23 @@ export default function ViewCards({cardType, props}: ViewCardsProps) {
         setError(error);
       }
       );
-  }, [currentPage, cardType]);
+  }, [currentPage, cardType, id, isReply]);
+
+  if (!data) {
+    return (
+      <>
+        {/* Loading */}
+        <Card {...props}>
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold mb-2">加載中</CardTitle>
+            <CardDescription className="text-md">
+              <div>靜靜地等待回聲的到來...</div>
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </>
+    );
+  }
 
   if (error) {
     return (
@@ -79,7 +92,7 @@ export default function ViewCards({cardType, props}: ViewCardsProps) {
     );
   }
 
-  if (data === null) {
+  if (data.length === 0 && !isReply) {
     return (
       <>
         {/* No data */}
@@ -99,8 +112,15 @@ export default function ViewCards({cardType, props}: ViewCardsProps) {
     <>
       <div aria-hidden="true" id="top" />
       {/* Normal */}
+      {/* This is to show replies*/
+        isReply ? ( 
+          <>
+            <ViewCard datum={op!} cardType={cardType} className="my-4" isReply={isReply}/>
+          </>
+        ) : null
+      }
       {data.map((item: Item, index: number) => (
-        <ViewCard key={index} datum={item} className="my-4"/>
+        <ViewCard key={index} datum={item} cardType={cardType} className="my-4" isReply={isReply}/>
       ))}
 
       {/* Pagination part */}
