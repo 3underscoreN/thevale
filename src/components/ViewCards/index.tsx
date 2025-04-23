@@ -184,7 +184,9 @@ export default function ViewCards({cardType, id, isReply, className}: ViewCardsP
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-      <ViewCardsReplyForm cardType={cardType} cardId={id} className={`${isReply ? "block" : "hidden"} my-4`} />
+      {isReply ? (
+        <ViewCardsReplyForm cardType={cardType} cardId={id} className={`${isReply ? "block" : "hidden"} my-4`} />
+      ) : null}
     </>
   );
 }
