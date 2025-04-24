@@ -81,6 +81,17 @@ export default function AboutPage() {
                 </li>
                 <li>
                   <h2 className="text-lg font-semibold">
+                    <Link href="https://www.facebook.com/happy.chiiwawa" target="_blank" className="underline-offset-2 hover:underline">
+                    吉娃娃
+                    </Link>
+                  </h2>
+                  <p className="text-md text-gray-300">
+                      感謝你在我最需要的時候，陪伴我走過那段艱難的時光。<br />
+                      希望「山谷」也能成為你心靈的避風港，陪伴著你以自己的步調進步。<br />
+                  </p>
+                </li>
+                <li>
+                  <h2 className="text-lg font-semibold">
                     <Link href="https://smokingpuddle58.github.io/" target="_blank" className="underline-offset-2 hover:underline">
                       SmokingPuddle58
                     </Link>
