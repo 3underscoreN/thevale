@@ -31,6 +31,7 @@ export default function CommentForm() {
             <input
               name="name"
               type="text"
+              data-testid="name"
               className="border border-gray-300 rounded-md p-2"
               placeholder="佚名"
               maxLength={64}
@@ -41,14 +42,14 @@ export default function CommentForm() {
             <span className="text-lg font-semibold mb-2">類別</span>
             <div className="pt-2 space-y-2">
               <div>
-                <input type="radio" name="category" value="silent_comments" id="silent_comments" defaultChecked />
+                <input type="radio" name="category" value="silent_comments" id="silent_comments" data-testid="cat-silent" defaultChecked />
                 <label className="ml-2 text-md" htmlFor="silent_comments">
                   <span className="text-md">靜谷之聲</span> <br />
                   <span className="text-sm text-gray-400">向其他旅人分享你的故事、情緒。</span>
                 </label>
               </div>
               <div>
-                <input type="radio" name="category" value="starlight_comments" id="starlight_comments" />
+                <input type="radio" name="category" value="starlight_comments" id="starlight_comments" data-testid="cat-starlight" />
                 <label className="ml-2 text-md" htmlFor="starlight_comments">
                   <span className="text-md">星光之聲</span> <br />
                   <span className="text-sm text-gray-400">用溫暖、鼓勵的言語點亮山谷的夜空。</span>
@@ -60,6 +61,7 @@ export default function CommentForm() {
             <span className="text-lg font-semibold mb-2">回聲</span>
             <textarea
               name="content"
+              data-testid="content"
               className="border border-gray-300 rounded-md p-2"
               rows={4}
               placeholder="在這裏留下你的回聲..."
@@ -76,7 +78,7 @@ export default function CommentForm() {
             </Button>
             。
           </p>
-          <Button type="submit" className="w-full mt-4 cursor-pointer" disabled={isPending}>
+          <Button type="submit" data-testid="submit-button" className="w-full mt-4 cursor-pointer" disabled={isPending}>
             {isPending ? '請稍後...' : '發送'}
           </Button>
           {(state.error) ? <div className="text-red-500 mt-2">發送失敗，請稍後再試。</div> : null}
