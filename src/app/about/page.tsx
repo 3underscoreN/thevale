@@ -82,7 +82,7 @@ export default function AboutPage() {
                 <li>
                   <h2 className="text-lg font-semibold">
                     <Link href="https://www.facebook.com/happy.chiiwawa" target="_blank" className="underline-offset-2 hover:underline">
-                    吉娃娃
+                      ちいわわ
                     </Link>
                   </h2>
                   <p className="text-md text-gray-300">
