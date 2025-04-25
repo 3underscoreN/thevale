@@ -71,7 +71,7 @@ export default function AboutPage() {
               <ul className="space-y-4">
                 <li>
                   <h2 className="text-lg font-semibold">
-                    <Link href="https://twitter.com/iaramallows" target="_blank" className="underline-offset-2 hover:underline">
+                    <Link href="https://twitter.com/iaramallows" target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:underline">
                       iara
                     </Link>
                   </h2>
@@ -81,7 +81,7 @@ export default function AboutPage() {
                 </li>
                 <li>
                   <h2 className="text-lg font-semibold">
-                    <Link href="https://www.facebook.com/happy.chiiwawa" target="_blank" className="underline-offset-2 hover:underline">
+                    <Link href="https://www.facebook.com/happy.chiiwawa" target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:underline">
                       ちいわわ
                     </Link>
                   </h2>
@@ -92,7 +92,7 @@ export default function AboutPage() {
                 </li>
                 <li>
                   <h2 className="text-lg font-semibold">
-                    <Link href="https://smokingpuddle58.github.io/" target="_blank" className="underline-offset-2 hover:underline">
+                    <Link href="https://smokingpuddle58.github.io/" target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:underline">
                       SmokingPuddle58
                     </Link>
                   </h2>
