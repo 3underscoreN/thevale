@@ -22,7 +22,7 @@ import {
 import ViewCard from "@/components/ViewCards/ViewCard";
 import ViewCardsReplyForm from "./ViewCardsReplyForm";
 
-import Item from "@/interfaces/item";
+import { Item } from "@/interfaces/item";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 

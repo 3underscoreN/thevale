@@ -3,9 +3,9 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
-import Item from "@/interfaces/item";
+import { Item}  from "@/interfaces/item";
 
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faComments } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Link from "next/link";
@@ -43,7 +43,10 @@ export default function ViewCard({datum, cardType, isReply, className}: ViewCard
           })}
         </CardContent>
         <CardFooter>
-          <div className={`flex w-full justify-end place-items-end ${isReply ? "hidden" : ""}`}>
+          <div className={`flex w-full justify-end place-items-center space-x-4 ${isReply ? "hidden" : ""}`}>
+            <span className="text-sm text-gray-300">
+              <FontAwesomeIcon className="mx-2" icon={faComments} />{datum.reply_count ?? "-"}
+            </span>
             <Button variant="outline" size="sm" asChild>
               <Link href={`/${replyDestination}/${datum.id}`}>
                 <span className="">共鳴&nbsp;<FontAwesomeIcon icon={faArrowRight} /></span>

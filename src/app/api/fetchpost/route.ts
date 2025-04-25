@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { neon } from "@neondatabase/serverless";
 
-import Item from "@/interfaces/item";
+import { Item }  from "@/interfaces/item";
 
 const PAGE_SIZE = 10;
 
@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
       maxPage = Math.max(1, Math.ceil(itemCount[0].count / PAGE_SIZE));
       actualPage = normalizePage(pageNumber, maxPage);
       offset = (actualPage - 1) * PAGE_SIZE;
-      data = await sql`SELECT id, name, content, created_at FROM silent_comments
+      data = await sql`SELECT id, name, content, created_at, reply_count FROM silent_comments
         WHERE status = 'approved'
         ORDER BY created_at DESC
         LIMIT ${PAGE_SIZE}
@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
       maxPage = Math.max(1, Math.ceil(itemCount[0].count / PAGE_SIZE));
       actualPage = normalizePage(pageNumber, maxPage);
       offset = (actualPage - 1) * PAGE_SIZE;
-      data = await sql`SELECT id, name, content, created_at FROM starlight_comments
+      data = await sql`SELECT id, name, content, created_at, reply_count FROM starlight_comments
         WHERE status = 'approved'
         ORDER BY created_at DESC
         LIMIT ${PAGE_SIZE}
