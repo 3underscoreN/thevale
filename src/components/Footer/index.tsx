@@ -35,8 +35,8 @@ export default function Footer(props: React.HTMLProps<HTMLDivElement>) {
         <ul className="overflow-clip ps-2 my-2 space-y-4">
           <li>
             <div className="flex flex-col md:flex-row justify-start space-x-0 md:space-x-4 space-y-2 md:space-y-0 text-sm">
-              <Link href="/privacy" className="underline-offset-2 hover:underline">私隱聲明</Link>
-              <Link href="/about" className="underline-offset-2 hover:underline">關於「山谷」</Link>
+              <Link href="/privacy" data-testid="privacy" className="underline-offset-2 hover:underline">私隱聲明</Link>
+              <Link href="/about" data-testid="about" className="underline-offset-2 hover:underline">關於「山谷」</Link>
             </div>
           </li>
           <li>
