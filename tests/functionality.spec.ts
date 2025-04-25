@@ -24,7 +24,9 @@ testwithdb('Can create echo to silent echoes', async ({ page, db }) => {
   await page.getByTestId('submit-button').click();
   
   /* Wait until the request is sent */
-  await page.waitForTimeout(1000);
+  await page.waitForResponse((response) => {
+    return response.url().includes('/create') && response.status() === 200;
+  });
 
   /* Check if the latest pending echo in the database matches the input */
   const result = await db.checkByName(echoData.name, 'silent');
@@ -59,7 +61,9 @@ testwithdb('Can create echo to starlight echoes', async ({ page, db }) => {
   await page.getByTestId('submit-button').click();
   
   /* Wait until the request is sent */
-  await page.waitForTimeout(1000);
+  await page.waitForResponse((response) => {
+    return response.url().includes('/create') && response.status() === 200;
+  });
 
   /* Check if the latest pending echo in the database matches the input */
   const result = await db.checkByName(echoData.name, 'starlight');
