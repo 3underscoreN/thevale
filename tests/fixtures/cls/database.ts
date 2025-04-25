@@ -1,5 +1,5 @@
 import { neon, NeonQueryFunction } from "@neondatabase/serverless";
-import Item from "@/interfaces/item";
+import { Item } from "@/interfaces/item";
 
 import dotenv from "dotenv";
 import path from "path";

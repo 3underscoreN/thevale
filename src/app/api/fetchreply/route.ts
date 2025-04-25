@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { neon } from "@neondatabase/serverless";
 
-import Item from "@/interfaces/item";
+import { Item } from "@/interfaces/item";
 
 const PAGE_SIZE = 10;
 
