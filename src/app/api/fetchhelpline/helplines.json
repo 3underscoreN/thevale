@@ -6,7 +6,7 @@
         "title": "香港撒瑪利亞會",
         "type": "hotline",
         "phone": "2896 0000",
-        "link": "tel:28960000",
+        "link": "tel:+852-2896-0000",
         "opening_hours": "247",
         "is247": true,
         "description": null
@@ -15,7 +15,7 @@
         "title": "香港撒瑪利亞防止自殺會 情緒支援熱線",
         "type": "hotline",
         "phone": "2389 2222",
-        "link": "tel:23892222",
+        "link": "tel:+852-2389-2222",
         "opening_hours": "247",
         "is247": true,
         "description": null
@@ -24,7 +24,7 @@
         "title": "「情緒通」精神健康支援熱線",
         "type": "hotline",
         "phone": "18111",
-        "link": "tel:18111",
+        "link": "tel:+852-18111",
         "opening_hours": "247",
         "is247": true,
         "description": null
@@ -47,7 +47,7 @@
         "title": "衛生福利部 安心專線",
         "type": "hotline",
         "phone": "1925",
-        "link": "tel:1925",
+        "link": "tel:+886-1925",
         "opening_hours": "247",
         "is247": true,
         "description": null
@@ -56,7 +56,7 @@
         "title": "生命線專線",
         "type": "hotline",
         "phone": "1995",
-        "link": "tel:1995",
+        "link": "tel:+886-1995",
         "opening_hours": "247",
         "is247": true,
         "description": null
@@ -79,7 +79,7 @@
         "title": "社工局",
         "type": "hotline",
         "phone": "2826 1126",
-        "link": "tel:28261126",
+        "link": "tel:+853-2826-1126",
         "opening_hours": "247",
         "is247": true,
         "description": null
@@ -88,7 +88,7 @@
         "title": "澳門明愛生命熱線",
         "type": "hotline",
         "phone": "2852 5222",
-        "link": "tel:28525222",
+        "link": "tel:+853-2852-5222",
         "opening_hours": "247",
         "is247": true,
         "description": null
@@ -102,7 +102,7 @@
         "title": "Samaritans of Singapore",
         "type": "hotline",
         "phone": "1767",
-        "link": "tel:1767",
+        "link": "tel:+65-1767",
         "opening_hours": "247",
         "is247": true,
         "description": null
@@ -125,7 +125,7 @@
         "title": "Befrienders Kuala Lumpur",
         "type": "hotline",
         "phone": "03-76272929",
-        "link": "tel:0376272929",
+        "link": "tel:+60-3-7627-2929",
         "opening_hours": "247",
         "is247": true,
         "description": null
@@ -134,7 +134,7 @@
         "title": "NCEMH Talian HEAL",
         "type": "hotline",
         "phone": "15555",
-        "link": "tel:15555",
+        "link": "tel:+60 15555",
         "opening_hours": "星期一至日 早上8:00至凌晨12:00",
         "is247": false,
         "description": null

@@ -12,8 +12,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectTrigger, SelectValue, SelectItem } from "@/components/ui/select";
 
-import Link from "next/link";
-
 import { Helpline } from "@/interfaces/helpline";
 
 import { HelplineType2Text } from "@/lib/helplineformatter";
@@ -76,12 +74,12 @@ export default function HotLineCard() {
                 </CardContent>
                 <CardFooter>
                   <Button variant="default" className="w-full" asChild>
-                    <Link href={helpline.link} target="_blank" rel="noopener noreferrer">
+                    <a href={helpline.link} target="_blank" rel="noopener noreferrer">
                       {helpline.type === "hotline"
                         ? <div><span>致電</span>&nbsp;<FontAwesomeIcon icon={faPhone} /></div>
                         : <div><span>前往網站</span>&nbsp;<FontAwesomeIcon icon={faExternalLink} /></div>
                       }
-                    </Link>
+                    </a>
                   </Button>
                 </CardFooter>
               </Card>

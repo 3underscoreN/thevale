@@ -120,6 +120,13 @@ export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
             {op ? <ViewCard datum={op} cardType={cardType} className="my-4" isReply={isReply}/> : null}
             <hr className="my-4" />
             <h2 className="text-2xl font-bold my-4">共鳴</h2>
+            {
+              data.length === 0 ?
+                <div className="flex justify-center items-center my-4">
+                  <span className="w-full text-center text-gray-300 text-lg">暫無共鳴</span>
+                </div> 
+              : null
+            }
           </>
         ) : null
       }
@@ -142,7 +149,7 @@ export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
             />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#top">{currentPage}</PaginationLink>
+            <PaginationLink href="#top">{currentPage}/{totalPage}</PaginationLink>
           </PaginationItem>
           <PaginationItem>
             <PaginationNext 
