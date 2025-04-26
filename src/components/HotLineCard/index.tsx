@@ -1,100 +1,94 @@
-import { Card, CardContent } from "@/components/ui/card";
+"use client";
 
-import { faExternalLink } from "@fortawesome/free-solid-svg-icons";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { useEffect, useState } from "react";
+
+import "./bg-colors.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExternalLink, faPhone } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "@/components/ui/button";
-import { Badge } from "../ui/badge";
+import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectTrigger, SelectValue, SelectItem } from "@/components/ui/select";
+
+import Link from "next/link";
+
+import { Helpline } from "@/interfaces/helpline";
+
+import { HelplineType2Text } from "@/lib/helplineformatter";
 
 
 export default function HotLineCard() {
+  const [region, setRegion] = useState<string>("hk");
+  const [helplinesData, setHelplinesData] = useState<{ chinese_name: string, hotlines: Helpline[] } | null>();
+
+  useEffect(() => {
+    fetch(`/api/fetchhelpline?region=${region}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setHelplinesData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching helplines data:", error);
+      });
+  }, [region]);
+
   return (
-    <Card className="w-full md:w-3/4">
-      <CardContent>
-        <h2 className="text-xl font-bold my-2">香港</h2>
-        <ul className="space-y-2 text-lg list-content-align">
-          <li>
-            <Button variant="link" asChild>
-              <a href="https://www.samaritans.org.hk/" target="_blank" rel="noreferrer">
-                <span className="text-lg">香港撒瑪利亞會</span>
-              </a>
-            </Button>
-            <div className="ps-8 text-sm overflow-clip">2896 0000<Badge className="ms-2" variant="outline">24/7</Badge></div>
-          </li>
-          <li>
-            <Button variant="link" asChild>
-              <a href="https://www.shallwetalk.hk/zh/get-help/mental-health-support-hotline-18111/" target="_blank" rel="noreferrer">
-                <span className="text-lg">「情緒通」精神健康支援熱線</span>
-              </a>
-            </Button>
-            <div className="ps-8 text-sm overflow-clip">18111<Badge className="ms-2" variant="outline">24/7</Badge></div>
-          </li>
-          <li>
-            <Button variant="link" asChild>
-              <a href="https://www.openup.hk/" target="_blank" rel="noreferrer">
-                <span className="text-lg">Open噏 網上聊天室</span>
-              </a>
-            </Button>
-            <FontAwesomeIcon icon={faExternalLink} className="text-sm" />
-            <Badge className="ms-2" variant="outline">24/7</Badge>
-          </li>
-        </ul>
-        <h2 className="text-xl font-bold my-2">台灣</h2>
-        <ul className="space-y-2 text-lg">
-          <li>
-            <Button variant="link" asChild>
-              <a href="https://dep.mohw.gov.tw/DOMHAOH/cp-4906-54077-107.html" target="_blank" rel="noreferrer">
-                <span className="text-lg">衛生福利部</span>
-              </a>
-            </Button>
-            <div className="ps-8 text-sm overflow-clip">1925<Badge className="ms-2" variant="outline">24/7</Badge></div>
-          </li>
-          <li>
-            <Button variant="link" asChild>
-              <a href="https://www.1980.org.tw/service_item_show.php?service_item_id=1" target="_blank" rel="noreferrer">
-                <span className="text-lg">張老師 網路輔導</span>
-              </a>
-            </Button>
-            <FontAwesomeIcon icon={faExternalLink} className="text-sm me-2" />
-            <div className=" ps-8 text-sm"> (星期一至星期六晚上18:30-21:30)</div>
-          </li>
-        </ul>
-        <h2 className="text-xl font-bold my-2">澳門</h2>
-        <ul className="space-y-2 text-lg">
-          <li>
-            <Button variant="link" asChild>
-              <a href="https://www.ias.gov.mo/zh" target="_blank" rel="noreferrer">
-                <span className="text-lg">社工局</span>
-              </a>
-            </Button>
-            <div className="ps-8 text-sm overflow-clip">2826 1126<Badge className="ms-2" variant="outline">24/7</Badge></div>
-          </li>
-          <li>
-            <Button variant="link" asChild>
-              <a href="https://www.caritas.org.mo/youth-and-community-service/213" target="_blank" rel="noreferrer">
-                <span className="text-lg">澳門明愛生命熱線</span>
-              </a>
-            </Button>
-            <div className="ps-8 text-sm overflow-clip">2852 5222<Badge className="ms-2" variant="outline">24/7</Badge></div>
-          </li>
-        </ul>
-        <h2 className="text-xl font-bold my-2">其他地區</h2>
-        <ul className="space-y-2 text-lg">
-          <li>
-            <Button variant="link" asChild>
-              <a href="https://findahelpline.com/" target="_blank" rel="noreferrer">
-                <span className="text-lg">find a helpline</span>
-              </a>
-            </Button>
-            <div className="ps-8 text-sm overflow-clip">尋找你所在地區的熱線</div>
-          </li>
-        </ul>
-        <div className="flex justify-end mt-2">
-          <h3 className="inline-block text-md text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-400 to-orange-300">
-            因為你很重要。
-          </h3>
-        </div>
-      </CardContent>
-    </Card>
+    <>
+      <Card className="w-full md:w-3/4 rainbow-mesh border-[1] border-gray-500">
+        <CardHeader>
+          <CardTitle className="backdrop-brightness-50 rounded-md my-4">
+            <Select onValueChange={setRegion} name="region" autoComplete="off" defaultValue="hk">
+              <SelectTrigger>
+                <SelectValue placeholder="香港" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="hk">香港</SelectItem>
+                <SelectItem value="tw">台灣</SelectItem>
+                <SelectItem value="mo">澳門</SelectItem>
+                <SelectItem value="sg">新加坡</SelectItem>
+                <SelectItem value="my">馬來西亞</SelectItem>
+                <SelectItem value="other">其他地區</SelectItem>
+              </SelectContent>
+            </Select>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col gap-2 md:grid md:grid-cols-2">
+            {helplinesData?.hotlines.map((helpline, index) => (
+              <Card key={index} className="bg-transparent backdrop-blur-xl backdrop-brightness-50 min-h-fit">
+                <CardHeader>
+                  <CardTitle className="text-lg font-bold">{helpline.title}</CardTitle>
+                  <CardDescription>
+                    <span className="flex gap-2">
+                      {HelplineType2Text(helpline)}
+                      {helpline.is247 ? <Badge variant="outline">24/7</Badge> : null}
+                    </span>
+                    {helpline.is247 ? null : <span>{helpline.opening_hours}</span>}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-col place-items-baseline">
+                    <span>{helpline.phone ? `電話：${helpline.phone}` : ""}&nbsp;</span>
+                    <span className="text-sm">{helpline.description ? `註：${helpline.description}` : ""}&nbsp;</span>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="default" className="w-full" asChild>
+                    <Link href={helpline.link} target="_blank" rel="noopener noreferrer">
+                      {helpline.type === "hotline"
+                        ? <div><span>致電</span>&nbsp;<FontAwesomeIcon icon={faPhone} /></div>
+                        : <div><span>前往網站</span>&nbsp;<FontAwesomeIcon icon={faExternalLink} /></div>
+                      }
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </>
   )
 }
