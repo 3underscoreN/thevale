@@ -20,14 +20,8 @@ import {
 } from "@/components/ui/pagination";
 
 import ViewCard from "@/components/ViewCards/ViewCard";
-import ViewCardsReplyForm from "./ViewCardsReplyForm";
 
 import { Item } from "@/interfaces/item";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 type ViewCardsProps = {
   cardType: "silent" | "starlight";
@@ -125,27 +119,6 @@ export default function ViewCards({cardType, id, isReply, className}: ViewCardsP
       {/* This is to show the original card in viewing replies*/
         isReply ? ( 
           <>
-            <Button variant="outline" asChild>
-              <Link href={cardType === "silent" ? "/viewsilent" : "/viewstarlight"}>
-                <span className="text-md">
-                  <FontAwesomeIcon icon={faArrowLeft} />&nbsp;返回{cardType === "silent" ? "靜默" : "星光"}之聲
-                </span>
-              </Link>
-            </Button>
-            <Card className="my-16">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold mb-2">
-                  須知事項
-                </CardTitle>
-                <CardDescription className="text-md">
-                  <ol className="list-decimal list-inside space-y-4">
-                    <li>禁止引用或轉載此處之內容，讓回聲僅在山谷中迴盪。</li>
-                    <li>旅人無需全盤接受此處之建議或鼓勵；感受由你定義。</li>
-                    <li>如感不適，請隨時離開此地。山谷隨時靜候你的回歸。</li>
-                  </ol>
-                </CardDescription>
-              </CardHeader>
-            </Card>
             {op ? <ViewCard datum={op} cardType={cardType} className="my-4" isReply={isReply}/> : null}
             <hr className="my-4" />
             <h2 className="text-2xl font-bold my-4">共鳴</h2>
@@ -184,9 +157,6 @@ export default function ViewCards({cardType, id, isReply, className}: ViewCardsP
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-      {isReply ? (
-        <ViewCardsReplyForm cardType={cardType} cardId={id} className={`${isReply ? "block" : "hidden"} my-4`} />
-      ) : null}
     </>
   );
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 
 import { Button } from "@/components/ui/button";
@@ -98,7 +100,7 @@ export default function ViewCardsReplyForm({cardType, cardId, className}: ViewCa
           <hr className="my-4" />
           <Card className="my-4">
             <CardHeader>
-              <CardTitle className="text-2xl font-bold mb-4">發表共鳴成功！</CardTitle>
+              <CardTitle className="text-2xl font-bold text-green-500 mb-4">發表共鳴成功！</CardTitle>
               <CardDescription className="text-md">
                 <p>
                   感謝你的回覆！我們會在審核後將其發佈到山谷中，讓更多的旅人能夠看到。
