@@ -135,7 +135,7 @@
         "type": "hotline",
         "phone": "15555",
         "link": "tel:15555",
-        "opening_hours": "247",
+        "opening_hours": "星期一至日 早上8:00至凌晨12:00",
         "is247": true,
         "description": null
       }
