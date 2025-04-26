@@ -8,5 +8,7 @@ export function HelplineType2Text(h: Helpline) {
       return "即時聊天";
     case "website":
       return "網站";
+    default:
+      return "其他";
   }
 }
