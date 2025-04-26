@@ -165,6 +165,7 @@ export default function ViewCards({cardType, id, isReply, className}: ViewCardsP
               href="#top" 
               aria-disabled={currentPage === 1} 
               aria-label="Previous Page 上一頁"
+              data-testid="pagination-previous-page"
               isActive={currentPage !== 1} 
               onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
             />
@@ -178,6 +179,7 @@ export default function ViewCards({cardType, id, isReply, className}: ViewCardsP
               href="#top" 
               aria-disabled={currentPage === totalPage} 
               aria-label="Next Page 下一頁"
+              data-testid="pagination-next-page"
               isActive={currentPage !== totalPage} 
               onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPage))}
             />

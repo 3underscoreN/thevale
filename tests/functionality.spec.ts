@@ -117,3 +117,70 @@ testwithdb('Can view new approved starlight echoes', async ({ page, db }) => {
   await db.cleanupByName(echoData.name, 'starlight');
 });
 
+testwithdb('Can view new approved silent echoes with pagination', async ({ page, db }) => {
+  /* 11 Test data */
+  const echoData = new Array(11).fill(null).map(() => ({
+    name: `E2E Test ${Math.floor(Math.random() * 1000)}`,
+    content: `This is a test echo for silent echoes: ${Math.floor(Math.random() * 1000)}`,
+  }));
+
+  /* Insert and approve the echoes in the database */
+  for (const data of echoData) {
+    await db.insertAndApprove(data.name, data.content, 'silent');
+  }
+
+  /* Navigate to silent echoes page */
+  await page.goto(`${process.env.BASE_URL ?? ''}/viewsilent`);
+
+  /* Go to the second page */
+  await page.getByTestId('pagination-next-page').click();
+  /* Wait for the page to load */
+  await page.waitForResponse((response) => {
+    return response.url().includes('/api/fetchpost') && response.status() === 200;
+  });
+
+  /* Check if the first echo on the second page is displayed */
+  const echoName = await page.getByText(echoData[0].name);
+  expect(echoName).toBeTruthy();
+  const echoElement = await page.getByText(echoData[0].content);
+  expect(echoElement).toBeTruthy();
+
+  /* Clean up the database */
+  for (const data of echoData) {
+    await db.cleanupByName(data.name, 'silent');
+  }
+});
+
+testwithdb('Can view new approved starlight echoes with pagination', async ({ page, db }) => {
+  /* 11 Test data */
+  const echoData = new Array(11).fill(null).map(() => ({
+    name: `E2E Test ${Math.floor(Math.random() * 1000)}`,
+    content: `This is a test echo for starlight echoes: ${Math.floor(Math.random() * 1000)}`,
+  }));
+
+  /* Insert and approve the echoes in the database */
+  for (const data of echoData) {
+    await db.insertAndApprove(data.name, data.content, 'starlight');
+  }
+
+  /* Navigate to starlight echoes page */
+  await page.goto(`${process.env.BASE_URL ?? ''}/viewstarlight`);
+
+  /* Go to the second page */
+  await page.getByTestId('pagination-next-page').click();
+  /* Wait for the page to load */
+  await page.waitForResponse((response) => {
+    return response.url().includes('/api/fetchpost') && response.status() === 200;
+  });
+
+  /* Check if the first echo on the second page is displayed */
+  const echoName = await page.getByText(echoData[0].name);
+  expect(echoName).toBeTruthy();
+  const echoElement = await page.getByText(echoData[0].content);
+  expect(echoElement).toBeTruthy();
+
+  /* Clean up the database */
+  for (const data of echoData) {
+    await db.cleanupByName(data.name, 'starlight');
+  }
+});
