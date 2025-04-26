@@ -11,6 +11,13 @@ export default class Database{
     this.sql = neon(`${process.env.DATABASE_URL_DEV}`);
   }
 
+  /**
+   * This function checks for the latest pending comment in the database.
+   * It takes a table name as an argument and returns the latest pending comment.
+   * 
+   * @param table "silent" | "starlight"
+   * @returns {Promise<Record<string, Item>[]>}
+   */
   async checkLatestPending(table: "silent" | "starlight") {
     let result: Record<string, Item>[];
     switch (table) {
@@ -24,6 +31,14 @@ export default class Database{
     return result;
   }
 
+  /**
+   * This function checks for the latest comment in the database by name.
+   * It takes a name and a table name as arguments and returns the latest comment.
+   * 
+   * @param name string
+   * @param table "silent" | "starlight"
+   * @returns {Promise<Record<string, Item>[]>}
+   */
   async checkByName(name: string, table: "silent" | "starlight") {
     let result: Record<string, Item>[];
     switch (table) {
@@ -37,6 +52,15 @@ export default class Database{
     return result;
   }
 
+  /**
+   * This function inserts a comment into the database and approves it.
+   * It takes a name, content, and a table name as arguments.
+   * 
+   * @param name string
+   * @param content string
+   * @param table "silent" | "starlight"
+   * @returns {Promise<void>}
+   */
   async insertAndApprove(name: string, content: string, table: "silent" | "starlight") {
     switch (table) {
       case "silent":
@@ -48,6 +72,16 @@ export default class Database{
     }
   }
 
+  /**
+   * This function cleans up the database by deleting a comment by name.
+   * It takes a name and a table name as arguments.
+   * 
+   * Please use it after running tests to clean up the database for the next test.
+   * 
+   * @param name string
+   * @param table "silent" | "starlight"
+   * @returns {Promise<void>}
+   */
   async cleanupByName(name: string, table: "silent" | "starlight") {
     switch (table) {
       case "silent":
