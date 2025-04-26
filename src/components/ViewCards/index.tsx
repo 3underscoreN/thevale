@@ -21,16 +21,17 @@ import {
 
 import ViewCard from "@/components/ViewCards/ViewCard";
 
+import { Skeleton } from "@/components/ui/skeleton";
+
 import { Item } from "@/interfaces/item";
 
 type ViewCardsProps = {
   cardType: "silent" | "starlight";
   isReply?: boolean;
   id: number;
-  className?: string;
 }
 
-export default function ViewCards({cardType, id, isReply, className}: ViewCardsProps) {
+export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
   if (id === 0 && isReply) {
     throw new Error("If the cards are shown in a page for replies, id must be provided.");
   }
@@ -65,14 +66,10 @@ export default function ViewCards({cardType, id, isReply, className}: ViewCardsP
     return (
       <>
         {/* Loading */}
-        <Card className={className}>
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold mb-2">加載中</CardTitle>
-            <CardDescription className="text-md">
-              <div>靜靜地等待回聲的到來...</div>
-            </CardDescription>
-          </CardHeader>
-        </Card>
+        <div>
+          <Skeleton className="h-48 w-full bg-card rounded-xl my-4" />
+          <Skeleton className="h-48 w-full bg-card rounded-xl my-4" />
+        </div>
       </>
     );
   }
@@ -81,7 +78,7 @@ export default function ViewCards({cardType, id, isReply, className}: ViewCardsP
     return (
       <>
         {/* Error handling*/}
-        <Card className={className}>
+        <Card>
           <CardHeader>
             <CardTitle className="text-2xl font-bold mb-2 text-red-500">
               哎呀！發生了錯誤
@@ -100,7 +97,7 @@ export default function ViewCards({cardType, id, isReply, className}: ViewCardsP
     return (
       <>
         {/* No data */}
-        <Card className={className}>
+        <Card>
           <CardHeader>
             <CardTitle className="text-2xl font-bold mb-2">好靜啊...</CardTitle>
             <CardDescription className="text-md">
@@ -116,6 +113,7 @@ export default function ViewCards({cardType, id, isReply, className}: ViewCardsP
     <>
       <div aria-hidden="true" id="top" />
       {/* Normal */}
+      
       {/* This is to show the original card in viewing replies*/
         isReply ? ( 
           <>
@@ -125,6 +123,7 @@ export default function ViewCards({cardType, id, isReply, className}: ViewCardsP
           </>
         ) : null
       }
+
       {data.map((item: Item, index: number) => (
         <ViewCard key={index} datum={item} cardType={cardType} className="my-4" isReply={isReply}/>
       ))}
@@ -143,7 +142,7 @@ export default function ViewCards({cardType, id, isReply, className}: ViewCardsP
             />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink>{currentPage}</PaginationLink>
+            <PaginationLink href="#top">{currentPage}</PaginationLink>
           </PaginationItem>
           <PaginationItem>
             <PaginationNext 
