@@ -21,7 +21,7 @@ import { HelplineType2Text } from "@/lib/helplineformatter";
 
 export default function HotLineCard() {
   const [region, setRegion] = useState<string>("hk");
-  const [helplinesData, setHelplinesData] = useState<{ chinese_name: string, hotlines: Helpline[] } | null>();
+  const [helplinesData, setHelplinesData] = useState<{ chinese_name: string, hotlines: Helpline[] } | null>(null);
 
   useEffect(() => {
     fetch(`/api/fetchhelpline?region=${region}`)
