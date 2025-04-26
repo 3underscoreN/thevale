@@ -1,0 +1,10 @@
+.rainbow-mesh {
+  background-color: rgb(0, 0, 0);
+  background-image: 
+    radial-gradient(at 88% 20%, rgb(203, 174, 21) 0, transparent 39%), 
+    radial-gradient(at 53% 9%, rgb(190, 121, 202) 0, transparent 65%), 
+    radial-gradient(at 15% 21%, rgb(6, 139, 198) 0, transparent 63%), 
+    radial-gradient(at 28% 79%, rgb(84, 189, 122) 0, transparent 59%), 
+    radial-gradient(at 79% 82%, rgb(198, 63, 63) 0, transparent 66%), 
+    radial-gradient(at 51% 52%, rgb(97, 1, 184) 0, transparent 37%);
+}
