@@ -43,7 +43,7 @@ export default async function Page(params: { params: Promise<{ id: string }> }) 
             </CardHeader>
           </Card>
           <ViewCards cardType="silent" id={parseInt(id, 10)} isReply />
-          <ViewCardsReplyForm cardType="starlight" cardId={parseInt(id, 10)} className="my-4" />
+          <ViewCardsReplyForm cardType="silent" cardId={parseInt(id, 10)} className="my-4" />
         </div>
       </div>
     </div>
