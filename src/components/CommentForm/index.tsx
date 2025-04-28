@@ -27,7 +27,7 @@ export default function CommentForm() {
       {!(state.success) &&
         <Form className="flex flex-col space-y-4" action={formAction}>
           <label className="flex flex-col">
-            <span className="text-lg font-semibold mb-2">化名</span>
+            <span className="text-lg font-semibold mb-2">暱稱</span>
             <input
               name="name"
               type="text"
@@ -45,14 +45,14 @@ export default function CommentForm() {
                 <input type="radio" name="category" value="silent_comments" id="silent_comments" data-testid="cat-silent" defaultChecked />
                 <label className="ml-2 text-md" htmlFor="silent_comments">
                   <span className="text-md">靜谷之聲</span> <br />
-                  <span className="text-sm text-gray-400">向其他旅人分享你的故事、情緒。</span>
+                  <span className="text-sm text-gray-400">匿名訴說你的真心，又或是分享低落，沈重的情緒。</span>
                 </label>
               </div>
               <div>
                 <input type="radio" name="category" value="starlight_comments" id="starlight_comments" data-testid="cat-starlight" />
                 <label className="ml-2 text-md" htmlFor="starlight_comments">
                   <span className="text-md">星光之聲</span> <br />
-                  <span className="text-sm text-gray-400">用溫暖、鼓勵的言語點亮山谷的夜空。</span>
+                  <span className="text-sm text-gray-400">送上暖心的話語，點亮山谷的夜空；溫暖到此停留的旅人。</span>
                 </label>
               </div>
             </div>
@@ -87,7 +87,7 @@ export default function CommentForm() {
       {(state.success) &&
         <div className="flex flex-col space-y-4">
           <div className="text-green-500 mt-2 text-lg font-bold">發送成功！</div>
-          <div className="text-gray-500 mt-2">感謝你的回聲。正如聲音傳播需要時間，我們也需時處理你的訊息，故請耐心等待。</div>
+          <div className="text-gray-500 mt-2">感謝你的回聲。正如聲音傳播需要時間，我們也需時處理你的訊息，故請耐心等待。這段時間，也請好好照顧自己！</div>
           <Button type="button" asChild className="w-full mt-4">
             <Link href="/">
               返回首頁

@@ -62,7 +62,7 @@ export default function ViewCardsReplyForm({cardType, cardId, className}: ViewCa
           <CardContent>
           <Form action={formAction}>
             <label className="flex flex-col">
-              <span className="text-lg font-semibold my-2">化名</span>
+              <span className="text-lg font-semibold my-2">暱稱</span>
               <input
                 name="name"
                 type="text"
@@ -100,10 +100,10 @@ export default function ViewCardsReplyForm({cardType, cardId, className}: ViewCa
           <hr className="my-4" />
           <Card className="my-4">
             <CardHeader>
-              <CardTitle className="text-2xl font-bold text-green-500 mb-4">發表共鳴成功！</CardTitle>
+              <CardTitle className="text-2xl font-bold text-green-500 mb-4">發送成功！</CardTitle>
               <CardDescription className="text-md">
                 <p>
-                  感謝你的回覆！我們會在審核後將其發佈到山谷中，讓更多的旅人能夠看到。
+                  感謝你的共鳴。正如聲音傳播需要時間，我們也需時處理你的訊息，故請耐心等待。這段時間，也請好好照顧自己！
                 </p>
               </CardDescription>
             </CardHeader>

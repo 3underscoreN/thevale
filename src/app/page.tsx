@@ -21,8 +21,8 @@ export default function Home() {
         </div>
       </div>
       <div className="section">
-        <div className="flex flex-col gap-8 text-center overflow-clip text-2xl justify-center w-full">
-          <p>你好，陌生人。</p>
+        <div className="flex flex-col gap-8 text-center overflow-clip text-xl md:text-2xl justify-center w-full">
+          <p>你好，旅人。</p>
           <p>日子堆疊的縫隙裡，總有些情緒無處安放——</p>
           <p>可能是小小的悵惘，又或者像是感覺</p>
           <p>沉入無人能達的深淵。</p>

@@ -69,7 +69,7 @@ export default function HotLineCard() {
                 <CardContent>
                   <div className="flex flex-col place-items-baseline">
                     <span>{helpline.phone ? `電話：${helpline.phone}` : ""}&nbsp;</span>
-                    <span className="text-sm">{helpline.description ? `註：${helpline.description}` : ""}&nbsp;</span>
+                    <span className="text-sm">{helpline.description ?? ""}&nbsp;</span>
                   </div>
                 </CardContent>
                 <CardFooter>

@@ -67,8 +67,11 @@ export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
       <>
         {/* Loading */}
         <div>
-          <Skeleton className="h-48 w-full bg-card rounded-xl my-4" />
-          <Skeleton className="h-48 w-full bg-card rounded-xl my-4" />
+          {[...Array(10)].map((_, index) =>
+            <div key={index} className="bg-gray-800 h-64 w-full rounded-xl my-4">
+              <Skeleton className={`h-64 w-full bg-card rounded-xl my-4`} />
+            </div>
+          )}
         </div>
       </>
     );
