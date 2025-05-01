@@ -184,3 +184,31 @@ testwithdb('Can view new approved starlight echoes with pagination', async ({ pa
     await db.cleanupByName(data.name, 'starlight');
   }
 });
+
+testwithdb('Newly created silent echoes have 0 replies', async ({ page, db }) => {
+  /* Test data */
+  const echoData = {
+    name: `E2E Test ${Math.floor(Math.random() * 1000)}`,
+    content: `This is a test echo for silent echoes: ${Math.floor(Math.random() * 1000)}`,
+  };
+
+  /* Insert and approve the echo in the database, whilst getting the ID */
+  const result = await db.insertAndApprove(echoData.name, echoData.content, 'silent');
+  const id = result[0].id;
+
+  /* Navigate to silent echoes page */
+  await page.goto(`${process.env.BASE_URL ?? ''}/viewsilent`);
+
+  /* Wait for the page to load */
+  await page.waitForResponse((response) => {
+    return response.url().includes('/api/fetchpost') && response.status() === 200;
+  });
+
+  /* Check if the reply count is displayed as "0" */
+  const replyCountElement = await page.getByTestId(`reply-count-${id}`);
+  expect(replyCountElement).toHaveCount(1);
+  expect(replyCountElement).toHaveText('0', { useInnerText: true });
+
+  /* Clean up the database */
+  await db.cleanupById(id, 'silent');
+});
