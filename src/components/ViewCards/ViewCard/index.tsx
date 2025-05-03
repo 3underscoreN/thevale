@@ -35,7 +35,7 @@ export default function ViewCard({datum, cardType, isReply, className}: ViewCard
             </div>
           </CardDescription>
         </CardHeader>
-        <CardContent className="text-lg mb-2">
+        <CardContent className="text-lg">
           <div className="text-left">
             <MarkdownRenderer content={datum.content} />
           </div>
