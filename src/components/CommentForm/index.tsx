@@ -9,6 +9,9 @@ import { submitPost } from '@/app/actions/submitpost';
 import Link from 'next/link';
 import Form from 'next/form';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMarkdown } from '@fortawesome/free-brands-svg-icons';
+
 const initialState = {
   success: false,
   error: null,
@@ -69,6 +72,7 @@ export default function CommentForm() {
               defaultValue={state.lastSubmitted.content || ''}
               required
             />
+            <span className="mt-2 text-xs text-gray-400"><FontAwesomeIcon icon={faMarkdown} /> 支援部分基本Markdown語法。</span>
           </label>
           <p className="text-md text-gray-400">提交前，請閱讀
             <Button variant="link" size="icon" className="text-blue-500 inline text-md" asChild>
