@@ -3,10 +3,12 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
-import { Item}  from "@/interfaces/item";
+import { Item }  from "@/interfaces/item";
 
 import { faArrowRight, faComments } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 import Link from "next/link";
 
@@ -33,14 +35,10 @@ export default function ViewCard({datum, cardType, isReply, className}: ViewCard
             </div>
           </CardDescription>
         </CardHeader>
-        <CardContent className="text-lg mb-4">
-          {datum.content.split("\n").map((line: string, index: number) => {
-            return (
-              <p key={index}>
-                {line}
-              </p>
-            );
-          })}
+        <CardContent className="text-lg mb-2">
+          <div className="text-left">
+            <MarkdownRenderer content={datum.content} />
+          </div>
         </CardContent>
         <CardFooter>
           <div className={`flex w-full justify-end place-items-center space-x-4 ${isReply ? "hidden" : ""}`}>
