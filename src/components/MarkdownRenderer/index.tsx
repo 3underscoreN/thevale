@@ -7,7 +7,7 @@ export default function MarkdownRenderer({ content }: { content: string }) {
   return (
     <div className="md">
       <Markdown {...markdownOptions}>
-        {content.replace("\n", "\n\n")}
+        {content.replaceAll("\n", "\n\n")}
       </Markdown>
     </div>
   );

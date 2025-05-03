@@ -11,6 +11,8 @@ export const markdownOptions: Options = {
      * - `li`: List items.
      * - `em`: Emphasized text (italics).
      * - `strong`: Strongly emphasized text (bold).
+     * - `hr`: Horizontal rules.
+     * - `blockquote`: Block quotes.
      */
     'h1',
     'h2',
@@ -24,6 +26,8 @@ export const markdownOptions: Options = {
     'li',
     'em',
     'strong',
+    'hr',
+    'blockquote',
   ],
   skipHtml: true,
 }
