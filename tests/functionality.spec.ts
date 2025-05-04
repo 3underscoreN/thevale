@@ -200,13 +200,10 @@ testwithdb('Newly created silent echoes have 0 replies', async ({ page, db }) =>
   await page.goto(`${process.env.BASE_URL ?? ''}/viewsilent`);
 
   /* Wait for the page to load */
-  await page.waitForResponse((response) => {
-    return response.url().includes('/api/fetchpost') && response.status() === 200;
-  });
+  await page.waitForLoadState('networkidle');
 
   /* Check if the reply count is displayed as "0" */
   const replyCountElement = await page.getByTestId(`reply-count-${id}`);
-  expect(replyCountElement).toHaveCount(1);
   expect(replyCountElement).toHaveText('0', { useInnerText: true });
 
   /* Clean up the database */

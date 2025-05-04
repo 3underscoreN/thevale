@@ -62,7 +62,7 @@ export default class Database{
    * @param table "silent" | "starlight"
    * @returns {Promise<Record<string, {id: number}>[]>}
    */
-  async insertAndApprove(name: string, content: string, table: "silent" | "starlight") {
+  async insertAndApprove(name: string, content: string, table: "silent" | "starlight") : Promise<Record<string, number>[]> {
     switch (table) {
       case "silent":
         return await this.sql`INSERT INTO silent_comments (name, content, status) VALUES (${name}, ${content}, 'approved') RETURNING id;`;
