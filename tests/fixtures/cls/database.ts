@@ -57,10 +57,12 @@ export default class Database{
    * It takes a name, content, and a table name as arguments.
    * It returns the ID of the inserted comment.
    * 
+   * Please run `cleanupByName` or `cleanupById` after running tests to clean up the database for the next test.
+   * 
    * @param name string
    * @param content string
    * @param table "silent" | "starlight"
-   * @returns {Promise<Record<string, {id: number}>[]>}
+   * @returns {Promise<Record<string, number>[]>}
    */
   async insertAndApprove(name: string, content: string, table: "silent" | "starlight") : Promise<Record<string, number>[]> {
     switch (table) {
@@ -68,6 +70,33 @@ export default class Database{
         return await this.sql`INSERT INTO silent_comments (name, content, status) VALUES (${name}, ${content}, 'approved') RETURNING id;`;
       case "starlight":
         return await this.sql`INSERT INTO starlight_comments (name, content, status) VALUES (${name}, ${content}, 'approved') RETURNING id;`;
+    }
+  }
+
+  /**
+   * This function inserts a reply to a comment into the database and approves it.
+   * It must have a valid parent ID.
+   * It returns the ID of the inserted reply.
+   * 
+   * Please run `cleanupReplyById` after running tests to clean up the database for the next test.
+   * 
+   * @param name string
+   * @param content string
+   * @param parentId number
+   * @param table "silent" | "starlight"
+   * @returns {Promise<Record<string, number>[]>}
+   */
+  async insertReplyAndChangeToApprove(name: string, content: string, parentId: number, table: "silent" | "starlight") : Promise<Record<string, number>[]> {
+    let result;
+    switch (table) {
+      case "silent":
+        result = await this.sql`INSERT INTO silent_comments_replies (name, content, status, parent_id) VALUES (${name}, ${content}, 'pending', ${parentId}) RETURNING id;`;
+        await this.sql`UPDATE silent_comments_replies SET status='approved' WHERE id=${result[0].id};`;
+        return result;
+      case "starlight":
+        result = await this.sql`INSERT INTO starlight_comments_replies (name, content, status, parent_id) VALUES (${name}, ${content}, 'pending', ${parentId}) RETURNING id;`;
+        await this.sql`UPDATE starlight_comments_replies SET status='approved' WHERE id=${result[0].id};`;
+        return result;
     }
   }
 
@@ -110,6 +139,50 @@ export default class Database{
         break;
       case "starlight":
         await this.sql`DELETE FROM starlight_comments WHERE id=${id};`;
+        break;
+    }
+  }
+
+  /**
+   * This function cleans up the database by deleting a reply by name.
+   * It takes a name and a table name as arguments.
+   * 
+   * Please use it or `cleanupReplyById` after running tests to clean up the database for the next test.
+   * You can also choose to delete the parent comment by using `cleanupByName` or `cleanupById`.
+   * 
+   * @param name string
+   * @param table "silent" | "starlight"
+   * @returns {Promise<void>}
+   */
+  async cleanupReplyByName(name: string, table: "silent" | "starlight") {
+    switch (table) {
+      case "silent":
+        await this.sql`DELETE FROM silent_comments_replies WHERE name=${name};`;
+        break;
+      case "starlight":
+        await this.sql`DELETE FROM starlight_comments_replies WHERE name=${name};`;
+        break;
+    }
+  }
+
+  /**
+   * This function cleans up the database by deleting a reply by ID.
+   * It takes an ID and a table name as arguments.
+   * 
+   * Please use it or `cleanupReplyByName` after running tests to clean up the database for the next test.
+   * You can also choose to delete the parent comment by using `cleanupByName` or `cleanupById`.
+   * 
+   * @param id number
+   * @param table "silent" | "starlight"
+   * @returns {Promise<void>}
+   */
+  async cleanupReplyById(id: number, table: "silent" | "starlight") {
+    switch (table) {
+      case "silent":
+        await this.sql`DELETE FROM silent_comments_replies WHERE id=${id};`;
+        break;
+      case "starlight":
+        await this.sql`DELETE FROM starlight_comments_replies WHERE id=${id};`;
         break;
     }
   }

@@ -43,7 +43,7 @@ export default function ViewCard({datum, cardType, isReply, className}: ViewCard
           })}
         </CardContent>
         <CardFooter>
-          <div className={`flex w-full justify-end place-items-center space-x-4 ${isReply ? "hidden" : ""}`}>
+          <div className={`flex w-full justify-end place-items-center space-x-4 ${isReply ? "hidden" : ""}`} data-testid={`reply-view-${datum.id}`}>
             <span className="text-sm text-gray-300">
               <FontAwesomeIcon className="mx-2" icon={faComments} />
               <span data-testid={`reply-count-${datum.id}`}>{datum.reply_count ?? "-"}</span>
