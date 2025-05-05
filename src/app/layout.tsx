@@ -19,12 +19,26 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   metadataBase: new URL("https://thevale.top"),
   title: "山谷｜The Vale",
+  icons: {
+    icon: "/icon/vale.svg",
+    shortcut: "/icon/vale.svg",
+    apple: "/icon/vale.svg",
+  },
   description: "匿名抒發心聲的平台。分享低語，傾聽靜谷心聲與星光回聲，尋找共鳴與溫暖。",
   openGraph: {
+    type: "website",
+    locale: "zh_TW",
     title: "山谷｜The Vale",
     description: "匿名抒發心聲的平台。分享低語，傾聽靜谷心聲與星光回聲，尋找共鳴與溫暖。",
     url: "https://thevale.top",
     siteName: "山谷｜The Vale",
+    images: [{
+      url: "/og/og_social.png",
+      width: 1200,
+      height: 640,
+      alt: "山谷｜The Vale",
+      type: "image/png",
+    }],
   }
 };
 
@@ -34,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh" suppressHydrationWarning>
+    <html lang="zh_TW" suppressHydrationWarning>
       <body className={`${iansuiFont.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark">
           <div className="relative" aria-hidden="false">
