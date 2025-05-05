@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     siteName: "山谷｜The Vale",
     images: [{
       url: "/og/og_social.png",
-      width: 1200,
+      width: 1280,
       height: 640,
       alt: "山谷｜The Vale",
       type: "image/png",
