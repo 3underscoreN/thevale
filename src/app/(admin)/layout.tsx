@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Button } from '@/components/ui/button';
 
-import { 
-  ClerkProvider, 
+import {
+  ClerkProvider,
   SignInButton,
   SignOutButton,
   SignedOut,
@@ -20,7 +20,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider localization={zhTW} appearance={{baseTheme: dark}} >
+    <ClerkProvider localization={zhTW} appearance={{ baseTheme: dark }} >
       <SignedOut>
         <div className="bg-[url(/asset/background.jpg)] bg-fixed bg-cover bg-no-repeat bg-center" tabIndex={-1}>
           <div className="flex flex-col items-center justify-start px-4 py-16 backdrop-blur-md backdrop-brightness-50 min-h-svh">
@@ -45,7 +45,9 @@ export default function AdminLayout({
             </Button>
           </SignOutButton>
         </div>
-        {children}
+        <div className="bg-[url(/asset/background.jpg)] bg-fixed bg-cover bg-no-repeat bg-center" tabIndex={-1}>
+          {children}
+        </div>
       </SignedIn>
     </ClerkProvider>
   );
