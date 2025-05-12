@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { neon } from "@neondatabase/serverless";
+import { sql } from "@/app/api/sql";
 
 import { Item } from "@/interfaces/item";
 
@@ -44,10 +44,6 @@ export async function GET(request: NextRequest) {
     }, { status: 400 });
   }
   const { id, page, fetchType } = fetchReplyData.data;
-
-  const sql = (process.env.NODE_ENV === 'production') ? 
-      neon(`${process.env.DATABASE_URL}`) :
-      neon(`${process.env.DATABASE_URL_DEV}`);
 
   let
     op: Record<string, Item>,
