@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import ViewCard from "@/components/ViewCards/ViewCard";
+import ViewCardAdmin from "@/components/admin/ViewCardsAdmin";
 
 import { type Item } from "@/interfaces/item";
 
@@ -32,7 +32,7 @@ export default function AdminPage() {
           setData(resj.data);
         }
       }
-    );
+      );
     setLoading(false);
   }, [type]);
 
@@ -57,14 +57,31 @@ export default function AdminPage() {
               <Skeleton className="h-64 w-full bg-card rounded-xl my-4" />
               <Skeleton className="h-64 w-full bg-card rounded-xl my-4" />
               <Skeleton className="h-64 w-full bg-card rounded-xl my-4" />
-            </> 
+            </>
             : data.map((item, index) => {
-              return <ViewCard
+              return <ViewCardAdmin
                 className="my-4"
                 key={index}
                 datum={item}
-                cardType={"silent"}
-                isReply={false}
+                approveOrDeclineCallBack={(isApproved) => {
+                  if (isApproved) {
+                    fetch("/api/admin/approvepost", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        id: item.id,
+                        type: type,
+                      }),
+                    }).then((res) => res.json())
+                      .then((resj) => {
+                        if (resj.success) {
+                          setData(data.filter((d) => d.id !== item.id));
+                        }
+                      });
+                  }
+                }}
               />
             })
           }
