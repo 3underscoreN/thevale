@@ -21,6 +21,8 @@ Contribution to the project is welcomed. Please open a pull request to `develop`
 ## Deployment
 You need to have a PostgreSQL database running. This project uses Neon for the database. You can sign up for an account at [Neon](https://neon.tech/).
 
+You also need a Clerk account for authentication when you use the admin panel. You can sign up for an account at [Clerk](https://clerk.dev/).
+
 1. Clone the repository
 ```bash
 git clone https://github.com/3underscoreN/theVale; cd theVale
@@ -34,6 +36,8 @@ npm install
 // File: .env.local
 DATABASE_URL="postgresql://..."
 DATABASE_URL_DEV="postgresql://..."
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_..."
+CLERK_SECRET_KEY="sk_test_..."
 ```
 4. Run the server
 ```bash
