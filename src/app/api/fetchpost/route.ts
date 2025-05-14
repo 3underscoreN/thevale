@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { neon } from "@neondatabase/serverless";
+import { sql } from "@/app/api/sql";
 
 import { Item }  from "@/interfaces/item";
 
+import { z } from "zod";
+
 const PAGE_SIZE = 10;
+
+const fetchPostSchema = z.object({
+  page: z.number({ coerce: true }).int().positive().default(1),
+  fetchType: z.enum(["silent", "starlight"]),
+});
 
 function normalizePage(inputPage: number | null, totalPages: number): number {
   if (totalPages <= 0) {
@@ -21,22 +28,21 @@ function normalizePage(inputPage: number | null, totalPages: number): number {
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
-  const page = searchParams.get("page");
-  const fetchType = searchParams.get("fetchType");
-  
-  if (fetchType !== "silent" && fetchType !== "starlight") {
+
+  const fetchPostData = fetchPostSchema.safeParse({
+    page: searchParams.get("page"),
+    fetchType: searchParams.get("fetchType"),
+  });
+
+  if (!fetchPostData.success) {
     return NextResponse.json({
       success: false,
-      error: "Invalid fetchType",
+      error: fetchPostData.error.format(),
       data: null,
-    });
+    }, { status: 400 });
   }
 
-  const pageNumber = parseInt(page as string, 10);
-
-  const sql = (process.env.NODE_ENV === 'production') ? 
-      neon(`${process.env.DATABASE_URL}`) :
-      neon(`${process.env.DATABASE_URL_DEV}`);
+  const { page, fetchType } = fetchPostData.data;
 
   let 
     data: Record<string, Item>[],
@@ -48,7 +54,7 @@ export async function GET(request: NextRequest) {
     case "silent":
       itemCount = (await sql`SELECT COUNT(*) FROM silent_comments WHERE status = 'approved';`) as { count: number }[];
       maxPage = Math.max(1, Math.ceil(itemCount[0].count / PAGE_SIZE));
-      actualPage = normalizePage(pageNumber, maxPage);
+      actualPage = normalizePage(page, maxPage);
       offset = (actualPage - 1) * PAGE_SIZE;
       data = await sql`SELECT id, name, content, created_at, reply_count FROM silent_comments
         WHERE status = 'approved'
@@ -59,7 +65,7 @@ export async function GET(request: NextRequest) {
     case "starlight":
       itemCount = (await sql`SELECT COUNT(*) FROM starlight_comments WHERE status = 'approved';`) as { count: number }[];
       maxPage = Math.max(1, Math.ceil(itemCount[0].count / PAGE_SIZE));
-      actualPage = normalizePage(pageNumber, maxPage);
+      actualPage = normalizePage(page, maxPage);
       offset = (actualPage - 1) * PAGE_SIZE;
       data = await sql`SELECT id, name, content, created_at, reply_count FROM starlight_comments
         WHERE status = 'approved'
@@ -68,6 +74,7 @@ export async function GET(request: NextRequest) {
         OFFSET ${offset};`;
       break;
   }
+
   return NextResponse.json({
     success: true,
     error: null,

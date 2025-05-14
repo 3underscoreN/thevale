@@ -3,6 +3,8 @@
 
 import React, { useState, useEffect } from "react";
 
+import { useRouter } from "next/navigation";
+
 import {
   Card,
   CardHeader,
@@ -42,6 +44,8 @@ export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
   const [error, setError] = useState(null);
   const [op, setOp] = useState<Item | null>(null); {/* This is the original card in viewing replies */ }
 
+  const router = useRouter();
+
   useEffect(() => {
     const apiToFetch = isReply ? "fetchreply" : "fetchpost";
     fetch(`/api/${apiToFetch}?page=${currentPage}&fetchType=${cardType}&id=${id}`)
@@ -52,7 +56,10 @@ export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
           setOp(resj.op);
           setTotalPage(Math.ceil(resj.totalPage));
         } else {
-          console.error("Error fetching data:", resj.error);
+          setError(resj.error);
+          if (resj.error === "The original post does not exist.") {
+            router.push("/404");
+          }
         }
       }
       )
@@ -60,7 +67,7 @@ export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
         setError(error);
       }
       );
-  }, [currentPage, cardType, id, isReply]);
+  }, [currentPage, cardType, id, isReply, router]);
 
   if (!data) {
     return (

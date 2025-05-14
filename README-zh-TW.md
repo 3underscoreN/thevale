@@ -20,6 +20,8 @@ _也有 [English](README.md)。_
 ## 部署
 在部署這個專案以前，你需要有一個 PostgreSQL 資料庫運行。這個專案使用 Neon 作為資料庫。你可以在 [Neon](https://neon.tech/) 註冊帳號。
 
+你也需要一個 Clerk 帳號來進行管理面板的認證。你可以在 [Clerk](https://clerk.dev/) 註冊帳號。
+
 1. 複製專案
 ```bash
 git clone https://github.com/3underscoreN/theVale; cd theVale
@@ -34,6 +36,8 @@ npm install
 // 檔案: .env.local
 DATABASE_URL="postgresql://..."
 DATABASE_URL_DEV="postgresql://..."
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_..."
+CLERK_SECRET_KEY="sk_test_..."
 ```
 
 4. 啟動伺服器
