@@ -53,36 +53,41 @@ export default function AdminPage() {
           </Select>
           {loading ?
             <>
-              <Skeleton className="h-64 w-full bg-card rounded-xl my-4" />
-              <Skeleton className="h-64 w-full bg-card rounded-xl my-4" />
-              <Skeleton className="h-64 w-full bg-card rounded-xl my-4" />
-              <Skeleton className="h-64 w-full bg-card rounded-xl my-4" />
+              {
+                new Array(10).fill(0).map((_, index) => {
+                  return <Skeleton key={index} className="h-64 w-full bg-card rounded-xl my-4" />
+                })
+              }
             </>
-            : data.map((item, index) => {
-              return <ViewCardAdmin
-                className="my-4"
-                key={index}
-                datum={item}
-                approveOrDeclineCallBack={(isApproved) => {
-                  fetch(`/api/admin/${isApproved ? "approvepost" : "declinepost"}`, {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      id: item.id,
-                      type: type,
-                    }),
-                  })
-                  .then((res) => res.json())
-                  .then((resj) => {
-                    if (resj.success) {
-                      setData(data.filter((d) => d.id !== item.id));
-                    }
-                  });
-                }}
-              />
-            })
+            : (
+              data.length > 0 ?
+                data.map((item, index) => {
+                  return <ViewCardAdmin
+                    className="my-4"
+                    key={index}
+                    datum={item}
+                    approveOrDeclineCallBack={(isApproved) => {
+                      fetch(`/api/admin/${isApproved ? "approvepost" : "declinepost"}`, {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                          id: item.id,
+                          type: type,
+                        }),
+                      })
+                        .then((res) => res.json())
+                        .then((resj) => {
+                          if (resj.success) {
+                            setData(data.filter((d) => d.id !== item.id));
+                          }
+                        });
+                    }}
+                  />
+                })
+                : <div className="text-center text-lg my-8">沒有留言。辛苦了！</div>
+            )
           }
         </div>
       </div>
