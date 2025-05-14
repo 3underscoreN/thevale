@@ -23,13 +23,13 @@ export async function GET(request: NextRequest) {
       data = await sql`
         SELECT id, name, content, created_at, reply_count FROM starlight_comments
         WHERE status = 'pending'
-        ORDER BY created_at DESC;`;
+        ORDER BY created_at ASC;`;
       break;
     case "silent":
       data = await sql`
         SELECT id, name, content, created_at, reply_count FROM silent_comments
         WHERE status = 'pending'
-        ORDER BY created_at DESC;`;
+        ORDER BY created_at ASC;`;
       break;
   }
   return NextResponse.json({
