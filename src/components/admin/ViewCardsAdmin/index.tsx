@@ -65,7 +65,13 @@ export default function ViewCardAdmin({ datum, approveOrDeclineCallBack, classNa
                         className="hover:cursor-pointer">
                         <FontAwesomeIcon icon={faCheck} className="mx-2" />
                       </Button>
-                      <Button variant="destructive" className="hover:cursor-pointer">
+                      <Button 
+                        onClick={() => {
+                          setApproveOpened(false);
+                        }}
+                        variant="destructive" 
+                        className="hover:cursor-pointer"
+                      >
                         <FontAwesomeIcon icon={faBan} className="mx-2" />
                       </Button>
                     </div>
@@ -91,11 +97,17 @@ export default function ViewCardAdmin({ datum, approveOrDeclineCallBack, classNa
                           setDeclineOpened(false);
                           approveOrDeclineCallBack?.(false);
                         }} 
-                        variant="destructive" 
+                        variant="default" 
                         className="hover:cursor-pointer">
                         <FontAwesomeIcon icon={faCheck} className="mx-2" />
                       </Button>
-                      <Button variant="default" className="hover:cursor-pointer">
+                      <Button 
+                        onClick={() => {
+                          setDeclineOpened(false);
+                        }}
+                        variant="destructive" 
+                        className="hover:cursor-pointer"
+                      >
                         <FontAwesomeIcon icon={faBan} className="mx-2" />
                       </Button>
                     </div>
