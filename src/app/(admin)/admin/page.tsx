@@ -17,15 +17,17 @@ type responseFormat = {
 }
 
 type fetchType = "silent" | "starlight";
+type sourceType = "post" | "reply"; 
 
 export default function AdminPage() {
   const [data, setData] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
+  const [source, setSource] = useState<sourceType>("post");
   const [type, setType] = useState<fetchType>("silent");
 
   useEffect(() => {
     setLoading(true);
-    fetch(`/api/admin/fetchpendingpost?fetchType=${type}`)
+    fetch(`/api/admin/fetchpending${source}?fetchType=${type}`)
       .then((res) => res.json())
       .then((resj: responseFormat) => {
         if (resj.success) {
@@ -34,7 +36,7 @@ export default function AdminPage() {
       }
       );
     setLoading(false);
-  }, [type]);
+  }, [type, source]);
 
   return (
     <>
@@ -42,6 +44,16 @@ export default function AdminPage() {
         <h1 className="text-4xl font-bold mt-16 mb-8">管理員介面</h1>
         <p className="text-lg mb-8">這裡是管理員介面，您可以在這裡查看和批准留言。</p>
         <div className="my-8 w-full md:w-3/4">
+          <Select onValueChange={setSource as (value: sourceType) => void} name="source" defaultValue="post">
+            <SelectTrigger>
+              <SelectValue placeholder="選擇來源..." />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="post">回聲</SelectItem>
+              <SelectItem value="reply">共鳴</SelectItem>
+            </SelectContent>
+          </Select>
+          <div className="my-4" />
           <Select onValueChange={setType as (value: fetchType) => void} name="type" defaultValue="silent">
             <SelectTrigger>
               <SelectValue placeholder="選擇留言..." />
@@ -67,7 +79,7 @@ export default function AdminPage() {
                     key={index}
                     datum={item}
                     approveOrDeclineCallBack={(isApproved) => {
-                      fetch(`/api/admin/${isApproved ? "approvepost" : "declinepost"}`, {
+                      fetch(`/api/admin/${isApproved ? `approve${source}` : `decline${source}`}`, {
                         method: "POST",
                         headers: {
                           "Content-Type": "application/json",
