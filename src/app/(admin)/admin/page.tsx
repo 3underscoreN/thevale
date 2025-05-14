@@ -64,23 +64,22 @@ export default function AdminPage() {
                 key={index}
                 datum={item}
                 approveOrDeclineCallBack={(isApproved) => {
-                  if (isApproved) {
-                    fetch("/api/admin/approvepost", {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify({
-                        id: item.id,
-                        type: type,
-                      }),
-                    }).then((res) => res.json())
-                      .then((resj) => {
-                        if (resj.success) {
-                          setData(data.filter((d) => d.id !== item.id));
-                        }
-                      });
-                  }
+                  fetch(`/api/admin/${isApproved ? "approvepost" : "declinepost"}`, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      id: item.id,
+                      type: type,
+                    }),
+                  })
+                  .then((res) => res.json())
+                  .then((resj) => {
+                    if (resj.success) {
+                      setData(data.filter((d) => d.id !== item.id));
+                    }
+                  });
                 }}
               />
             })
