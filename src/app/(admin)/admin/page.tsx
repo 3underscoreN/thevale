@@ -26,16 +26,21 @@ export default function AdminPage() {
   const [type, setType] = useState<fetchType>("silent");
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`/api/admin/fetchpending${source}?fetchType=${type}`)
-      .then((res) => res.json())
-      .then((resj: responseFormat) => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/admin/fetchpending${source}?fetchType=${type}`);
+        const resj: responseFormat = await res.json();
         if (resj.success) {
           setData(resj.data);
         }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
-      );
-    setLoading(false);
+    };
+    fetchData();
   }, [type, source]);
 
   return (
