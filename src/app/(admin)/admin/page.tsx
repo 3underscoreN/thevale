@@ -17,7 +17,7 @@ type responseFormat = {
 }
 
 type fetchType = "silent" | "starlight";
-type sourceType = "post" | "reply"; 
+type sourceType = "post" | "reply";
 
 export default function AdminPage() {
   const [data, setData] = useState<Item[]>([]);
@@ -42,6 +42,25 @@ export default function AdminPage() {
     };
     fetchData();
   }, [type, source]);
+
+  function approveOrDeclineCallBack(isApproved: boolean, item: Item) {
+    fetch(`/api/admin/${isApproved ? `approve${source}` : `decline${source}`}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: item.id,
+        type: type,
+      }),
+    })
+      .then((res) => res.json())
+      .then((resj) => {
+        if (resj.success) {
+          setData(data.filter((d) => d.id !== item.id));
+        }
+      });
+  }
 
   return (
     <>
@@ -84,22 +103,7 @@ export default function AdminPage() {
                     key={index}
                     datum={item}
                     approveOrDeclineCallBack={(isApproved) => {
-                      fetch(`/api/admin/${isApproved ? `approve${source}` : `decline${source}`}`, {
-                        method: "POST",
-                        headers: {
-                          "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                          id: item.id,
-                          type: type,
-                        }),
-                      })
-                        .then((res) => res.json())
-                        .then((resj) => {
-                          if (resj.success) {
-                            setData(data.filter((d) => d.id !== item.id));
-                          }
-                        });
+                      approveOrDeclineCallBack(isApproved, item);
                     }}
                   />
                 })
