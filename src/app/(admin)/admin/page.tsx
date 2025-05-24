@@ -61,7 +61,7 @@ export default function AdminPage() {
       .then((resj) => {
         if (resj.success) {
           toast.success(`已${isApproved ? "批准" : "拒絕"}留言。`);
-          setData(data.filter((d) => d.id !== item.id));
+          setData((prev) => prev.filter((d) => d.id !== item.id));
         }
       }).catch((error) => {
         toast.error(`操作發生了錯誤！`, {action: { label: "複製錯誤訊息", onClick: () => navigator.clipboard.writeText(error.message) }});
