@@ -10,6 +10,8 @@ import {
   SignedIn
 } from '@clerk/nextjs'
 
+import { Toaster } from '@/components/ui/sonner';
+
 import { zhTW } from '@clerk/localizations';
 
 import { dark } from '@clerk/themes';
@@ -45,6 +47,7 @@ export default function AdminLayout({
             </Button>
           </SignOutButton>
         </div>
+        <Toaster />
         <div className="bg-[url(/asset/background.jpg)] bg-fixed bg-cover bg-no-repeat bg-center" tabIndex={-1}>
           {children}
         </div>

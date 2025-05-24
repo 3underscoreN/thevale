@@ -11,13 +11,15 @@ import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
+import { toast } from "sonner";
+
 type responseFormat = {
   success: boolean;
   data: Item[];
 }
 
 type fetchType = "silent" | "starlight";
-type sourceType = "post" | "reply"; 
+type sourceType = "post" | "reply";
 
 export default function AdminPage() {
   const [data, setData] = useState<Item[]>([]);
@@ -26,6 +28,7 @@ export default function AdminPage() {
   const [type, setType] = useState<fetchType>("silent");
 
   useEffect(() => {
+    /* Initial fetch */
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -42,6 +45,28 @@ export default function AdminPage() {
     };
     fetchData();
   }, [type, source]);
+
+  function approveOrDeclineCallBack(isApproved: boolean, item: Item) {
+    fetch(`/api/admin/${isApproved ? `approve${source}` : `decline${source}`}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: item.id,
+        type: type,
+      }),
+    })
+      .then((res) => res.json())
+      .then((resj) => {
+        if (resj.success) {
+          toast.success(`已${isApproved ? "批准" : "拒絕"}留言。`);
+          setData((prev) => prev.filter((d) => d.id !== item.id));
+        }
+      }).catch((error) => {
+        toast.error(`操作發生了錯誤！`, {action: { label: "複製錯誤訊息", onClick: () => navigator.clipboard.writeText(error.message) }});
+      });
+  }
 
   return (
     <>
@@ -84,22 +109,7 @@ export default function AdminPage() {
                     key={index}
                     datum={item}
                     approveOrDeclineCallBack={(isApproved) => {
-                      fetch(`/api/admin/${isApproved ? `approve${source}` : `decline${source}`}`, {
-                        method: "POST",
-                        headers: {
-                          "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                          id: item.id,
-                          type: type,
-                        }),
-                      })
-                        .then((res) => res.json())
-                        .then((resj) => {
-                          if (resj.success) {
-                            setData(data.filter((d) => d.id !== item.id));
-                          }
-                        });
+                      approveOrDeclineCallBack(isApproved, item);
                     }}
                   />
                 })
