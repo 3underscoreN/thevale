@@ -11,6 +11,8 @@ import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
+import { toast } from "sonner";
+
 type responseFormat = {
   success: boolean;
   data: Item[];
@@ -26,6 +28,7 @@ export default function AdminPage() {
   const [type, setType] = useState<fetchType>("silent");
 
   useEffect(() => {
+    /* Initial fetch */
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -57,8 +60,11 @@ export default function AdminPage() {
       .then((res) => res.json())
       .then((resj) => {
         if (resj.success) {
+          toast.success(`已${isApproved ? "批准" : "拒絕"}留言。`);
           setData(data.filter((d) => d.id !== item.id));
         }
+      }).catch((error) => {
+        toast.error(`操作發生了錯誤！`, {action: { label: "複製錯誤訊息", onClick: () => navigator.clipboard.writeText(error.message) }});
       });
   }
 
