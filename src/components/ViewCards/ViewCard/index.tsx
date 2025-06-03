@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Item }  from "@/interfaces/item";
 
-import { faArrowRight, faComments } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faComments, faShareNodes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { toast } from "sonner";
 
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 
@@ -21,6 +23,19 @@ type ViewCardProps = {
 
 export default function ViewCard({datum, cardType, isReply, className}: ViewCardProps) {
   const replyDestination = cardType === "silent" ? "viewsilent" : "viewstarlight";
+  const writeToClipboardAndToast = (text: string) => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => {
+        toast.success("已複製連結！")
+      }).catch((err) => {
+        console.error("Failed to copy: ", err);
+        toast.error("複製連結失敗。");
+      });
+    } else {
+      console.warn("Clipboard API not supported.");
+      toast.error("複製連結失敗。");
+    }
+  }
 
   return (
     <>
@@ -42,6 +57,9 @@ export default function ViewCard({datum, cardType, isReply, className}: ViewCard
         </CardContent>
         <CardFooter>
           <div className={`flex w-full justify-end place-items-center space-x-4 ${isReply ? "hidden" : ""}`} data-testid={`reply-view-${datum.id}`}>
+            <Button variant="outline" size="icon" className="hover:cursor-pointer" onClick={() => writeToClipboardAndToast(`https://thevale.top/${replyDestination}/${datum.id}`)}>
+              <FontAwesomeIcon icon={faShareNodes} />
+            </Button>
             <span className="text-sm text-gray-300">
               <FontAwesomeIcon className="mx-2" icon={faComments} />
               <span data-testid={`reply-count-${datum.id}`}>{datum.reply_count ?? "-"}</span>
