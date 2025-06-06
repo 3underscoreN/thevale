@@ -16,7 +16,7 @@ export default async function Page(params: { params: Promise<{ id: string }> }) 
   // const data = await res.json();
 
   return (
-    <div className="flex flex-col items-center justify-center px-4 py-16 backdrop-blur-md backdrop-brightness-50">
+    <div className="flex flex-col items-center justify-center">
       <div className="mt-16 mb-8 w-full md:w-3/4">
         <Button variant="outline" asChild>
           <Link href="/viewsilent">
