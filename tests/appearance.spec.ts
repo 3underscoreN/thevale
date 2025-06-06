@@ -16,7 +16,7 @@ test('Has headings', async ({ page }) => {
   const heading2 = page.locator('h2');
 
   await expect(heading1).toHaveText(/山谷/);
-  await expect(heading2).toHaveText(/有甚麼想說的嗎？/);
+  await expect(heading2).toHaveText(/想分享心裏的思緒嗎？/);
 
   
   await expect(heading1).toBeVisible();

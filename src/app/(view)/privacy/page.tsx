@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Privacy() {
   return (
     <>
-      <div className="flex flex-col items-center justify-center px-4 py-16 backdrop-blur-md backdrop-brightness-50">
+      <div className="flex flex-col items-center justify-center">
         <h1 className="text-4xl font-bold mt-16 mb-8">私隱聲明</h1>
         <p className="text-lg mb-8">山谷收集的資料，在此一一說明。</p>
         <Card className="my-16 w-full md:w-3/4">
