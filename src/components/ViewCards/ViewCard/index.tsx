@@ -57,7 +57,7 @@ export default function ViewCard({datum, cardType, isReply, className}: ViewCard
         </CardContent>
         <CardFooter>
           <div className={`flex w-full justify-end place-items-center space-x-4 ${isReply ? "hidden" : ""}`} data-testid={`reply-view-${datum.id}`}>
-            <Button variant="outline" size="icon" className="hover:cursor-pointer" onClick={() => writeToClipboardAndToast(`https://thevale.top/${replyDestination}/${datum.id}`)}>
+            <Button variant="outline" size="icon" className="hover:cursor-pointer" aria-label="分享連結" onClick={() => writeToClipboardAndToast(`https://thevale.top/${replyDestination}/${datum.id}`)}>
               <FontAwesomeIcon icon={faShareNodes} />
             </Button>
             <span className="text-sm text-gray-300">
