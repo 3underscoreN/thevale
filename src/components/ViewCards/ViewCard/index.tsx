@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 import Link from "next/link";
+import { useCallback } from "react";
 
 type ViewCardProps = {
   datum: Item;
@@ -23,7 +24,7 @@ type ViewCardProps = {
 
 export default function ViewCard({datum, cardType, isReply, className}: ViewCardProps) {
   const replyDestination = cardType === "silent" ? "viewsilent" : "viewstarlight";
-  const writeToClipboardAndToast = (text: string) => {
+  const writeToClipboardAndToast = useCallback((text: string) => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(text).then(() => {
         toast.success("已複製連結！")
@@ -35,7 +36,7 @@ export default function ViewCard({datum, cardType, isReply, className}: ViewCard
       console.warn("Clipboard API not supported.");
       toast.error("複製連結失敗。");
     }
-  }
+  }, []);
 
   return (
     <>
