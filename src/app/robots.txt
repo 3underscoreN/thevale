@@ -1,3 +1,3 @@
 User-Agent: *
 Allow: /
-Disallow: /viewsilent /viewstarlight
+Disallow: /viewsilent /viewstarlight /admin
