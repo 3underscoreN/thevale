@@ -9,6 +9,16 @@ A simple website for people to leave their emotion as an echo, and for listening
 
 This project is deployed on [Vercel](https://thevale.top).
 
+## Project status
+
+As i get increasingly busier with academics and work, this project is currently not in active development.
+
+However, I will still try my best to maintain the current production deployment, as well as attempting to change the code such that it's more friendly for other developers.
+
+This doesn't mean the project will be abandonded. 
+
+So as you - you're an important individual. Thank you for trying your best to survive.
+
 ## Stack
 
 ![Next.js](https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
