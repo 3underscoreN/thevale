@@ -1,15 +1,14 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import Link from 'next/link';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 import { Message, MessageContent } from '@/components/message';
-
 
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
@@ -18,21 +17,42 @@ import { Conversation, ConversationContent, ConversationScrollButton } from '@/c
 import { Response } from '@/components/response';
 import { Loader } from '@/components/loader';
 
+import { useEffect } from 'react';
+
+import { cn, isMacLike, delay } from '@/lib/utils';
+
 export default function Chat() {
+  const [macLike, setMacLike] = useState(false);
   const [input, setInput] = useState('');
-  const { messages, sendMessage, status } = useChat({
+  const { messages, sendMessage, status, error, clearError } = useChat({
     transport: new DefaultChatTransport({
       api: '/api/chatbot'
     }),
+    onError: async (error) => {
+      console.error('Error sending message:', error);
+      await delay(3000);
+      clearError();
+    }
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (input.trim()) {
-      sendMessage({text: input});
+      sendMessage({ text: input });
       setInput('');
     }
   }
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if ((macLike && e.key === 'Enter' && e.metaKey) || (!macLike && e.key === 'Enter' && e.ctrlKey)) {
+      e.preventDefault();
+      (e.target as HTMLTextAreaElement).form?.requestSubmit();
+    }
+  }
+
+  useEffect(() => {
+    setMacLike(isMacLike(window));
+  }, [])
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -53,6 +73,7 @@ export default function Chat() {
                 </Button>
                 以瞭解我們如何收集、使用所提供的數據，以及你所擁有的權利。
               </li>
+              <li>服務提供商會過濾有關自傷的內容。對此限制我們深感抱歉，並正在尋求改善方案。</li>
               <li>山谷聽友可能因技術調整、伺服器等因素而暫停運作。我們無法保證山谷聽友隨時可用。</li>
             </ol>
           </CardDescription>
@@ -81,26 +102,33 @@ export default function Chat() {
             <ConversationScrollButton />
           </Conversation>
         </CardContent>
+        <hr />
         <form onSubmit={handleSubmit}>
           <Card className="mx-5">
             <CardContent>
-              <Textarea 
-                className="w-full border-none resize-none"
-                value={input} 
-                onChange={(e) => setInput(e.target.value)} 
-                placeholder="輸入訊息..." 
-              />
+              <div className="flex justify-end-safe place-items-center gap-x-2">
+                <div className="flex w-full flex-col gap-y-2">
+                  <Textarea
+                    className="w-full border-none resize-none"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="輸入訊息..."
+                    onKeyDown={handleKeyPress}
+                  />
+                  <p className={cn("text-muted-foreground text-xs", error && "text-red-500")}>
+                    {error ? "生成回覆時發生錯誤。" : (macLike ? "按 ⌘ + Enter 發送訊息" : "按 Ctrl + Enter 發送訊息")}
+                  </p>
+                </div>
+                <Button
+                  variant={error ? "destructive" : "default"}
+                  type="submit"
+                  aria-label="發送訊息"
+                  disabled={status !== 'ready'}
+                >
+                  {status === 'ready' ? <FontAwesomeIcon icon={faArrowUp} /> : (error ? <FontAwesomeIcon icon={faExclamationTriangle} /> : <Loader />)}
+                </Button>
+              </div>
             </CardContent>
-            <CardFooter className="flex justify-end">
-              <Button 
-                variant="default" 
-                type="submit" 
-                aria-label="Send message" 
-                disabled={status !== 'ready'}
-              >
-                {status === 'ready' ? <FontAwesomeIcon icon={faArrowUp} /> : <Loader />}
-              </Button>
-            </CardFooter>
           </Card>
         </form>
       </Card>
