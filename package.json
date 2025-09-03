@@ -41,6 +41,7 @@
     "react-dom": "^19.1.1",
     "react-markdown": "^10.1.0",
     "react-syntax-highlighter": "^15.6.6",
+    "redis": "^5.8.2",
     "sonner": "^2.0.7",
     "streamdown": "^1.1.8",
     "tailwind-merge": "^3.3.1",
