@@ -15,9 +15,7 @@ As i get increasingly busier with academics and work, this project is currently 
 
 However, I will still try my best to maintain the current production deployment, as well as attempting to change the code such that it's more friendly for other developers.
 
-This doesn't mean the project will be abandonded. 
-
-So as you - you're an important individual. Thank you for trying your best to survive.
+This doesn't mean the project will be abandoned.
 
 ## Stack
 
@@ -31,7 +29,7 @@ Contribution to the project is welcomed. Please open a pull request to `develop`
 ## Deployment
 You need to have a PostgreSQL database running. This project uses Neon for the database. You can sign up for an account at [Neon](https://neon.tech/).
 
-You also need a Clerk account for authentication when you use the admin panel. You can sign up for an account at [Clerk](https://clerk.dev/).
+You also need an Upstash redis, an Azure OpenAI deployment and a Clerk account.
 
 1. Clone the repository
 ```bash
@@ -39,16 +37,10 @@ git clone https://github.com/3underscoreN/theVale; cd theVale
 ```
 2. Install dependencies
 ```bash
-npm install
+npm ci
 ```
-3. Create a `.env` file in the root directory and add the URL to the database:
-```bash
-// File: .env.local
-DATABASE_URL="postgresql://..."
-DATABASE_URL_DEV="postgresql://..."
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_..."
-CLERK_SECRET_KEY="sk_test_..."
-```
+3. Populate `.env.local.example` and rename it to `.env.local`.
+
 4. Run the server
 ```bash
 npm run dev
