@@ -13,7 +13,7 @@ export default function Privacy() {
               山谷 —— 私隱聲明
             </CardTitle>
             <CardDescription className="text-md">
-              <p className="text-md mt-4">最後更新日期：2025年5月15日</p>
+              <p className="text-md mt-4">最後更新日期：2025年9月4日</p>
             </CardDescription>
           </CardHeader>
           <hr />
@@ -32,14 +32,19 @@ export default function Privacy() {
                 匿名留言內容：你在「創造回聲」提交的留言或會被顯示於「靜谷之聲」或「星光之聲」頁面中。
                 同時，你在任何「與此回聲共鳴...」頁面中留下的留言，也或會被展示於與其相關聯的留言之「共鳴」頁面中。
               </li>
+              <li>
+                「山谷聽友」對話內容：你與「山谷聽友」之間的對話內容會被我們用於改善「山谷聽友」的服務。
+              </li>
             </ul>
-              <p>我們不會收集任何可直接識別你身份的個人資料（如姓名、電郵或電話號碼）。</p>
+              <p>我們不會主動收集任何可直接識別你身份的個人資料（如姓名、電郵或電話號碼）。</p>
             <h2 className="pt-8 text-lg font-bold">資料分享與披露</h2>
             <p>除下列情況外，我們不會將你的資料出售或出租給第三方：</p>
             <ul className="list-disc list-inside space-y-2">
               <li>服務提供商：我們可能會將資料分享給第三方服務提供商（如Vercel），以協助我們運營「山谷」。
                 這些服務提供商受其界定的私隱聲明約束。可以參考
                 <Link href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline underline-offset-2">Vercel的私隱聲明</Link>
+                以及
+                <Link href="https://learn.microsoft.com/en-us/azure/ai-foundry/responsible-ai/openai/data-privacy?tabs=azure-portal" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline underline-offset-2">Microsoft Azure OpenAI關於數據、隱私與安全的聲明</Link>
                 了解更多。</li>
               <li>法律要求：若香港法律或法庭命令要求，我們可能需提供IP地址或裝置元數據。</li>
             </ul>
