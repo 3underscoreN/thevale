@@ -35,12 +35,12 @@ export async function POST(request: NextRequest) {
     return new NextResponse("Rate limit exceeded", { status: 429 });
   }
 
-  const message: { messages: UIMessage[] } = await request.json();
+  const chatRequest: { messages: UIMessage[] } = await request.json();
 
   const result = await streamText({
     model: azure("gpt-4o-mini"),
     system: prompt.systemPrompt,
-    messages: convertToModelMessages(message.messages),
+    messages: convertToModelMessages(chatRequest.messages),
     maxRetries: 1,
     experimental_telemetry: {
       tracer: getTracer(),
