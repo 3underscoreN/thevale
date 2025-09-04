@@ -1,5 +1,6 @@
 import { createAzure } from '@ai-sdk/azure';
 import { streamText, UIMessage, convertToModelMessages } from 'ai';
+import prompt from './prompt.json';
 
 import { redis } from '@/app/api/redisdb';
 import { Ratelimit } from '@upstash/ratelimit';
@@ -38,6 +39,7 @@ export async function POST(request: NextRequest) {
 
   const result = await streamText({
     model: azure("gpt-4o-mini"),
+    system: prompt.systemPrompt,
     messages: convertToModelMessages(message.messages),
     maxRetries: 1,
     experimental_telemetry: {
