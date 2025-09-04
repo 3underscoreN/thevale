@@ -5,7 +5,7 @@ import prompt from './prompt.json';
 import { redis } from '@/app/api/redisdb';
 import { Ratelimit } from '@upstash/ratelimit';
 
-import { getTracer } from '@lmnr-ai/lmnr';
+import { Laminar, getTracer } from '@lmnr-ai/lmnr';
 
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -43,10 +43,17 @@ export async function POST(request: NextRequest) {
     messages: convertToModelMessages(chatRequest.messages),
     maxRetries: 1,
     experimental_telemetry: {
-      tracer: getTracer(),
       isEnabled: true,
+      tracer: getTracer(),
     },
   });
 
-  return result.toUIMessageStreamResponse();
+      try {
+        await Laminar.flush();
+      } catch (error) {
+        // Optionally log the error or handle it as needed
+        console.error('Error flushing Laminar:', error);
+      }
+    }
+  });
 }

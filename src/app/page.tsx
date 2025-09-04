@@ -49,6 +49,11 @@ export default function Home() {
               星光之聲
             </Link>
           </Button>
+          <Button data-testid="chatbot" className="text-2xl min-h-12 bg-pink-600 hover:bg-pink-100" asChild>
+            <Link href="/chatbot">
+              山谷聽友
+            </Link>
+          </Button>
         </div>
       </div>
     </>
