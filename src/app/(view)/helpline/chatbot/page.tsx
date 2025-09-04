@@ -78,7 +78,7 @@ export default function Chat() {
             <ol className="list-decimal list-inside space-y-4">
               <li>山谷聽友不能取代專業心理醫生以及心理諮商。如果需要更深入的幫助，請尋求專業心理健康資源。</li>
               <li>我們希望山谷聽友能夠幫助每個人，所以請避免惡意使用山谷聽友，包括但不限於提示詞注入、發送不恰當信息等。</li>
-              <li>在使用山谷聽友時，請盡量分享過於敏感的資訊。請參考
+              <li>在使用山谷聽友時，請避免分享過於敏感的資訊。請參考
                 <Button variant="link" size="icon" className="text-blue-500 inline text-md" asChild>
                   <Link href="/privacy">
                     私隱聲明
