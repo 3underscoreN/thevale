@@ -1,8 +1,7 @@
+import { registerOTel } from '@vercel/otel';
+
 export async function register() {
-  const { registerOTel } = await import('@vercel/otel');
-  registerOTel({
-    serviceName: 'the-vale-observability',
-  });
+  registerOTel("the-vale-observability");
 
   if (process.env.NEXT_RUNTIME === "nodejs") {
     const { Laminar } = await import('@lmnr-ai/lmnr');
