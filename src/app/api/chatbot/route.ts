@@ -48,9 +48,12 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  return result.toUIMessageStreamResponse({
-    onFinish: async () => {
-      await Laminar.flush();
+      try {
+        await Laminar.flush();
+      } catch (error) {
+        // Optionally log the error or handle it as needed
+        console.error('Error flushing Laminar:', error);
+      }
     }
   });
 }
