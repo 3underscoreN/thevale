@@ -22,8 +22,9 @@ import { useEffect } from 'react';
 import { cn, isMacLike, delay } from '@/lib/utils';
 
 export default function Chat() {
-  const [macLike, setMacLike] = useState(false);
-  const [input, setInput] = useState('');
+  const [macLike, setMacLike] = useState<boolean>(false);
+  const [isFormSubmitError, setIsFormSubmitError] = useState<boolean>(false);
+  const [input, setInput] = useState<string>('');
   const { messages, sendMessage, status, error, clearError } = useChat({
     transport: new DefaultChatTransport({
       api: '/api/chatbot'
@@ -38,8 +39,13 @@ export default function Chat() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (input.trim()) {
+      if (isFormSubmitError) {
+        setIsFormSubmitError(false);
+      }
       sendMessage({ text: input });
       setInput('');
+    } else {
+      setIsFormSubmitError(true);
     }
   }
 
@@ -48,6 +54,13 @@ export default function Chat() {
       e.preventDefault();
       (e.target as HTMLTextAreaElement).form?.requestSubmit();
     }
+  }
+
+  const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (isFormSubmitError) {
+      setIsFormSubmitError(false);
+    }
+    setInput(e.target.value);
   }
 
   useEffect(() => {
@@ -99,7 +112,7 @@ export default function Chat() {
                 </Message>
               )}
             </ConversationContent>
-            <ConversationScrollButton />
+            <ConversationScrollButton className='backdrop-blur-md animate-bounce hover:cursor-pointer' />
           </Conversation>
         </CardContent>
         <hr />
@@ -109,21 +122,31 @@ export default function Chat() {
               <div className="flex justify-end-safe place-items-center gap-x-2">
                 <div className="flex w-full flex-col gap-y-2">
                   <Textarea
-                    className="w-full border-none resize-none"
+                    className={cn("w-full border-none resize-none")}
                     value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                    onChange={handleTextAreaChange}
                     placeholder="輸入訊息..."
                     onKeyDown={handleKeyPress}
                   />
-                  <p className={cn("text-muted-foreground text-xs", error && "text-red-500")}>
-                    {error ? "生成回覆時發生錯誤。" : (macLike ? "按 ⌘ + Enter 發送訊息" : "按 Ctrl + Enter 發送訊息")}
+                  <p className={cn("text-muted-foreground text-xs", (error || isFormSubmitError) && "text-red-500")}>
+                    {error
+                      ? "生成回覆時發生錯誤。"
+                      : (isFormSubmitError 
+                        ? "請填寫訊息。" 
+                        : (macLike
+                          ? "按 ⌘ + Enter 發送訊息" : "按 Ctrl + Enter 發送訊息"
+                        )
+                      )
+                    }
                   </p>
                 </div>
                 <Button
                   variant={error ? "destructive" : "default"}
+                  size="icon"
                   type="submit"
                   aria-label="發送訊息"
                   disabled={status !== 'ready'}
+                  className={cn("hover:cursor-pointer", "rounded-full", "text-center")}
                 >
                   {status === 'ready' ? <FontAwesomeIcon icon={faArrowUp} /> : (error ? <FontAwesomeIcon icon={faExclamationTriangle} /> : <Loader />)}
                 </Button>
