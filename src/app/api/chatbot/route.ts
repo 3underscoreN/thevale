@@ -5,8 +5,6 @@ import prompt from './prompt.json';
 import { redis } from '@/app/api/redisdb';
 import { Ratelimit } from '@upstash/ratelimit';
 
-import { getTracer } from '@lmnr-ai/lmnr';
-
 import { NextRequest, NextResponse } from 'next/server';
 
 export const maxDuration = 30;
@@ -43,7 +41,6 @@ export async function POST(request: NextRequest) {
     messages: convertToModelMessages(chatRequest.messages),
     maxRetries: 1,
     experimental_telemetry: {
-      tracer: getTracer(),
       isEnabled: true,
     },
   });
