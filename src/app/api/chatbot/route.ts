@@ -1,8 +1,10 @@
-import { createAzure } from '@ai-sdk/azure'
-import { streamText, UIMessage, convertToModelMessages } from 'ai'
+import { createAzure } from '@ai-sdk/azure';
+import { streamText, UIMessage, convertToModelMessages } from 'ai';
 
-import { redis } from '@/app/api/redisdb'
-import { Ratelimit } from '@upstash/ratelimit'
+import { redis } from '@/app/api/redisdb';
+import { Ratelimit } from '@upstash/ratelimit';
+
+import { getTracer } from '@lmnr-ai/lmnr';
 
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -38,6 +40,10 @@ export async function POST(request: NextRequest) {
     model: azure("gpt-4o-mini"),
     messages: convertToModelMessages(message.messages),
     maxRetries: 1,
+    experimental_telemetry: {
+      tracer: getTracer(),
+      isEnabled: true,
+    },
   });
 
   return result.toUIMessageStreamResponse();
