@@ -48,7 +48,9 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  await Laminar.flush();
-
-  return result.toUIMessageStreamResponse();
+  return result.toUIMessageStreamResponse({
+    onFinish: async () => {
+      await Laminar.flush();
+    }
+  });
 }
