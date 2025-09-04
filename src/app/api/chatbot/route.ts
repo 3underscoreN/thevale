@@ -5,6 +5,8 @@ import prompt from './prompt.json';
 import { redis } from '@/app/api/redisdb';
 import { Ratelimit } from '@upstash/ratelimit';
 
+import { Laminar, getTracer } from '@lmnr-ai/lmnr';
+
 import { NextRequest, NextResponse } from 'next/server';
 
 export const maxDuration = 30;
@@ -42,8 +44,11 @@ export async function POST(request: NextRequest) {
     maxRetries: 1,
     experimental_telemetry: {
       isEnabled: true,
+      tracer: getTracer(),
     },
   });
+
+  await Laminar.flush();
 
   return result.toUIMessageStreamResponse();
 }
