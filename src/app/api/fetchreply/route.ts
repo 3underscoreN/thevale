@@ -7,8 +7,8 @@ import { Item } from "@/interfaces/item";
 import { z } from "zod";
 
 const fetchReplySchema = z.object({
-  id: z.number({ coerce: true }).int().positive(),
-  page: z.number({ coerce: true }).int().positive().default(1),
+  id: z.coerce.number().int().positive(),
+  page: z.coerce.number().int().positive().default(1),
   fetchType: z.enum(["silent", "starlight"]),
 });
 
