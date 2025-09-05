@@ -32,7 +32,7 @@ export default function Chat() {
     onError: async (error) => {
       console.error('Error sending message:', error);
       await delay(3000);
-      setMessages(messages.slice(0, -1));
+      setMessages((prev) => prev.slice(0, -1));
       clearError();
     }
   });
