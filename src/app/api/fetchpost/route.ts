@@ -9,7 +9,7 @@ import { z } from "zod";
 const PAGE_SIZE = 10;
 
 const fetchPostSchema = z.object({
-  page: z.number({ coerce: true }).int().positive().default(1),
+  page: z.coerce.number().int().positive().default(1),
   fetchType: z.enum(["silent", "starlight"]),
 });
 

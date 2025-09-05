@@ -36,9 +36,9 @@ export default function HotLineCard() {
     <>
       <Card className="w-full md:w-3/4 rainbow-mesh border-[1] border-gray-500">
         <CardHeader>
-          <CardTitle className="backdrop-brightness-50 rounded-md my-4">
+          <CardTitle className="">
             <Select onValueChange={setRegion} name="region" autoComplete="off" defaultValue="hk">
-              <SelectTrigger>
+              <SelectTrigger className="backdrop-blur-xl backdrop-brightness-50 w-full md:w-auto">
                 <SelectValue placeholder="香港" />
               </SelectTrigger>
               <SelectContent>

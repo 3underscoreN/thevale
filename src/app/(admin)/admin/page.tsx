@@ -75,7 +75,7 @@ export default function AdminPage() {
         <p className="text-lg mb-8">這裡是管理員介面，您可以在這裡查看和批准留言。</p>
         <div className="my-8 w-full md:w-3/4">
           <Select onValueChange={setSource as (value: sourceType) => void} name="source" defaultValue="post">
-            <SelectTrigger>
+            <SelectTrigger className="w-full backdrop-blur-xl backdrop-brightness-50">
               <SelectValue placeholder="選擇來源..." />
             </SelectTrigger>
             <SelectContent>
@@ -85,7 +85,7 @@ export default function AdminPage() {
           </Select>
           <div className="my-4" />
           <Select onValueChange={setType as (value: fetchType) => void} name="type" defaultValue="silent">
-            <SelectTrigger>
+            <SelectTrigger className="w-full backdrop-blur-xl backdrop-brightness-50">
               <SelectValue placeholder="選擇留言..." />
             </SelectTrigger>
             <SelectContent>
