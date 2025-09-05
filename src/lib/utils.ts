@@ -5,6 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function isMacLike(window: Window): boolean {
   return window.navigator.userAgent.includes("Mac");
 }
 
