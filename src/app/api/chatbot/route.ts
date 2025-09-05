@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
   });
 
   return result.toUIMessageStreamResponse({
-    onFinish: async (_) => {
+    onFinish: async () => {
       await Laminar.flush();
     }
   });
