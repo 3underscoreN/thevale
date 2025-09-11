@@ -44,19 +44,3 @@ export default function BentoGridMenu({ className, ...props }: React.ComponentPr
     </div>
   );
 }
-    //   <Button data-testid="silent" className="text-2xl min-h-12 bg-blue-400 hover:bg-blue-100" asChild>
-    //     <Link href="/viewsilent">
-    //       靜谷之聲
-    //     </Link>
-    //   </Button>
-    //   <Button data-testid="starlight" className="text-2xl min-h-12 bg-orange-400 hover:bg-yellow-50" asChild>
-    //     <Link href="/viewstarlight">
-    //       星光之聲
-    //     </Link>
-    //   </Button>
-    //   <Button data-testid="chatbot" className="text-2xl min-h-12 bg-pink-600 hover:bg-pink-100" asChild>
-    //     <Link href="/chatbot">
-    //       山谷聽友
-    //     </Link>
-    //   </Button>
-    // </div>
