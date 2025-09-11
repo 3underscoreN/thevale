@@ -3,7 +3,7 @@
 import MenuItem from "@/components/BentoGridMenu/MenuItem";
 
 import Link from "next/link";
-import { Card, CardTitle, CardHeader, CardFooter } from "@/components/ui/card";
+import { Card, CardTitle, CardHeader, CardDescription, CardFooter } from "@/components/ui/card";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -25,7 +25,7 @@ function BentoButton({
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
-  
+
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
@@ -35,13 +35,15 @@ function BentoButton({
       <div className="relative flex h-full w-full">
         <div className="absolute inset-0 rounded-xl border bg-card" />
         <Card className="h-full w-full z-0 bg-[oklch(0 0 0 / 0)]">
-          <CardTitle className="text-2xl px-6">
-            <span>
-              {title}
-            </span>
-          </CardTitle>
           <CardHeader>
-            <span>{description}</span>
+            <CardTitle className="text-2xl">
+              <span>
+                {title}
+              </span>
+            </CardTitle>
+            <CardDescription>
+              <span>{description}</span>
+            </CardDescription>
           </CardHeader>
           <CardFooter className={cn("h-full w-full items-end justify-end")}>
             <FontAwesomeIcon icon={faArrowRight}
