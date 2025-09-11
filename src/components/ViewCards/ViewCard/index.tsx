@@ -24,7 +24,7 @@ type ViewCardProps = {
 }
 
 export default function ViewCard({ datum, cardType, isReply, className }: ViewCardProps) {
-  const [isCopySuccess, setIsCopySuccess] = useState<boolean | undefined>(false);
+  const [isCopySuccess, setIsCopySuccess] = useState<boolean>(false);
   useEffect(() => {
     if (isCopySuccess) {
       const timer = setTimeout(() => setIsCopySuccess(false), 2000);
