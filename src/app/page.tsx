@@ -3,9 +3,7 @@
 import WelcomeText from "@/components/WelcomeText";
 import './page.css'
 
-import Link from "next/link";
-
-import { Button } from "@/components/ui/button";
+import BentoGridMenu from "@/components/BentoGridMenu";
 
 export default function Home() {
 
@@ -33,28 +31,7 @@ export default function Home() {
       </div>
       <hr />
       <div className="section">
-        <div className="flex flex-col md:flex-row gap-8 text-center overflow-clip text-2xl justify-center w-full">
-          <Button data-testid="create" className="text-2xl min-h-12 bg-green-400 hover:bg-green-100" asChild>
-            <Link href="/create">
-              創造回聲
-            </Link>
-          </Button>
-          <Button data-testid="silent" className="text-2xl min-h-12 bg-blue-400 hover:bg-blue-100" asChild>
-            <Link href="/viewsilent">
-              靜谷之聲
-            </Link>
-          </Button>
-          <Button data-testid="starlight" className="text-2xl min-h-12 bg-orange-400 hover:bg-yellow-50" asChild>
-            <Link href="/viewstarlight">
-              星光之聲
-            </Link>
-          </Button>
-          <Button data-testid="chatbot" className="text-2xl min-h-12 bg-pink-600 hover:bg-pink-100" asChild>
-            <Link href="/chatbot">
-              山谷聽友
-            </Link>
-          </Button>
-        </div>
+        <BentoGridMenu />
       </div>
     </>
   );
