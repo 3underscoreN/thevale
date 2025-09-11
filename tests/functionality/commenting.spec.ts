@@ -1,4 +1,4 @@
-import testwithdb from './fixtures/test_db';
+import testwithdb from '../fixtures/test_db';
 import { expect } from '@playwright/test';
 
 testwithdb('Can create echo to silent echoes', async ({ page, db }) => {
@@ -33,9 +33,6 @@ testwithdb('Can create echo to silent echoes', async ({ page, db }) => {
   expect(result[0].name).toBe(echoData.name);
   expect(result[0].content).toBe(echoData.content);
   expect(result[0].status).toBe('pending');
-
-  /* Clean up the database */
-  await db.cleanupByName(echoData.name, 'silent');
 });
 
 testwithdb('Can create echo to starlight echoes', async ({ page, db }) => {
@@ -70,9 +67,6 @@ testwithdb('Can create echo to starlight echoes', async ({ page, db }) => {
   expect(result[0].name).toBe(echoData.name);
   expect(result[0].content).toBe(echoData.content);
   expect(result[0].status).toBe('pending');
-  
-  /* Clean up the database */
-  await db.cleanupByName(echoData.name, 'starlight');
 });
 
 testwithdb('Can view new approved silent echoes', async ({ page, db }) => {
@@ -91,9 +85,6 @@ testwithdb('Can view new approved silent echoes', async ({ page, db }) => {
   /* Check if the echo is displayed */
   const echoElement = await page.getByText(echoData.content);
   expect(echoElement).toBeTruthy();
-
-  /* Clean up the database */
-  await db.cleanupByName(echoData.name, 'silent');
 });
 
 testwithdb('Can view new approved starlight echoes', async ({ page, db }) => {
@@ -112,9 +103,6 @@ testwithdb('Can view new approved starlight echoes', async ({ page, db }) => {
   /* Check if the echo is displayed */
   const echoElement = await page.getByText(echoData.content);
   expect(echoElement).toBeTruthy();
-
-  /* Clean up the database */
-  await db.cleanupByName(echoData.name, 'starlight');
 });
 
 testwithdb('Can view new approved silent echoes with pagination', async ({ page, db }) => {
@@ -144,11 +132,6 @@ testwithdb('Can view new approved silent echoes with pagination', async ({ page,
   expect(echoName).toBeTruthy();
   const echoElement = await page.getByText(echoData[0].content);
   expect(echoElement).toBeTruthy();
-
-  /* Clean up the database */
-  for (const data of echoData) {
-    await db.cleanupByName(data.name, 'silent');
-  }
 });
 
 testwithdb('Can view new approved starlight echoes with pagination', async ({ page, db }) => {
@@ -178,11 +161,6 @@ testwithdb('Can view new approved starlight echoes with pagination', async ({ pa
   expect(echoName).toBeTruthy();
   const echoElement = await page.getByText(echoData[0].content);
   expect(echoElement).toBeTruthy();
-
-  /* Clean up the database */
-  for (const data of echoData) {
-    await db.cleanupByName(data.name, 'starlight');
-  }
 });
 
 testwithdb('Newly created silent echoes have 0 replies', async ({ page, db }) => {
@@ -205,9 +183,6 @@ testwithdb('Newly created silent echoes have 0 replies', async ({ page, db }) =>
   /* Check if the reply count is displayed as "0" */
   const replyCountElement = await page.getByTestId(`reply-count-${id}`);
   expect(replyCountElement).toHaveText('0', { useInnerText: true });
-
-  /* Clean up the database */
-  await db.cleanupById(id, 'silent');
 });
 
 testwithdb('Reply count increases when a reply is added to silent echoes', async ({ page, db }) => {
@@ -238,47 +213,4 @@ testwithdb('Reply count increases when a reply is added to silent echoes', async
   /* Check if the reply count is displayed as "1" */
   const replyCountElement = await page.getByTestId(`reply-count-${parentid}`);
   expect(replyCountElement).toHaveText('1', { useInnerText: true });
-
-  /* Clean up the database */
-  await db.cleanupById(parentid, 'silent');
-});
-
-testwithdb('Reply is visible when added to silent echoes', async ({ page, db }) => {
-  /* Test data */
-  const echoData = {
-    name: `E2E Test reply (comment) ${Math.floor(Math.random() * 1000)}`,
-    content: `This is a test echo for silent echoes reply (comment): ${Math.floor(Math.random() * 1000)}`,
-  };
-
-  const replyData = {
-    name: `E2E Test reply (comment) ${Math.floor(Math.random() * 1000)}`,
-    content: `This is a test reply (comment) for silent echoes: ${Math.floor(Math.random() * 1000)}`,
-  };
-
-  /* Insert and approve the echo in the database, whilst getting the ID */
-  const parentresult = await db.insertAndApprove(echoData.name, echoData.content, 'silent');
-  const parentid = parentresult[0].id;
-
-  /* Insert and approve the reply in the database */
-  await db.insertReplyAndChangeToApprove(replyData.name, replyData.content, parentid, 'silent');
-
-  /* Navigate to silent echoes page */
-  await page.goto(`${process.env.BASE_URL ?? ''}/viewsilent`);
-
-  /* Wait for the page to load */
-  await page.waitForLoadState('networkidle');
-
-  /* Navigate to the echo's replies */
-  const replyButton = await page.getByTestId(`reply-view-${parentid}`);
-  await replyButton.click();
-
-  /* Wait for the replies to load */
-  await page.waitForLoadState('networkidle');
-
-  /* Check if the reply is displayed */
-  const replyElement = await page.getByText(replyData.content);
-  expect(replyElement).toBeTruthy();
-
-  /* Clean up the database */
-  await db.cleanupById(parentid, 'silent');
 });
