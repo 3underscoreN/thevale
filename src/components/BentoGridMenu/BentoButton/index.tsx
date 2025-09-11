@@ -34,7 +34,7 @@ function BentoButton({
     <Link href={href} className={cn("h-full w-full", className)} data-testid={testid} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="relative flex h-full w-full">
         <div className="absolute inset-0 rounded-xl border bg-card" />
-        <Card className="h-full w-full z-0 bg-[oklch(0 0 0 / 0)]">
+        <Card className="h-full w-full z-0 bg-transparent">
           <CardHeader>
             <CardTitle className="text-2xl">
               <span>
