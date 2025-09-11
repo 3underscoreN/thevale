@@ -3,12 +3,13 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
-import { Item }  from "@/interfaces/item";
+import { Item } from "@/interfaces/item";
 
-import { faArrowRight, faComments, faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faComments, faShareNodes, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { toast } from "sonner";
+import { useEffect, useState } from "react";
 
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 
@@ -22,12 +23,20 @@ type ViewCardProps = {
   className?: string;
 }
 
-export default function ViewCard({datum, cardType, isReply, className}: ViewCardProps) {
+export default function ViewCard({ datum, cardType, isReply, className }: ViewCardProps) {
+  const [isCopySuccess, setIsCopySuccess] = useState<boolean | undefined>(false);
+  useEffect(() => {
+    if (isCopySuccess) {
+      const timer = setTimeout(() => setIsCopySuccess(false), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [isCopySuccess]);
+
   const replyDestination = cardType === "silent" ? "viewsilent" : "viewstarlight";
   const writeToClipboardAndToast = useCallback((text: string) => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(text).then(() => {
-        toast.success("已複製連結！")
+        setIsCopySuccess(true);
       }).catch((err) => {
         console.error("Failed to copy: ", err);
         toast.error("複製連結失敗。");
@@ -59,15 +68,15 @@ export default function ViewCard({datum, cardType, isReply, className}: ViewCard
         <CardFooter>
           <div className={`flex w-full justify-end place-items-center space-x-4 ${isReply ? "hidden" : ""}`} data-testid={`reply-view-${datum.id}`}>
             <Button variant="outline" size="icon" className="hover:cursor-pointer" aria-label="分享連結" onClick={() => writeToClipboardAndToast(`https://thevale.top/${replyDestination}/${datum.id}`)}>
-              <FontAwesomeIcon icon={faShareNodes} />
+              <FontAwesomeIcon icon={isCopySuccess ? faCheck : faShareNodes} className={isCopySuccess ? "text-green-400" : ""} />
             </Button>
-            <span className="text-sm text-gray-300">
-              <FontAwesomeIcon className="mx-2" icon={faComments} />
-              <span data-testid={`reply-count-${datum.id}`}>{datum.reply_count ?? "-"}</span>
-            </span>
-            <Button variant="outline" size="sm" asChild>
-              <Link href={`/${replyDestination}/${datum.id}`}>
-                <span className="">共鳴&nbsp;<FontAwesomeIcon icon={faArrowRight} /></span>
+            <Button variant="outline" asChild>
+              <Link href={`/${replyDestination}/${datum.id}`} aria-label="前往回應頁面">
+                <div className="text-sm text-gray-300 border-r pr-2">
+                  <FontAwesomeIcon icon={faComments} />
+                  <span className="ml-2" data-testid={`reply-count-${datum.id}`}>{datum.reply_count ?? "-"}</span>
+                </div>
+                <FontAwesomeIcon icon={faArrowRight} />
               </Link>
             </Button>
           </div>
