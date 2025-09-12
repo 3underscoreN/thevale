@@ -4,6 +4,7 @@ type MenuItem = {
   description: string;
   href: string;
   className: string;
+  color: "green" | "blue" | "amber" | "pink";
 }
 
 export default MenuItem;
