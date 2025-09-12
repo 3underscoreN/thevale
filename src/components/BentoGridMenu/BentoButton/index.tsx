@@ -12,12 +12,15 @@ import { cn } from "@/lib/utils";
 
 import { useState } from "react";
 
+import './styles.css';
+
 function BentoButton({
   title,
   testid,
   description,
   href,
   className,
+  color,
 }: MenuItem) {
 
   const [isHovered, setIsHovered] = useState(false);
@@ -33,7 +36,7 @@ function BentoButton({
   return (
     <Link href={href} className={cn("h-full w-full", className)} data-testid={testid} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="relative flex h-full w-full">
-        <div className="absolute inset-0 rounded-xl border bg-card" />
+        <div className={cn("absolute inset-0 rounded-xl bg-transition", isHovered && "hovered", color)} />
         <Card className="h-full w-full z-0 bg-transparent">
           <CardHeader>
             <CardTitle className="text-2xl">
@@ -47,11 +50,7 @@ function BentoButton({
           </CardHeader>
           <CardFooter className={cn("h-full w-full items-end justify-end")}>
             <FontAwesomeIcon icon={faArrowRight}
-              className="text-2xl transition duration-300 ease-in-out"
-              style={{
-                opacity: isHovered ? 1 : 0.5,
-                translate: isHovered ? "4px" : "0px",
-              }}
+              className={cn("text-2xl transition duration-300 ease-in-out opacity-50", isHovered && "opacity-100 translate-x-1")}
             />
           </CardFooter>
         </Card>
