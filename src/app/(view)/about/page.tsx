@@ -34,7 +34,9 @@ export default function AboutPage() {
               在這片高樓與霓虹之間，我們總在穿梭於大樓之間，卻很少停下喘口氣。
             </p>
             <p>
-              年尾，我偶然發現了日本的「宛名の無い手紙」網站。
+              年尾，我偶然發現了日本的「
+                <Link href="https://www.befrienders-jpn.org/tegami" className="text-blue-300 hover:underline">宛名の無い手紙</Link>
+                」網站。
               那是一個匿名的平台，讓人們毫無顧忌地傾訴關於自傷，結束自己想法的地方。
               這樣的空間彷彿一處山谷，靜靜承接每一聲回響。
               當時，我正在學習Next.js，一種強大的網頁開發框架。於是，一個念頭萌芽：
