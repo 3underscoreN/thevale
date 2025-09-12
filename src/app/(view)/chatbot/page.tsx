@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import Link from 'next/link';
@@ -94,7 +94,7 @@ export default function Chat() {
         </CardHeader>
         <hr />
         <CardContent>
-          <Conversation className='relative w-full h-[500px]'>
+          <Conversation className='relative w-full h-[512px]'>
             <ConversationContent>
               {messages.map((message, index) =>
                 <Message key={index} from={message.role}>
@@ -117,44 +117,42 @@ export default function Chat() {
           </Conversation>
         </CardContent>
         <hr />
-        <form onSubmit={handleSubmit}>
-          <Card className="mx-5">
-            <CardContent>
-              <div className="flex justify-end-safe place-items-center gap-x-2">
-                <div className="flex w-full flex-col gap-y-2">
-                  <Textarea
-                    className={cn("w-full border-none resize-none")}
-                    value={input}
-                    onChange={handleTextAreaChange}
-                    placeholder="輸入訊息..."
-                    onKeyDown={handleKeyPress}
-                  />
-                  <p className={cn("text-muted-foreground text-xs", (error || isFormSubmitError) && "text-red-500")}>
-                    {error
-                      ? "生成回覆時發生錯誤。"
-                      : (isFormSubmitError 
-                        ? "請填寫訊息。" 
-                        : (macLike
-                          ? "按 ⌘ + Enter 發送訊息" : "按 Ctrl + Enter 發送訊息"
-                        )
+        <CardFooter>
+          <form className="w-full" onSubmit={handleSubmit}>
+            <div className="flex place-items-center gap-x-2">
+              <div className="flex w-full flex-col gap-y-2">
+                <Textarea
+                  className={cn("w-full border-none resize-none")}
+                  value={input}
+                  onChange={handleTextAreaChange}
+                  placeholder="輸入訊息..."
+                  onKeyDown={handleKeyPress}
+                />
+                <p className={cn("text-muted-foreground text-xs", (error || isFormSubmitError) && "text-red-500")}>
+                  {error
+                    ? "生成回覆時發生錯誤。"
+                    : (isFormSubmitError
+                      ? "請填寫訊息。"
+                      : (macLike
+                        ? "按 ⌘ + Enter 發送訊息" : "按 Ctrl + Enter 發送訊息"
                       )
-                    }
-                  </p>
-                </div>
-                <Button
-                  variant={error ? "destructive" : "default"}
-                  size="icon"
-                  type="submit"
-                  aria-label="發送訊息"
-                  disabled={status !== 'ready'}
-                  className={cn("hover:cursor-pointer", "rounded-full", "text-center")}
-                >
-                  {status === 'ready' ? <FontAwesomeIcon icon={faArrowUp} /> : (error ? <FontAwesomeIcon icon={faExclamationTriangle} /> : <Loader />)}
-                </Button>
+                    )
+                  }
+                </p>
               </div>
-            </CardContent>
-          </Card>
-        </form>
+              <Button
+                variant={error ? "destructive" : "default"}
+                size="icon"
+                type="submit"
+                aria-label="發送訊息"
+                disabled={status !== 'ready'}
+                className={cn("hover:cursor-pointer", "rounded-full", "text-center")}
+              >
+                {status === 'ready' ? <FontAwesomeIcon icon={faArrowUp} /> : (error ? <FontAwesomeIcon icon={faExclamationTriangle} /> : <Loader />)}
+              </Button>
+            </div>
+          </form>
+        </CardFooter>
       </Card>
     </div>
   );
