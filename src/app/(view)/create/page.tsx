@@ -13,7 +13,7 @@ export default function CreatePage() {
     <>
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-4xl font-bold mt-16 mb-8">創造回聲</h1>
-        <p className="text-lg mb-8">哪怕只是一聲嘆息，也會在這裏化作回聲。</p>
+        <p className="text-lg text-create mb-8">哪怕只是一聲嘆息，也會在這裏化作回聲。</p>
         <Card className="my-16 w-full md:w-3/4">
           <CardHeader>
             <CardTitle className="text-2xl font-bold mb-2">

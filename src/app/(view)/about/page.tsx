@@ -7,7 +7,7 @@ export default function AboutPage() {
     <>
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-4xl font-bold mt-16 mb-8">關於山谷</h1>
-        <p className="text-lg mb-8">這裏記載著關於山谷的故事。</p>
+        <p className="text-lg text-center mb-8">這裏記載著關於山谷的故事。</p>
         <Card className="my-16 w-full md:w-3/4">
           <CardHeader>
             <CardTitle className="text-2xl font-bold mb-2">
