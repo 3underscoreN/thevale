@@ -128,7 +128,7 @@ export default function Chat() {
                   placeholder="輸入訊息..."
                   onKeyDown={handleKeyPress}
                 />
-                <span className={cn("text-muted-foreground text-xs", (error || isFormSubmitError) && "text-red-500")}>
+                <p className={cn("text-muted-foreground text-xs", (error || isFormSubmitError) && "text-red-500")}>
                   {error
                     ? "生成回覆時發生錯誤。"
                     : (isFormSubmitError
@@ -138,7 +138,7 @@ export default function Chat() {
                       )
                     )
                   }
-                </span>
+                </p>
               </div>
               <Button
                 variant={error ? "destructive" : "default"}
