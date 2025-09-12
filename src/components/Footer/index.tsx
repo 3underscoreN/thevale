@@ -11,17 +11,12 @@ export default function Footer(props: React.HTMLProps<HTMLDivElement>) {
     <footer role="contentinfo" {...props}>
       <div className="w-full">
         <div className="overflow-clip text-md ps-2 mb-4">
-          <p>山谷 / The Vale - by:&nbsp;
-            <Link href="https://3underscoreN.github.io" className="underline-offset-2 hover:underline">3_n</Link>
-          </p>
+          <p>山谷 / The Vale - <Link href="https://3underscoreN.github.io" className="underline-offset-2 hover:underline text-xs">3_n</Link></p>
         </div>
         <hr />
         <ul className="overflow-clip text-sm ps-2 my-2 space-y-2">
           <li>
-            <p>圖片來源：Freepik /&nbsp;
-              <Link href="https://fontawesome.com/" className="underline-offset-2 hover:underline">FontAwesome</Link>&nbsp;
-              <FontAwesomeIcon icon={faExternalLink} />
-            </p>
+            <p>圖片：Freepik</p>
           </li>
           <li>
             <p>
