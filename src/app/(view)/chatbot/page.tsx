@@ -94,7 +94,7 @@ export default function Chat() {
         </CardHeader>
         <hr />
         <CardContent>
-          <Conversation className='relative w-full h-[512px]'>
+          <Conversation className='relative w-full h-128'>
             <ConversationContent>
               {messages.map((message, index) =>
                 <Message key={index} from={message.role}>
