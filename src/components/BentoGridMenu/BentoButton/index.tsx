@@ -27,7 +27,6 @@ function BentoButton({
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-    
   };
   const handleMouseLeave = () => {
     setIsHovered(false);
