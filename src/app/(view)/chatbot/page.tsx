@@ -122,7 +122,7 @@ export default function Chat() {
             <div className="flex place-items-center gap-x-2">
               <div className="flex w-full flex-col gap-y-2">
                 <Textarea
-                  className={cn("w-full border-none bg-transparent resize-none")}
+                  className={cn("w-full border-none resize-none")}
                   value={input}
                   onChange={handleTextAreaChange}
                   placeholder="輸入訊息..."
