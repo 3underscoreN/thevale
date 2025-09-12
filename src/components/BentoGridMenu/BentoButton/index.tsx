@@ -50,11 +50,7 @@ function BentoButton({
           </CardHeader>
           <CardFooter className={cn("h-full w-full items-end justify-end")}>
             <FontAwesomeIcon icon={faArrowRight}
-              className="text-2xl transition duration-300 ease-in-out"
-              style={{
-                opacity: isHovered ? 1 : 0.5,
-                translate: isHovered ? "4px" : "0px",
-              }}
+              className={cn("text-2xl transition duration-300 ease-in-out opacity-50", isHovered && "opacity-100 translate-x-1")}
             />
           </CardFooter>
         </Card>
