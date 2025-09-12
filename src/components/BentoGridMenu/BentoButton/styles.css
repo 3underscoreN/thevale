@@ -11,7 +11,7 @@
 }
 
 .bg-transition {
-  border-style: solid var(--border) 1px;
+  border: 1px solid var(--card);
   background: linear-gradient(
     115deg, 
     var(--decorator-color) 0%, 
