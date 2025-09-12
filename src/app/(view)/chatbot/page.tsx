@@ -77,17 +77,19 @@ export default function Chat() {
           <CardTitle className="text-2xl font-bold mb-2">須知事項</CardTitle>
           <CardDescription className="text-md">
             <ol className="list-decimal list-inside space-y-4">
-              <li>「山谷聽友」不能取代專業心理醫生以及心理諮商。如果需要更深入的幫助，請尋求專業心理健康資源。</li>
-              <li>我們希望「山谷聽友」能夠幫助每個人，所以請避免惡意使用「山谷聽友」，包括但不限於提示詞注入、發送不恰當信息等。</li>
+              <li>「山谷聽友」不能取代專業心理醫生以及心理諮商。如果需要更深入的幫助，請尋求
+                <Link href="/helpline" className="text-blue-300 hover:underline">
+                  指引
+                </Link>。
+              </li>
+              <li>請避免惡意使用「山谷聽友」，包括但不限於提示詞注入、發送不恰當信息等。</li>
               <li>在使用「山谷聽友」時，請避免分享過於敏感的資訊。請參考
-                <Button variant="link" size="icon" className="text-blue-500 inline text-md" asChild>
-                  <Link href="/privacy">
-                    私隱聲明
-                  </Link>
-                </Button>
+                <Link href="/privacy" className="text-blue-300 hover:underline">
+                  私隱聲明
+                </Link>
                 以瞭解我們如何收集、使用所提供的數據，以及你所擁有的權利。
               </li>
-              <li>服務提供商會過濾有關自傷的內容。對此限制我們深感抱歉，並正在尋求改善方案。</li>
+              <li>服務提供商會可能會過濾有關自傷的內容。我們正尋求改善方案。</li>
               <li>「山谷聽友」可能因技術調整、伺服器等因素而暫停運作。我們無法保證「山谷聽友」隨時可用。</li>
             </ol>
           </CardDescription>

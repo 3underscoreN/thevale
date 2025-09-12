@@ -1,7 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-import { Button } from "@/components/ui/button";
-
 import CommentForm from "@/components/CommentForm";
 
 import Link from "next/link";
@@ -28,11 +26,9 @@ export default function CreatePage() {
                 <li><span className="font-semibold">山谷留聲有權衡。</span>工作人員或將靜默回聲，如有不便，請多包涵。</li>
               </ol>
               <p className="text-md mt-4">如果想跟誰傾訴的話，山谷亦有
-                <Button variant="link" size="icon" className="text-blue-500 inline text-md" asChild>
-                  <Link href="/helpline">
-                    指引
-                  </Link>
-                </Button>
+                <Link href="/helpline" className="text-blue-300 hover:underline">
+                  指引
+                </Link>
                 相伴。
               </p>
             </CardDescription>
