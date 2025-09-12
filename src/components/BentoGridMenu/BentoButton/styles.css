@@ -1,0 +1,43 @@
+@property --percent-1 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%
+}
+
+@property --decorator-color {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: oklab(0% 0 0 / 1);
+}
+
+.bg-transition {
+  border: 1px solid var(--card);
+  background: linear-gradient(
+    115deg, 
+    var(--decorator-color) 0%, 
+    var(--decorator-color) var(--percent-1), 
+    var(--card) calc(var(--percent-1) + 0.1%),
+    var(--card) 100%
+  );
+  transition: --percent-1 0.3s ease-in-out, --decorator-color 0s;
+}
+
+.bg-transition.green {
+  --decorator-color: color-mix(in oklab, var(--color-green-500) 20%, var(--color-card));
+}
+
+.bg-transition.blue {
+  --decorator-color: color-mix(in oklab, var(--color-blue-500) 20%, var(--color-card));
+}
+
+.bg-transition.amber {
+  --decorator-color: color-mix(in oklab, var(--color-amber-500) 20%, var(--color-card));
+}
+
+.bg-transition.pink {
+  --decorator-color: color-mix(in oklab, var(--color-pink-500) 20%, var(--color-card));
+}
+
+.bg-transition.hovered {
+  --percent-1: 40%;
+}
