@@ -13,12 +13,7 @@ export default function Footer(props: React.HTMLProps<HTMLDivElement>) {
         <div className="overflow-clip text-md p-2">
           <p>山谷 / The Vale - <Link href="https://3underscoreN.github.io" className="underline-offset-2 hover:underline text-xs">3_n</Link></p>
         </div>
-        {/* <hr />
-        <ul className="overflow-clip text-sm ps-2 my-2 space-y-2">
-          <li>
-            <p>圖片：Freepik</p>
-          </li>
-        </ul> */}
+        <hr />
         <div className="flex flex-col items-start space-y-2 p-2">
           <div className="flex flex-col justify-start space-y-2 text-sm">
             <Link href="/privacy" data-testid="privacy" className="underline-offset-2 hover:underline">私隱聲明</Link>
@@ -45,6 +40,11 @@ export default function Footer(props: React.HTMLProps<HTMLDivElement>) {
             </Button>
           </div>
         </div>
+        <ul className="overflow-clip text-xs ps-2 my-2 space-y-2">
+          <li>
+            <p>圖片來源：Freepik</p>
+          </li>
+        </ul>
       </div>
     </div>
   )
