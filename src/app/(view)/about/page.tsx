@@ -98,7 +98,7 @@ export default function AboutPage() {
                   </Link>
                 </h2>
                 <p className="text-md text-gray-300">
-                  感謝你成為第一位codebase的貢獻者，還一起討論了不少關於UX跟accessibility的問題。
+                  感謝你成為第一位codebase貢獻者，還一起討論了不少關於UX跟accessibility的問題。
                 </p>
               </li>
               <li>
@@ -106,7 +106,7 @@ export default function AboutPage() {
                   朋友們
                 </h2>
                 <p className="text-md text-gray-300">
-                  感謝你們一直以來的支持跟陪伴，尤其台灣的朋友們:謝謝你們帶我走出低谷，順便認識台灣。<br />
+                  感謝你們一直以來的支持跟陪伴，尤其台灣的朋友們——謝謝你們帶我走出低谷。<br />
                   人太多了，怕漏掉誰，所以就不一一列舉了。<br />
                 </p>
               </li>
@@ -115,7 +115,7 @@ export default function AboutPage() {
                   留下回聲的每一位旅人
                 </h2>
                 <p className="text-md text-gray-300">
-                  感謝你們願意分享自己的故事，或是把心中的情緒展現出來；又或者在這裏留下些許溫暖的語言。<br />
+                  感謝你們願意分享自己的故事、或是把心中的情緒展現出來、又或者在這裏留下些許溫暖的語言。<br />
                   沒有你們任何一位旅人，「山谷」會截然不同。
                 </p>
               </li>

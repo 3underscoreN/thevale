@@ -8,7 +8,7 @@ const menuItems: MenuItem[] = [
   {
     title: "創造回聲",
     testid: "create",
-    description: "讓心中的話語、對同路人的鼓勵，化為聲音，迴盪在山谷之中。",
+    description: "讓心中的話語、對同路人的鼓勵，化為回聲，迴盪在山谷之中。",
     href: "/create",
     className: "row-span-2",
     color: "green",
@@ -34,7 +34,7 @@ const menuItems: MenuItem[] = [
     testid: "chatbot",
     description: "與大語言模型交流，沒有壓力地分享你的心情與故事。",
     href: "/chatbot",
-    className: "row-span-2",
+    className: "",
     color: "pink",
   },
 ];
