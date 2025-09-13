@@ -34,7 +34,7 @@ const menuItems: MenuItem[] = [
     testid: "chatbot",
     description: "與大語言模型交流，沒有壓力地分享你的心情與故事。",
     href: "/chatbot",
-    className: "",
+    className: "row-span-2",
     color: "pink",
   },
 ];
