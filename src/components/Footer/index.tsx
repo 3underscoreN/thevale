@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 import Link from "next/link";
 import React from "react";
@@ -9,7 +10,7 @@ export default function Footer(props: React.HTMLProps<HTMLDivElement>) {
   return (
     <div role="contentinfo" {...props}>
       <div className="w-full">
-        <div className="overflow-clip text-md p-2 border-b">
+        <div className="overflow-clip text-md p-2">
           <p>山谷 / The Vale - <Link href="https://3underscoreN.github.io" className="underline-offset-2 hover:underline text-xs">3_n</Link></p>
         </div>
         {/* <hr />
@@ -25,9 +26,8 @@ export default function Footer(props: React.HTMLProps<HTMLDivElement>) {
             <Link href="/admin" data-testid="admin" className="underline-offset-2 hover:underline">管理面板</Link>
           </div>
         </div>
-        <hr />
         <div>
-          <div className="flex flex-row justify-start space-x-2 py-2 px-1">
+          <div className="flex flex-row justify-start space-x-2 p-1">
             <Button variant="ghost" size="icon" className="text-lg" asChild>
               <Link href="https://github.com/3underscoreN/theVale" target="_blank" rel="noopener noreferrer" aria-label="Github Repository">
                 <FontAwesomeIcon icon={faGithub} />
@@ -36,6 +36,11 @@ export default function Footer(props: React.HTMLProps<HTMLDivElement>) {
             <Button variant="ghost" size="icon" className="text-lg" asChild>
               <Link href="https://www.instagram.com/thevale_echo/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <FontAwesomeIcon icon={faInstagram} />
+              </Link>
+            </Button>
+            <Button variant="ghost" size="icon" className="text-lg" asChild>
+              <Link href="mailto:support@thevale.top" target="_blank" rel="noopener noreferrer" aria-label="Email">
+                <FontAwesomeIcon icon={faEnvelope} />
               </Link>
             </Button>
           </div>
