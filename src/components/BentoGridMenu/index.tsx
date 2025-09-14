@@ -8,7 +8,7 @@ const menuItems: MenuItem[] = [
   {
     title: "創造回聲",
     testid: "create",
-    description: "創造屬於你的回聲，讓心中的話語化為聲音，回蕩在山谷之中。",
+    description: "讓心中的話語、對同路人的鼓勵，化為回聲，迴盪在山谷之中。",
     href: "/create",
     className: "row-span-2",
     color: "green",
@@ -16,7 +16,7 @@ const menuItems: MenuItem[] = [
   {
     title: "靜谷之聲",
     testid: "silent",
-    description: "探索其他旅人創造的回聲，感受他們的情感與故事。",
+    description: "探索其他旅人創造的回聲，細細閱讀他們的情感與故事。",
     href: "/viewsilent",
     className: "",
     color: "blue",
@@ -32,7 +32,7 @@ const menuItems: MenuItem[] = [
   {
     title: "山谷聽友",
     testid: "chatbot",
-    description: "與智能聊天機器人交流，分享你的心情與故事，獲得陪伴與支持。",
+    description: "與大語言模型交流，沒有壓力地分享你的心情與故事。",
     href: "/chatbot",
     className: "row-span-2",
     color: "pink",

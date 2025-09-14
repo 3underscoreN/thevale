@@ -24,19 +24,23 @@ function BentoButton({
 }: MenuItem) {
 
   const [isHovered, setIsHovered] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
-
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
 
+  const handleClick = () => {
+    setIsClicked(true);
+  };
+
   return (
-    <Link href={href} className={cn("h-full w-full", className)} data-testid={testid} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <Link href={href} className={cn("h-full w-full", className)} data-testid={testid} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
       <div className="relative flex h-full w-full">
-        <div className={cn("absolute inset-0 rounded-xl bg-transition", isHovered && "hovered", color)} />
+        <div className={cn("absolute inset-0 rounded-xl bg-transition", isHovered && "hovered", isClicked && "clicked", color)} />
         <Card className="h-full w-full z-0 bg-transparent">
           <CardHeader>
             <CardTitle className="text-2xl">
