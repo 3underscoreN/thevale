@@ -1,7 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-import { Button } from "@/components/ui/button";
-
 import CommentForm from "@/components/CommentForm";
 
 import Link from "next/link";
@@ -13,7 +11,7 @@ export default function CreatePage() {
     <>
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-4xl font-bold mt-16 mb-8">創造回聲</h1>
-        <p className="text-lg mb-8">哪怕只是一聲嘆息，也會在這裏化作回聲。</p>
+        <p className="text-lg text-center mb-8">哪怕只是一聲嘆息，也會在這裏化作回聲。</p>
         <Card className="my-16 w-full md:w-3/4">
           <CardHeader>
             <CardTitle className="text-2xl font-bold mb-2">
@@ -28,11 +26,9 @@ export default function CreatePage() {
                 <li><span className="font-semibold">山谷留聲有權衡。</span>工作人員或將靜默回聲，如有不便，請多包涵。</li>
               </ol>
               <p className="text-md mt-4">如果想跟誰傾訴的話，山谷亦有
-                <Button variant="link" size="icon" className="text-blue-500 inline text-md" asChild>
-                  <Link href="/helpline">
-                    指引
-                  </Link>
-                </Button>
+                <Link href="/helpline" className="text-blue-300 hover:underline">
+                  指引
+                </Link>
                 相伴。
               </p>
             </CardDescription>

@@ -14,7 +14,7 @@ export default function ViewPage() {
     <>
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-4xl font-bold mt-16 mb-8">靜谷之聲</h1>
-        <p className="text-lg mb-8">靜靜聆聽其他人的情緒、故事，又或是簡簡單單的嘆息。</p>
+        <p className="text-lg text-center mb-8">靜靜聆聽其他人的情緒、故事，又或是簡簡單單的嘆息。</p>
         <Card className="my-16 w-full md:w-3/4">
           <CardHeader>
             <CardTitle className="text-2xl font-bold mb-2">

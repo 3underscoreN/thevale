@@ -72,7 +72,7 @@ export default function AdminPage() {
     <>
       <div className="flex flex-col items-center justify-center px-4 py-16 backdrop-blur-md backdrop-brightness-50">
         <h1 className="text-4xl font-bold mt-16 mb-8">管理員介面</h1>
-        <p className="text-lg mb-8">這裡是管理員介面，您可以在這裡查看和批准留言。</p>
+        <p className="text-lg text-center mb-8">這裡是管理員介面，您可以在這裡查看和批准留言。</p>
         <div className="my-8 w-full md:w-3/4">
           <Select onValueChange={setSource as (value: sourceType) => void} name="source" defaultValue="post">
             <SelectTrigger className="w-full backdrop-blur-xl backdrop-brightness-50">

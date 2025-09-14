@@ -7,7 +7,7 @@ export default function AboutPage() {
     <>
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-4xl font-bold mt-16 mb-8">關於山谷</h1>
-        <p className="text-lg mb-8">這裏記載著關於山谷的故事。</p>
+        <p className="text-lg text-center mb-8">這裏記載著關於山谷的故事。</p>
         <Card className="my-16 w-full md:w-3/4">
           <CardHeader>
             <CardTitle className="text-2xl font-bold mb-2">
@@ -34,7 +34,9 @@ export default function AboutPage() {
               在這片高樓與霓虹之間，我們總在穿梭於大樓之間，卻很少停下喘口氣。
             </p>
             <p>
-              年尾，我偶然發現了日本的「宛名の無い手紙」網站。
+              年尾，我偶然發現了日本的「
+                <Link href="https://www.befrienders-jpn.org/tegami" className="text-blue-300 hover:underline">宛名の無い手紙</Link>
+                」網站。
               那是一個匿名的平台，讓人們毫無顧忌地傾訴關於自傷，結束自己想法的地方。
               這樣的空間彷彿一處山谷，靜靜承接每一聲回響。
               當時，我正在學習Next.js，一種強大的網頁開發框架。於是，一個念頭萌芽：
@@ -96,7 +98,7 @@ export default function AboutPage() {
                   </Link>
                 </h2>
                 <p className="text-md text-gray-300">
-                  感謝你成為第一位codebase的貢獻者，還一起討論了不少關於UX跟accessibility的問題。
+                  感謝你成為第一位codebase貢獻者，還一起討論了不少關於UX跟accessibility的問題。
                 </p>
               </li>
               <li>
@@ -104,7 +106,7 @@ export default function AboutPage() {
                   朋友們
                 </h2>
                 <p className="text-md text-gray-300">
-                  感謝你們一直以來的支持跟陪伴，尤其台灣的朋友們:謝謝你們帶我走出低谷，順便認識台灣。<br />
+                  感謝你們一直以來的支持跟陪伴，尤其台灣的朋友們——謝謝你們帶我走出低谷。<br />
                   人太多了，怕漏掉誰，所以就不一一列舉了。<br />
                 </p>
               </li>
@@ -113,7 +115,7 @@ export default function AboutPage() {
                   留下回聲的每一位旅人
                 </h2>
                 <p className="text-md text-gray-300">
-                  感謝你們願意分享自己的故事，或是把心中的情緒展現出來；又或者在這裏留下些許溫暖的語言。<br />
+                  感謝你們願意分享自己的故事、或是把心中的情緒展現出來、又或者在這裏留下些許溫暖的語言。<br />
                   沒有你們任何一位旅人，「山谷」會截然不同。
                 </p>
               </li>

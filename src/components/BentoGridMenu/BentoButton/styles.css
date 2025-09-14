@@ -41,3 +41,8 @@
 .bg-transition.hovered {
   --percent-1: 40%;
 }
+
+.bg-transition.clicked {
+  --percent-1: 100%;
+  transition: --percent-1 0.1s ease-in-out, --decorator-color 0s;
+}

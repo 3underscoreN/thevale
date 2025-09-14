@@ -69,7 +69,7 @@ export default function RootLayout({
             {children}
           </main>
           <hr />
-          <Footer className="w-full py-16 px-8 bg-black" aria-hidden="false" />
+          <Footer className="w-full p-8 bg-black" aria-hidden="false" />
         </ThemeProvider>
       </body>
     </html>
