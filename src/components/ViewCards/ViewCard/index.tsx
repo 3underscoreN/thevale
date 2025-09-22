@@ -62,10 +62,10 @@ export default function ViewCard({ datum, cardType, isReply, className }: ViewCa
           <div className="text-left">
             {datum.content.split("\n\n").map((line, index) => (
               <p key={index} className="mb-2">{
-                line.split("\n").map((subline, subindex) => (
+                line.split("\n").map((subline, subindex, array) => (
                   <span key={`${index}-${subindex}`}>
                     {subline}
-                    <br />
+                    {subindex < array.length - 1 ? <br /> : null}
                   </span>
                 ))
               }</p>
