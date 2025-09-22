@@ -11,8 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 
-import MarkdownRenderer from "@/components/MarkdownRenderer";
-
 import Link from "next/link";
 import { useCallback } from "react";
 
@@ -62,7 +60,16 @@ export default function ViewCard({ datum, cardType, isReply, className }: ViewCa
         </CardHeader>
         <CardContent className="text-lg">
           <div className="text-left">
-            <MarkdownRenderer content={datum.content} />
+            {datum.content.split("\n\n").map((line, index) => (
+              <p key={index} className="mb-2">{
+                line.split("\n").map((subline, subindex, array) => (
+                  <span key={`${index}-${subindex}`}>
+                    {subline}
+                    {subindex < array.length - 1 ? <br /> : null}
+                  </span>
+                ))
+              }</p>
+            ))}
           </div>
         </CardContent>
         <CardFooter>

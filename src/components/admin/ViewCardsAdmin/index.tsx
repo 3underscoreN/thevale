@@ -9,8 +9,6 @@ import { faCheck, faXmark, faBan } from "@fortawesome/free-solid-svg-icons";
 
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 
-import MarkdownRenderer from "@/components/MarkdownRenderer";
-
 import { useState } from "react";
 
 type ViewCardProps = {
@@ -38,7 +36,16 @@ export default function ViewCardAdmin({ datum, approveOrDeclineCallBack, classNa
         </CardHeader>
         <CardContent className="text-lg">
           <div className="text-left">
-            <MarkdownRenderer content={datum.content} />
+            {datum.content.split("\n\n").map((line, index) => (
+              <p key={index} className="mb-2">{
+                line.split("\n").map((subline, subindex, array) => (
+                  <span key={`${index}-${subindex}`}>
+                    {subline}
+                    {subindex < array.length - 1 ? <br /> : null}
+                  </span>
+                ))
+              }</p>
+            ))}
           </div>
         </CardContent>
         <CardFooter>
