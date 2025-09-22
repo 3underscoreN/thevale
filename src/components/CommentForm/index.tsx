@@ -9,9 +9,6 @@ import { submitPost } from '@/app/actions/submitpost';
 import Link from 'next/link';
 import Form from 'next/form';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMarkdown } from '@fortawesome/free-brands-svg-icons';
-
 import { useTranslations } from 'next-intl';
 
 const initialState = {
@@ -75,7 +72,6 @@ export default function CommentForm() {
               defaultValue={state.lastSubmitted.content || ''}
               required
             />
-            <span className="mt-2 text-xs text-gray-400"><FontAwesomeIcon icon={faMarkdown} />{t("markdownSupport")}</span>
           </label>
           <p className="text-md text-gray-400">{t("Privacy.beforeLink")}
             <Button variant="link" size="icon" className="text-blue-300 inline text-md" asChild>
