@@ -27,6 +27,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 import { Item } from "@/interfaces/item";
 
+import { useTranslations } from "next-intl";
+
 type ViewCardsProps = {
   cardType: "silent" | "starlight";
   isReply?: boolean;
@@ -34,6 +36,8 @@ type ViewCardsProps = {
 }
 
 export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
+  const t = useTranslations("ViewPage");
+
   if (id === 0 && isReply) {
     throw new Error("If the cards are shown in a page for replies, id must be provided.");
   }
@@ -91,11 +95,11 @@ export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
         <Card>
           <CardHeader>
             <CardTitle className="text-2xl font-bold mb-2 text-red-500">
-              哎呀！發生了錯誤
+              {t("Error.title")}
             </CardTitle>
             <CardDescription className="text-md">
-              <div>回聲似乎迷失於山谷深處。請稍後再試看看？</div>
-              <div className="mt-2">技術訊息：{error}</div>
+              <div>{t("Error.desc")}</div>
+              <div className="mt-2">{t("Error.technicalMessage")}{error}</div>
             </CardDescription>
           </CardHeader>
         </Card>
@@ -109,9 +113,9 @@ export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
         {/* No data */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl font-bold mb-2">好靜啊...</CardTitle>
+            <CardTitle className="text-2xl font-bold mb-2">{t("NoContent.title")}</CardTitle>
             <CardDescription className="text-md">
-              山谷此時靜謐無聲。要來大喊一下嗎？
+              {t("NoContent.desc")}
             </CardDescription>
           </CardHeader>
         </Card>
@@ -129,11 +133,11 @@ export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
           <>
             {op ? <ViewCard datum={op} cardType={cardType} className="my-4" isReply={isReply}/> : null}
             <hr className="my-4" />
-            <h2 className="text-2xl font-bold my-4">共鳴</h2>
+            <h2 className="text-2xl font-bold my-4">{t("ReplyHeader.title")}</h2>
             {
               data.length === 0 ?
                 <div className="flex justify-center items-center my-4">
-                  <span className="w-full text-center text-gray-300 text-lg">暫無共鳴</span>
+                  <span className="w-full text-center text-gray-300 text-lg">{t("ReplyHeader.noReplies")}</span>
                 </div> 
               : null
             }
@@ -153,7 +157,7 @@ export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
               className={currentPage === 1 ? 'text-gray-500' : ''} 
               href="#top" 
               aria-disabled={currentPage === 1} 
-              aria-label="Previous Page 上一頁"
+              aria-label={t("Aria.previousPage")}
               data-testid="pagination-previous-page"
               isActive={currentPage !== 1} 
               onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
@@ -167,7 +171,7 @@ export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
               className={currentPage === totalPage ? 'text-gray-500' : ''} 
               href="#top" 
               aria-disabled={currentPage === totalPage} 
-              aria-label="Next Page 下一頁"
+              aria-label={t("Aria.nextPage")}
               data-testid="pagination-next-page"
               isActive={currentPage !== totalPage} 
               onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPage))}

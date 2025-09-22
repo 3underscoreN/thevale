@@ -14,6 +14,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCallback } from "react";
 
+import { useTranslations } from "next-intl";
+
 type ViewCardProps = {
   datum: Item;
   cardType: "silent" | "starlight" | "replies";
@@ -23,6 +25,8 @@ type ViewCardProps = {
 
 export default function ViewCard({ datum, cardType, isReply, className }: ViewCardProps) {
   const [isCopySuccess, setIsCopySuccess] = useState<boolean>(false);
+  const t = useTranslations("ViewPage.CardContent");
+
   useEffect(() => {
     if (isCopySuccess) {
       const timer = setTimeout(() => setIsCopySuccess(false), 2000);
@@ -37,13 +41,13 @@ export default function ViewCard({ datum, cardType, isReply, className }: ViewCa
         setIsCopySuccess(true);
       }).catch((err) => {
         console.error("Failed to copy: ", err);
-        toast.error("複製連結失敗。");
+        toast.error(t("CopyLinkFailed"));
       });
     } else {
       console.warn("Clipboard API not supported.");
-      toast.error("複製連結失敗。");
+      toast.error(t("CopyLinkFailed"));
     }
-  }, []);
+  }, [t]);
 
   return (
     <>
@@ -51,7 +55,7 @@ export default function ViewCard({ datum, cardType, isReply, className }: ViewCa
         <CardHeader>
           <CardDescription className="text-md font-bold mb-2">
             <div className="flex justify-between">
-              <span className="text-left">暱稱：{datum.name}</span>
+              <span className="text-left">{t("Nickname")}{datum.name}</span>
               <span className="text-right">
                 {(new Date(Date.parse(datum.created_at))).toLocaleDateString("zh-TW")}
               </span>
@@ -74,11 +78,11 @@ export default function ViewCard({ datum, cardType, isReply, className }: ViewCa
         </CardContent>
         <CardFooter>
           <div className={`flex w-full justify-end place-items-center space-x-4 ${isReply ? "hidden" : ""}`} data-testid={`reply-view-${datum.id}`}>
-            <Button variant="outline" size="icon" className="hover:cursor-pointer" aria-label="分享連結" onClick={() => writeToClipboardAndToast(`https://thevale.top/${replyDestination}/${datum.id}`)}>
+            <Button variant="outline" size="icon" className="hover:cursor-pointer" aria-label={t("Aria.getSharableLink")} onClick={() => writeToClipboardAndToast(`https://thevale.top/${replyDestination}/${datum.id}`)}>
               <FontAwesomeIcon icon={isCopySuccess ? faCheck : faShareNodes} className={isCopySuccess ? "text-green-400" : ""} />
             </Button>
             <Button variant="outline" asChild>
-              <Link href={`/${replyDestination}/${datum.id}`} aria-label="前往回應頁面">
+              <Link href={`/${replyDestination}/${datum.id}`} aria-label={t("Aria.goToReplyPage")}>
                 <div className="text-sm text-gray-300 border-r pr-2">
                   <FontAwesomeIcon icon={faComments} />
                   <span className="ml-2" data-testid={`reply-count-${datum.id}`}>{datum.reply_count ?? "-"}</span>
