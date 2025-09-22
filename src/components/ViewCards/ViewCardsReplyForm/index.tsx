@@ -11,6 +11,8 @@ import Link from "next/link";
 import Form from "next/form";
 import { SubmitState } from "@/app/actions/submitpost";
 
+import { useTranslations } from "next-intl";
+
 type ViewCardsReplyFormProps = {
   cardType: "silent" | "starlight";
   cardId: number;
@@ -31,6 +33,7 @@ export default function ViewCardsReplyForm({cardType, cardId, className}: ViewCa
     (s: SubmitState, f: FormData) => submitReply(s, cardType, cardId, f), 
     initialState
   );
+  const t = useTranslations("ViewPage.ReplyForm");
 
   return (
     <>
@@ -40,45 +43,45 @@ export default function ViewCardsReplyForm({cardType, cardId, className}: ViewCa
         <hr className="my-4" />
         <Card className="my-4">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold mb-4">與此回聲共鳴...</CardTitle>
+            <CardTitle className="text-2xl font-bold mb-4">{t("title")}</CardTitle>
             <CardDescription className="text-md">
               <p>
-                發送前，請閱讀
-                <Button variant="link" size="icon" className="text-blue-500 inline text-md" asChild>
+                {t("PrivacyAndRules.beforePrivacyLink")}
+                <Button variant="link" size="icon" className="text-blue-300 inline text-md" asChild>
                   <Link href="/privacy">
-                    私隱聲明
+                    {t("PrivacyAndRules.privacyLinkText")}
                   </Link>
                 </Button>
-                以及
-                <Button variant="link" size="icon" className="text-blue-500 inline text-md" asChild>
+                {}{t("PrivacyAndRules.betweenPrivacyAndRules")}
+                <Button variant="link" size="icon" className="text-blue-300 inline text-md" asChild>
                   <Link href="/create">
-                    創造回聲
+                    {t("PrivacyAndRules.rulesLinkText")}
                   </Link>
                 </Button>
-                的須知事項。
+                {t("PrivacyAndRules.afterRulesLink")}
               </p>
             </CardDescription>
           </CardHeader>
           <CardContent>
           <Form action={formAction}>
             <label className="flex flex-col">
-              <span className="text-lg font-semibold my-2">暱稱</span>
+              <span className="text-lg font-semibold my-2">{t("nickname")}</span>
               <input
                 name="name"
                 type="text"
                 className="border border-gray-300 rounded-md p-2"
-                placeholder="佚名"
+                placeholder={t("nicknameDefault")}
                 maxLength={64}
                 defaultValue={state.lastSubmitted.name || ''}
               />
             </label>
             <label className="flex flex-col">
-              <span className="text-lg font-semibold my-2">共鳴</span>
+              <span className="text-lg font-semibold my-2">{t("reply")}</span>
               <textarea
                 name="content"
                 className="border border-gray-300 rounded-md p-2"
                 rows={4}
-                placeholder="在這裏留下你的共鳴..."
+                placeholder={t("replyDefault")}
                 maxLength={2048}
                 defaultValue={state.lastSubmitted.content || ''}
                 required
@@ -86,10 +89,10 @@ export default function ViewCardsReplyForm({cardType, cardId, className}: ViewCa
             </label>
             <input type="hidden" name="parent_id" value={cardId} />
             <Button type="submit" className="mt-4 w-full hover:cursor-pointer" disabled={isPending}>
-              {isPending ? "請稍後..." : "發送" }
+              {isPending ? t("sending") : t("send") }
             </Button>
           </Form>
-          {state.error ? <div className="text-red-500 mt-2">發送失敗，請稍後再試。</div> : null}
+          {state.error ? <div className="text-red-500 mt-2">{t("sendError")}</div> : null}
           </CardContent>
         </Card>
       </div>
@@ -100,10 +103,10 @@ export default function ViewCardsReplyForm({cardType, cardId, className}: ViewCa
           <hr className="my-4" />
           <Card className="my-4">
             <CardHeader>
-              <CardTitle className="text-2xl font-bold text-green-500 mb-4">發送成功！</CardTitle>
+              <CardTitle className="text-2xl font-bold text-green-500 mb-4">{t("Sent.title")}</CardTitle>
               <CardDescription className="text-md">
                 <p>
-                  感謝你的共鳴。正如聲音傳播需要時間，我們也需時處理你的訊息，故請耐心等待。這段時間，也請好好照顧自己！
+                  {t("Sent.desc")}
                 </p>
               </CardDescription>
             </CardHeader>
