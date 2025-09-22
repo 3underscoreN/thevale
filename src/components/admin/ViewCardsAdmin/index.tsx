@@ -36,8 +36,15 @@ export default function ViewCardAdmin({ datum, approveOrDeclineCallBack, classNa
         </CardHeader>
         <CardContent className="text-lg">
           <div className="text-left">
-            {datum.content.split("\n").map((line, index) => (
-              <p key={index} className="mb-2">{line}</p>
+            {datum.content.split("\n\n").map((line, index) => (
+              <p key={index} className="mb-2">{
+                line.split("\n").map((subline, subindex) => (
+                  <span key={`${index}-${subindex}`}>
+                    {subline}
+                    <br />
+                  </span>
+                ))
+              }</p>
             ))}
           </div>
         </CardContent>
