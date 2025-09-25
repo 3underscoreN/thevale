@@ -14,15 +14,27 @@ import { Toaster } from '@/components/ui/sonner';
 
 import { zhTW } from '@clerk/localizations';
 
+import type { LocalizationResource } from '@clerk/types';
+
 import { dark } from '@clerk/themes';
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
+  params
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+
+  let clerkLocale: LocalizationResource | undefined;
+
+  if (locale === 'zh') {
+    clerkLocale = zhTW;
+  }
+  
   return (
-    <ClerkProvider localization={zhTW} appearance={{ baseTheme: dark }} >
+    <ClerkProvider localization={clerkLocale} appearance={{ baseTheme: dark }} >
       <SignedOut>
         <div className="bg-[url(/asset/background.jpg)] bg-fixed bg-cover bg-no-repeat bg-center" tabIndex={-1}>
           <div className="flex flex-col items-center justify-start px-4 py-16 backdrop-blur-md backdrop-brightness-50 min-h-svh">
