@@ -13,8 +13,8 @@ import Link from "next/link";
 
 import { getTranslations } from "next-intl/server";
 
-export default async function Page(params: { params: Promise<{ id: string }> }) {
-  const { id } = await params.params;
+export default async function Page(params: { params: Promise<{ id: string, locale: string }> }) {
+  const { id, locale } = await params.params;
   // const data = await res.json();
   const t = await getTranslations("ViewPage");
 
@@ -43,8 +43,8 @@ export default async function Page(params: { params: Promise<{ id: string }> }) 
           </CardHeader>
         </Card>
         <hr />
-        <ViewCards cardType="starlight" id={parseInt(id, 10)} isReply />
-        <ViewCardsReplyForm cardType="starlight" cardId={parseInt(id, 10)} className="my-4" />
+        <ViewCards cardType="starlight" id={parseInt(id, 10)} locale={locale} isReply />
+        <ViewCardsReplyForm cardType="starlight" cardId={parseInt(id, 10)} className="my-4" locale={locale} />
       </div>
     </div>
   );

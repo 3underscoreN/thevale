@@ -7,13 +7,14 @@ import Link from "next/link";
 
 import { ListText } from "@/components/RichTextRenderer";
 
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 /**
  * This page is for creating a new post.
  */
-export default function CreatePage() {
-  const t = useTranslations("CreatePage");
+export default async function CreatePage(params: { params: Promise<{ locale: string }> }) {
+  const t = await getTranslations("CreatePage");
+  const { locale } = await params.params;
 
   return (
     <>
@@ -41,7 +42,7 @@ export default function CreatePage() {
           </CardHeader>
           <hr />
           <CardContent>
-            <CommentForm />
+            <CommentForm locale={locale} />
           </CardContent>
         </Card>
       </div>

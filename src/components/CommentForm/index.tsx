@@ -23,7 +23,7 @@ const initialState = {
   },
 };
 
-export default function CommentForm() {
+export default function CommentForm({ locale }: { locale: string }) {
   const [state, formAction, isPending] = useActionState(submitPost, initialState);
   const t = useTranslations("CreatePage.Form");
 
@@ -32,6 +32,7 @@ export default function CommentForm() {
       {/* Before receiving success response */}
       {!(state.success) &&
         <Form className="flex flex-col space-y-4" action={formAction}>
+          <input type="hidden" name="locale" value={locale} />
           <label className="flex flex-col">
             <span className="text-lg font-semibold mb-2">{t("nickname")}</span>
             <input

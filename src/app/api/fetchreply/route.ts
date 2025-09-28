@@ -2,14 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { sql } from "@/app/api/sql";
 
-import { Item } from "@/interfaces/item";
-
 import { z } from "zod";
+
+import { routing } from "@/i18n/routing";
 
 const fetchReplySchema = z.object({
   id: z.coerce.number().int().positive(),
   page: z.coerce.number().int().positive().default(1),
   fetchType: z.enum(["silent", "starlight"]),
+  locale: z.enum(routing.locales).default(routing.defaultLocale),
 });
 
 const PAGE_SIZE = 10;
@@ -34,52 +35,32 @@ export async function GET(request: NextRequest) {
     id: searchParams.get("id"),
     page: searchParams.get("page"),
     fetchType: searchParams.get("fetchType"),
+    locale: searchParams.get("locale"),
   });
 
   if (!fetchReplyData.success) {
     return NextResponse.json({
       success: false,
-      error: fetchReplyData.error.format(),
+      error: z.treeifyError(fetchReplyData.error),
       data: null,
     }, { status: 400 });
   }
-  const { id, page, fetchType } = fetchReplyData.data;
+  const { id, page, fetchType, locale } = fetchReplyData.data;
 
-  let
-    op: Record<string, Item>,
-    data: Record<string, Item>[],
-    maxPage: number, 
-    itemCount: {count: number}[], 
-    actualPage: number, 
-    offset: number;
-  switch (fetchType) {
-    case "silent":
-      itemCount = (await sql`SELECT COUNT(*) FROM silent_comments_replies WHERE status = 'approved' AND parent_id = ${id};`) as { count: number }[];
-      op = (await sql`SELECT id, name, content, created_at FROM silent_comments WHERE id = ${id};`)[0];
-      maxPage = Math.max(1, Math.ceil(itemCount[0].count / PAGE_SIZE));
-      actualPage = normalizePage(page, maxPage);
-      offset = (actualPage - 1) * PAGE_SIZE;
-      data = await sql`SELECT id, name, content, created_at FROM silent_comments_replies
-        WHERE status = 'approved'
-        AND parent_id = ${id}
-        ORDER BY created_at DESC
-        LIMIT ${PAGE_SIZE}
-        OFFSET ${offset};`;
-      break;
-    case "starlight":
-      itemCount = (await sql`SELECT COUNT(*) FROM starlight_comments_replies WHERE status = 'approved' AND parent_id = ${id};`) as { count: number }[];
-      op = (await sql`SELECT id, name, content, created_at FROM starlight_comments WHERE id = ${id};`)[0];
-      maxPage = Math.max(1, Math.ceil(itemCount[0].count / PAGE_SIZE));
-      actualPage = normalizePage(page, maxPage);
-      offset = (actualPage - 1) * PAGE_SIZE;
-      data = await sql`SELECT id, name, content, created_at FROM starlight_comments_replies
-        WHERE status = 'approved'
-        AND parent_id = ${id}
-        ORDER BY created_at DESC
-        LIMIT ${PAGE_SIZE}
-        OFFSET ${offset};`;
-      break;
-  }
+  const parentTable = sql`${sql.unsafe(fetchType)}_comments_${sql.unsafe(locale)}`;
+  const replyTable = sql`${sql.unsafe(fetchType)}_comments_replies_${sql.unsafe(locale)}`;
+
+  const itemCount = (await sql`SELECT COUNT(*) FROM ${replyTable} WHERE status = 'approved' AND parent_id = ${id};`) as { count: number }[];
+  const op = (await sql`SELECT id, name, content, created_at FROM ${parentTable} WHERE id = ${id};`)[0];
+  const maxPage = Math.max(1, Math.ceil(itemCount[0].count / PAGE_SIZE));
+  const actualPage = normalizePage(page, maxPage);
+  const offset = (actualPage - 1) * PAGE_SIZE;
+  const data = await sql`SELECT id, name, content, created_at FROM ${replyTable}
+    WHERE status = 'approved'
+    AND parent_id = ${id}
+    ORDER BY created_at DESC
+    LIMIT ${PAGE_SIZE}
+    OFFSET ${offset};`;
 
   if (op === undefined) {
     return NextResponse.json({

@@ -2,36 +2,30 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { sql } from "@/app/api/sql";
 
-import { type Item } from "@/interfaces/item";
+import { routing } from "@/i18n/routing";
 
 import { z } from "zod";
 
 const ItemSchema = z.object({
   fetchType: z.enum(["silent", "starlight"]),
+  locale: z.enum(routing.locales).default(routing.defaultLocale),
 });
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
-  const { fetchType } = ItemSchema.parse({
+  const { fetchType, locale } = ItemSchema.parse({
     fetchType: searchParams.get("fetchType"),
+    locale: searchParams.get("locale"),
   });
 
-  let data: Record<string, Item>[];
+  const table = sql`${sql.unsafe(`${fetchType}_comments_${locale}`)}`;
 
-  switch (fetchType) {
-    case "starlight":
-      data = await sql`
-        SELECT id, name, content, created_at, reply_count FROM starlight_comments
-        WHERE status = 'pending'
-        ORDER BY created_at ASC;`;
-      break;
-    case "silent":
-      data = await sql`
-        SELECT id, name, content, created_at, reply_count FROM silent_comments
-        WHERE status = 'pending'
-        ORDER BY created_at ASC;`;
-      break;
-  }
+  const data = await sql`
+    SELECT id, name, content, created_at, reply_count FROM ${table}
+    WHERE status = 'pending'
+    ORDER BY created_at ASC;
+  `;
+
   return NextResponse.json({
     success: true,
     data: data,

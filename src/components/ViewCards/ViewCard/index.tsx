@@ -1,4 +1,3 @@
-/* eslint @typescript-eslint/no-explicit-any: "warn" */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -41,11 +40,11 @@ export default function ViewCard({ datum, cardType, isReply, className }: ViewCa
         setIsCopySuccess(true);
       }).catch((err) => {
         console.error("Failed to copy: ", err);
-        toast.error(t("CopyLinkFailed"));
+        toast.error(t("copyLinkFailed"));
       });
     } else {
       console.warn("Clipboard API not supported.");
-      toast.error(t("CopyLinkFailed"));
+      toast.error(t("copyLinkFailed"));
     }
   }, [t]);
 

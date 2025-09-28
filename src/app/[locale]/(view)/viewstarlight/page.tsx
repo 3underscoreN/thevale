@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Card,
   CardHeader,
@@ -7,13 +5,15 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 import ViewCards from "@/components/ViewCards";
 import { ListText } from "@/components/RichTextRenderer";
 
-export default function ViewPage() {
-  const t = useTranslations("ViewPage");
+export default async function ViewPage(params: { params: Promise<{ id: string, locale: string }> }) {
+  const t = await getTranslations("ViewPage");
+  const { locale } = await params.params;
+
 
   return (
     <>
@@ -31,7 +31,7 @@ export default function ViewPage() {
           </CardHeader>
         </Card>
         <div className="my-8 w-full md:w-3/4">
-          <ViewCards id={0} cardType="starlight"/>
+          <ViewCards id={0} cardType="starlight" locale={locale} />
         </div>
       </div>
     </>

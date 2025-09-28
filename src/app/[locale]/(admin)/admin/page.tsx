@@ -15,6 +15,8 @@ import { useTranslations } from "next-intl";
 
 import { toast } from "sonner";
 
+import { useParams } from "next/navigation";
+
 type responseFormat = {
   success: boolean;
   data: Item[];
@@ -29,6 +31,8 @@ export default function AdminPage() {
   const [source, setSource] = useState<sourceType>("post");
   const [type, setType] = useState<fetchType>("silent");
 
+  const { locale } = useParams<{ locale: string} >();
+
   const t = useTranslations("Admin.SignedIn");
 
   useEffect(() => {
@@ -36,7 +40,7 @@ export default function AdminPage() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`/api/admin/fetchpending${source}?fetchType=${type}`);
+        const res = await fetch(`/api/admin/fetchpending${source}?fetchType=${type}&locale=${locale}`);
         const resj: responseFormat = await res.json();
         if (resj.success) {
           setData(resj.data);
@@ -48,10 +52,10 @@ export default function AdminPage() {
       }
     };
     fetchData();
-  }, [type, source]);
+  }, [type, source, locale]);
 
   function approveOrDeclineCallBack(isApproved: boolean, item: Item) {
-    fetch(`/api/admin/${isApproved ? `approve${source}` : `decline${source}`}`, {
+    fetch(`/api/admin/${isApproved ? `approve${source}` : `decline${source}`}?locale=${locale}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

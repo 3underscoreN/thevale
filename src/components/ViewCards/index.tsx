@@ -33,9 +33,10 @@ type ViewCardsProps = {
   cardType: "silent" | "starlight";
   isReply?: boolean;
   id: number;
+  locale: string;
 }
 
-export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
+export default function ViewCards({cardType, id, isReply, locale}: ViewCardsProps) {
   const t = useTranslations("ViewPage");
 
   if (id === 0 && isReply) {
@@ -52,7 +53,7 @@ export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
 
   useEffect(() => {
     const apiToFetch = isReply ? "fetchreply" : "fetchpost";
-    fetch(`/api/${apiToFetch}?page=${currentPage}&fetchType=${cardType}&id=${id}`)
+    fetch(`/api/${apiToFetch}?page=${currentPage}&fetchType=${cardType}&id=${id}&locale=${locale}`)
       .then((res) => res.json())
       .then((resj) => {
         if (resj.success) {
@@ -71,7 +72,7 @@ export default function ViewCards({cardType, id, isReply}: ViewCardsProps) {
         setError(error);
       }
       );
-  }, [currentPage, cardType, id, isReply, router]);
+  }, [currentPage, cardType, id, isReply, router, locale]);
 
   if (!data) {
     return (

@@ -17,6 +17,7 @@ type ViewCardsReplyFormProps = {
   cardType: "silent" | "starlight";
   cardId: number;
   className?: string;
+  locale: string;
 }
 
 const initialState = {
@@ -28,7 +29,7 @@ const initialState = {
   },
 };
 
-export default function ViewCardsReplyForm({ cardType, cardId, className }: ViewCardsReplyFormProps) {
+export default function ViewCardsReplyForm({ cardType, cardId, className, locale }: ViewCardsReplyFormProps) {
   const [state, formAction, isPending] = useActionState(
     (s: SubmitState, f: FormData) => submitReply(s, cardType, cardId, f),
     initialState
@@ -89,6 +90,7 @@ export default function ViewCardsReplyForm({ cardType, cardId, className }: View
                   />
                 </label>
                 <input type="hidden" name="parent_id" value={cardId} />
+                <input type="hidden" name="locale" value={locale} />
                 <Button type="submit" className="mt-4 w-full hover:cursor-pointer" disabled={isPending}>
                   {isPending ? t("sending") : t("send")}
                 </Button>
