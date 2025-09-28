@@ -164,7 +164,7 @@
     },
     "Errors": {
       "noMessage": "請填寫訊息。",
-      "generationError": "生成回覆時發生錯誤。s"
+      "generationError": "生成回覆時發生錯誤。"
     },
     "Aria": {
       "sendMessage": "發送訊息"
