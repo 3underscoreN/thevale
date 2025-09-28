@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
   }
   const { locale } = parsedData.success ? parsedData.data : { locale: routing.defaultLocale };
 
-  const data = await import(`@/messages/${locale}/helplines_${locale}.json`);
+  const data = await import(`@/messages/${locale}/helplines.json`);
 
   const dataMap = new Map(Object.entries(data));
 

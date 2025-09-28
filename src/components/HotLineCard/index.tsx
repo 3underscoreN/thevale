@@ -15,8 +15,6 @@ import { Select, SelectContent, SelectTrigger, SelectValue, SelectItem } from "@
 
 import { Helpline } from "@/interfaces/helpline";
 
-import { HelplineType2Text } from "@/lib/helplineformatter";
-
 import { useTranslations } from "next-intl";
 
 
@@ -54,6 +52,19 @@ export default function HotLineCard() {
         console.error("Error fetching helplines data:", error);
       });
   }, [region, locale]);
+
+  function HelplineType2Text(h: Helpline) {
+    switch (h.type) {
+      case "hotline":
+        return t("Types.hotline");
+      case "chatroom":
+        return t("Types.chatroom");
+      case "website":
+        return t("Types.website");
+      default:
+        return t("Types.others");
+    }
+  }
 
   return (
     <>
