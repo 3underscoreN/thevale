@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
 
   const { locale } = parsedData.data;
 
-  const data = await import(`@/messages/${locale}/helplines_${locale}.json`);
+  const data = await import(`@/messages/${locale}/helplines.json`);
 
   const keys = Object.keys(data);
 

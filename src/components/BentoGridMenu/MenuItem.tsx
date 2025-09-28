@@ -5,6 +5,7 @@ type MenuItem = {
   href: string;
   className: string;
   color: "green" | "blue" | "amber" | "pink";
+  onClick?: () => void;
 }
 
 export default MenuItem;

@@ -5,8 +5,12 @@ import "./globals.css";
 import localFont from "next/font/local"
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
+import { Toaster } from "sonner";
+
 import Image from "next/image";
 import Link from "next/link";
+
+import { getTranslations } from "next-intl/server";
 
 import { NextIntlClientProvider } from 'next-intl';
 
@@ -18,42 +22,49 @@ config.autoAddCss = false
 
 import Footer from "@/components/Footer";
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://thevale.top"),
-  title: "山谷｜The Vale",
-  icons: {
-    icon: "/icon/vale.svg",
-    shortcut: "/icon/vale.svg",
-    apple: "/icon/vale.svg",
-  },
-  description: "匿名抒發心聲的平台。分享低語，傾聽靜谷心聲與星光回聲，尋找共鳴與溫暖。",
-  openGraph: {
-    type: "website",
-    locale: "zh_TW",
-    title: "山谷｜The Vale",
-    description: "匿名抒發心聲的平台。分享低語，傾聽靜谷心聲與星光回聲，尋找共鳴與溫暖。",
-    url: "https://thevale.top",
-    siteName: "山谷｜The Vale",
-    images: [{
-      url: "/og/og_social.png",
-      width: 1280,
-      height: 640,
-      alt: "山谷｜The Vale",
-      type: "image/png",
-    }],
-  }
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) : Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({locale, namespace: 'Metadata'});
+
+  return {
+    metadataBase: new URL("https://thevale.top"),
+    title: t('title'),
+    icons: {
+      icon: "/icon/vale.svg",
+      shortcut: "/icon/vale.svg",
+      apple: "/icon/vale.svg",
+    },
+    description: t('description'),
+    openGraph: {
+      type: "website",
+      locale: locale,
+      title: t('title'),
+      description: t('description'),
+      url: "https://thevale.top",
+      siteName: t('title'),
+      images: [{
+        url: `/og/og_social_${locale}.png`,
+        width: 1280,
+        height: 640,
+        alt: t('title'),
+        type: "image/png",
+      }],
+    }
+  };
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html suppressHydrationWarning>
       <body className={`${iansuiFont.className} antialiased`}>
         <NextIntlClientProvider>
           <ThemeProvider attribute="class" defaultTheme="dark">
+            <Toaster expand visibleToasts={1} />
             <div className="relative" aria-hidden="false">
               <div className="absolute top-4 left-4 md:top-8 md:left-16 z-2">
                 <Link href="/">
