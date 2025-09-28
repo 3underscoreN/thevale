@@ -21,6 +21,7 @@ function BentoButton({
   href,
   className,
   color,
+  onClick,
 }: MenuItem) {
 
   const [isHovered, setIsHovered] = useState(false);
@@ -34,6 +35,9 @@ function BentoButton({
   };
 
   const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
     setIsClicked(true);
   };
 

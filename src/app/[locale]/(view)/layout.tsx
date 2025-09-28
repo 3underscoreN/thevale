@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Toaster } from '@/components/ui/sonner';
-
 export default function ViewLayout({
   children,
 }: Readonly<{
@@ -9,7 +7,6 @@ export default function ViewLayout({
 }>) {
   return (
     <>
-      <Toaster richColors />
       <div className="fixed left-0 top-0 -z-1 w-svw h-svh bg-[url(/asset/background.jpg)] bg-cover bg-no-repeat bg-center blur-md brightness-50" tabIndex={-1} />
       <div className="z-0 w-full h-full px-4 py-16">
         {children}

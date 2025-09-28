@@ -6,6 +6,8 @@ import MenuItem from "@/components/BentoGridMenu/MenuItem";
 
 import { useTranslations } from "next-intl";
 
+import { toast } from "sonner";
+
 export default function BentoGridMenu({ className, ...props }: React.ComponentProps<"div">) {
   const t = useTranslations("LandingPage.Actions");
 
@@ -47,7 +49,7 @@ export default function BentoGridMenu({ className, ...props }: React.ComponentPr
   return (
     <div className={cn("grid grid-cols-1 md:grid-cols-3 grid-flow-row md:grid-flow-col gap-4", className)} {...props}>
       {menuItems.map(({ title, testid, description, href, className, color }, index) => (
-        <BentoButton key={index} title={title} testid={testid} description={description} href={href} className={className} color={color} />
+        <BentoButton key={index} onClick={() => toast.dismiss()} title={title} testid={testid} description={description} href={href} className={className} color={color} />
       ))}
     </div>
   );

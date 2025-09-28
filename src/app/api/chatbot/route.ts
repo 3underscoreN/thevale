@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
 
   const { locale } = parsedData.data;
 
-  const prompt = await import(`@/messages/${locale}/prompt_${locale}.json`);
+  const prompt = await import(`@/messages/${locale}/prompt.json`);
 
   const chatRequest: { messages: UIMessage[] } = await request.json();
 
