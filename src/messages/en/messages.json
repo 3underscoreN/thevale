@@ -1,7 +1,7 @@
 {
   "LandingPage": {
     "WelcomeText": {
-      "title": "山谷",
+      "title": "The Vale",
       "subtitle": "想分享心裏的思緒嗎？"
     },
     "Introduction": {
@@ -182,7 +182,7 @@
   "Helpline": {
     "title": "資源",
     "subtitle": "當回聲難以承載心聲，外界的熱線與資源在此守候；因為你很重要。",
-    "hongKong": "香港",
+    "hongKong": "Hong Kong",
     "Types": {
       "hotline": "熱線",
       "chatroom": "即時聊天",
