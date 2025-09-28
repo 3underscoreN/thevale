@@ -1,8 +1,9 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
 import "./bg-colors.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,13 +17,35 @@ import { Helpline } from "@/interfaces/helpline";
 
 import { HelplineType2Text } from "@/lib/helplineformatter";
 
+import { useTranslations } from "next-intl";
+
 
 export default function HotLineCard() {
   const [region, setRegion] = useState<string>("hk");
-  const [helplinesData, setHelplinesData] = useState<{ chinese_name: string, hotlines: Helpline[] } | null>(null);
+  const [regions, setRegions] = useState<Array<{ region: string, name: string }>>([]);
+  const [helplinesData, setHelplinesData] = useState<{ name: string, hotlines: Helpline[] } | null>(null);
+  const { locale } = useParams<{ locale: string }>();
+
+  const t = useTranslations("Helpline");
 
   useEffect(() => {
-    fetch(`/api/fetchhelpline?region=${region}`)
+    fetch(`/api/fetchhelpline/fetchregion?locale=${locale}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.data);
+        if (data.success) {
+          setRegions(data.data);
+        } else {
+          console.error("Error fetching regions data:", data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching regions data:", error);
+      });
+  }, [locale]);
+
+  useEffect(() => {
+    fetch(`/api/fetchhelpline?region=${region}&locale=${locale}`)
       .then((response) => response.json())
       .then((data) => {
         setHelplinesData(data);
@@ -30,7 +53,7 @@ export default function HotLineCard() {
       .catch((error) => {
         console.error("Error fetching helplines data:", error);
       });
-  }, [region]);
+  }, [region, locale]);
 
   return (
     <>
@@ -39,15 +62,12 @@ export default function HotLineCard() {
           <CardTitle className="">
             <Select onValueChange={setRegion} name="region" autoComplete="off" defaultValue="hk">
               <SelectTrigger className="backdrop-blur-xl backdrop-brightness-50 w-full md:w-auto">
-                <SelectValue placeholder="香港" />
+                <SelectValue placeholder={t("hongKong")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="hk">香港</SelectItem>
-                <SelectItem value="tw">台灣</SelectItem>
-                <SelectItem value="mo">澳門</SelectItem>
-                <SelectItem value="sg">新加坡</SelectItem>
-                <SelectItem value="my">馬來西亞</SelectItem>
-                <SelectItem value="other">其他地區</SelectItem>
+                {regions.map((reg) => (
+                  <SelectItem key={reg.region} value={reg.region}>{reg.name}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </CardTitle>
@@ -59,28 +79,27 @@ export default function HotLineCard() {
                 <CardHeader>
                   <CardTitle className="text-lg font-bold">{helpline.title}</CardTitle>
                   <CardDescription>
-                    <span className="flex gap-2">
-                      {HelplineType2Text(helpline)}
-                      {helpline.is247 ? <Badge variant="outline">24/7</Badge> : null}
-                    </span>
-                    {helpline.is247 ? null : <span>{helpline.opening_hours}</span>}
+                    <span className="mr-2">{HelplineType2Text(helpline)}</span>
+                    <span>{helpline.is247 ? <Badge variant="outline">24/7</Badge> : <span>{helpline.opening_hours}</span>}</span>
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-col place-items-baseline">
-                    <span>{helpline.phone ? `電話：${helpline.phone}` : ""}&nbsp;</span>
+                    <span>{helpline.phone ? `${t("phoneDescription")}${helpline.phone}` : ""}&nbsp;</span>
                     <span className="text-sm">{helpline.description ?? ""}&nbsp;</span>
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button variant="default" className="w-full" asChild>
-                    <a href={helpline.link} target="_blank" rel="noopener noreferrer">
-                      {helpline.type === "hotline"
-                        ? <div><span>致電</span>&nbsp;<FontAwesomeIcon icon={faPhone} /></div>
-                        : <div><span>前往網站</span>&nbsp;<FontAwesomeIcon icon={faExternalLink} /></div>
-                      }
-                    </a>
-                  </Button>
+                  <CardAction className="w-full">
+                    <Button variant="default" className="w-full" asChild>
+                      <a href={helpline.link} target="_blank" rel="noopener noreferrer">
+                        {helpline.type === "hotline"
+                          ? <div><span>{t("call")}</span>&nbsp;<FontAwesomeIcon icon={faPhone} /></div>
+                          : <div><span>{t("goToWebsite")}</span>&nbsp;<FontAwesomeIcon icon={faExternalLink} /></div>
+                        }
+                      </a>
+                    </Button>
+                  </CardAction>
                 </CardFooter>
               </Card>
             ))}

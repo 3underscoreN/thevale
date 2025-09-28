@@ -9,9 +9,9 @@ import { faCheck, faXmark, faBan } from "@fortawesome/free-solid-svg-icons";
 
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 
-import MarkdownRenderer from "@/components/MarkdownRenderer";
-
 import { useState } from "react";
+
+import { useTranslations } from "next-intl";
 
 type ViewCardProps = {
   datum: Item;
@@ -23,13 +23,15 @@ export default function ViewCardAdmin({ datum, approveOrDeclineCallBack, classNa
   const [isApproveOpened, setApproveOpened] = useState(false);
   const [isDeclineOpened, setDeclineOpened] = useState(false);
 
+  const t = useTranslations("ViewPage.CardContent");
+
   return (
     <>
       <Card className={className}>
         <CardHeader>
           <CardDescription className="text-md font-bold mb-2">
             <div className="flex justify-between">
-              <span className="text-left">暱稱：{datum.name}</span>
+              <span className="text-left">{t("Nickname")}{datum.name}</span>
               <span className="text-right">
                 {(new Date(Date.parse(datum.created_at))).toLocaleDateString("zh-TW")}
               </span>
@@ -38,7 +40,16 @@ export default function ViewCardAdmin({ datum, approveOrDeclineCallBack, classNa
         </CardHeader>
         <CardContent className="text-lg">
           <div className="text-left">
-            <MarkdownRenderer content={datum.content} />
+            {datum.content.split("\n\n").map((line, index) => (
+              <p key={index} className="mb-2">{
+                line.split("\n").map((subline, subindex, array) => (
+                  <span key={`${index}-${subindex}`}>
+                    {subline}
+                    {subindex < array.length - 1 ? <br /> : null}
+                  </span>
+                ))
+              }</p>
+            ))}
           </div>
         </CardContent>
         <CardFooter>
@@ -52,7 +63,7 @@ export default function ViewCardAdmin({ datum, approveOrDeclineCallBack, classNa
               <PopoverContent className="w-56">
                 <ul className="space-y-2">
                   <li>
-                    <p className="text-sm text-center">確定要批准這則留言嗎？</p>
+                    <p className="text-sm text-center">{t("confirmApprove")}</p>
                   </li>
                   <li>
                     <div className="flex flex-row space-x-2 justify-center">
@@ -88,7 +99,7 @@ export default function ViewCardAdmin({ datum, approveOrDeclineCallBack, classNa
               <PopoverContent className="w-56">
                 <ul className="space-y-2">
                   <li>
-                    <p className="text-sm text-center">確定要刪除這則留言嗎？</p>
+                    <p className="text-sm text-center">{t("confirmDelete")}</p>
                   </li>
                   <li>
                     <div className="flex flex-row space-x-2 justify-center">

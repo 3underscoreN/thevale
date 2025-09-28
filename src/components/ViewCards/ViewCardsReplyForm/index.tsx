@@ -11,10 +11,13 @@ import Link from "next/link";
 import Form from "next/form";
 import { SubmitState } from "@/app/actions/submitpost";
 
+import { useTranslations } from "next-intl";
+
 type ViewCardsReplyFormProps = {
   cardType: "silent" | "starlight";
   cardId: number;
   className?: string;
+  locale: string;
 }
 
 const initialState = {
@@ -26,73 +29,76 @@ const initialState = {
   },
 };
 
-export default function ViewCardsReplyForm({cardType, cardId, className}: ViewCardsReplyFormProps) {
+export default function ViewCardsReplyForm({ cardType, cardId, className, locale }: ViewCardsReplyFormProps) {
   const [state, formAction, isPending] = useActionState(
-    (s: SubmitState, f: FormData) => submitReply(s, cardType, cardId, f), 
+    (s: SubmitState, f: FormData) => submitReply(s, cardType, cardId, f),
     initialState
   );
+  const t = useTranslations("ViewPage.ReplyForm");
 
   return (
     <>
       {/* Before receiving success response */}
       {!(state.success) && (
-      <div className={className}>
-        <hr className="my-4" />
-        <Card className="my-4">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold mb-4">與此回聲共鳴...</CardTitle>
-            <CardDescription className="text-md">
-              <p>
-                發送前，請閱讀
-                <Button variant="link" size="icon" className="text-blue-500 inline text-md" asChild>
-                  <Link href="/privacy">
-                    私隱聲明
-                  </Link>
+        <div className={className}>
+          <hr className="my-4" />
+          <Card className="my-4">
+            <CardHeader>
+              <CardTitle className="text-2xl font-bold mb-4">{t("title")}</CardTitle>
+              <CardDescription className="text-md">
+                <p>
+                  {t.rich("privacyAndRules", {
+                    privacy: (chunk) =>
+                      <Button variant="link" size="icon" className="text-blue-300 inline text-md" asChild>
+                        <Link href="/privacy">
+                          {chunk}
+                        </Link>
+                      </Button>,
+                    rules: (chunk) =>
+                      <Button variant="link" size="icon" className="text-blue-300 inline text-md" asChild>
+                        <Link href="/create">
+                          {chunk}
+                        </Link>
+                      </Button>
+                  })}
+                </p>
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Form action={formAction}>
+                <label className="flex flex-col">
+                  <span className="text-lg font-semibold my-2">{t("nickname")}</span>
+                  <input
+                    name="name"
+                    type="text"
+                    className="border border-gray-300 rounded-md p-2"
+                    placeholder={t("nicknameDefault")}
+                    maxLength={64}
+                    defaultValue={state.lastSubmitted.name || ''}
+                  />
+                </label>
+                <label className="flex flex-col">
+                  <span className="text-lg font-semibold my-2">{t("reply")}</span>
+                  <textarea
+                    name="content"
+                    className="border border-gray-300 rounded-md p-2"
+                    rows={4}
+                    placeholder={t("replyDefault")}
+                    maxLength={2048}
+                    defaultValue={state.lastSubmitted.content || ''}
+                    required
+                  />
+                </label>
+                <input type="hidden" name="parent_id" value={cardId} />
+                <input type="hidden" name="locale" value={locale} />
+                <Button type="submit" className="mt-4 w-full hover:cursor-pointer" disabled={isPending}>
+                  {isPending ? t("sending") : t("send")}
                 </Button>
-                以及
-                <Button variant="link" size="icon" className="text-blue-500 inline text-md" asChild>
-                  <Link href="/create">
-                    創造回聲
-                  </Link>
-                </Button>
-                的須知事項。
-              </p>
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-          <Form action={formAction}>
-            <label className="flex flex-col">
-              <span className="text-lg font-semibold my-2">暱稱</span>
-              <input
-                name="name"
-                type="text"
-                className="border border-gray-300 rounded-md p-2"
-                placeholder="佚名"
-                maxLength={64}
-                defaultValue={state.lastSubmitted.name || ''}
-              />
-            </label>
-            <label className="flex flex-col">
-              <span className="text-lg font-semibold my-2">共鳴</span>
-              <textarea
-                name="content"
-                className="border border-gray-300 rounded-md p-2"
-                rows={4}
-                placeholder="在這裏留下你的共鳴..."
-                maxLength={2048}
-                defaultValue={state.lastSubmitted.content || ''}
-                required
-              />
-            </label>
-            <input type="hidden" name="parent_id" value={cardId} />
-            <Button type="submit" className="mt-4 w-full hover:cursor-pointer" disabled={isPending}>
-              {isPending ? "請稍後..." : "發送" }
-            </Button>
-          </Form>
-          {state.error ? <div className="text-red-500 mt-2">發送失敗，請稍後再試。</div> : null}
-          </CardContent>
-        </Card>
-      </div>
+              </Form>
+              {state.error ? <div className="text-red-500 mt-2">{t("sendError")}</div> : null}
+            </CardContent>
+          </Card>
+        </div>
       )}
       {/* After receiving success response */}
       {state.success && (
@@ -100,10 +106,10 @@ export default function ViewCardsReplyForm({cardType, cardId, className}: ViewCa
           <hr className="my-4" />
           <Card className="my-4">
             <CardHeader>
-              <CardTitle className="text-2xl font-bold text-green-500 mb-4">發送成功！</CardTitle>
+              <CardTitle className="text-2xl font-bold text-green-500 mb-4">{t("Sent.title")}</CardTitle>
               <CardDescription className="text-md">
                 <p>
-                  感謝你的共鳴。正如聲音傳播需要時間，我們也需時處理你的訊息，故請耐心等待。這段時間，也請好好照顧自己！
+                  {t("Sent.desc")}
                 </p>
               </CardDescription>
             </CardHeader>

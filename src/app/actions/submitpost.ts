@@ -1,19 +1,20 @@
-/* eslint @typescript-eslint/no-explicit-any: "warn" */
-
 "use server";
 
 import { neon } from "@neondatabase/serverless";
 import { z } from "zod";
 
+import { routing } from "@/i18n/routing";
+
 const FormDataSchema = z.object({
   name: z.preprocess((arg) => {
     if (typeof arg === "string" && arg.trim() === "") {
-      return '佚名';
+      return '-';
     }
     return arg;
   }, z.string().max(64)),
   content: z.string().max(2048),
   category: z.enum(["silent_comments", "starlight_comments"]),
+  locale: z.enum(routing.locales).default(routing.defaultLocale),
 });
 
 export type SubmitState = {
@@ -30,7 +31,7 @@ export async function submitPost(_: SubmitState, formData: FormData) {
   if (!parsedData.success) {
     throw parsedData.error;
   }
-  const { name, content, category } = parsedData.data;
+  const { name, content, category, locale } = parsedData.data;
 
   const currentDate = new Date().toISOString();
   const status = "pending";
@@ -40,18 +41,11 @@ export async function submitPost(_: SubmitState, formData: FormData) {
       ? neon(`${process.env.DATABASE_URL}`)
       : neon(`${process.env.DATABASE_URL_DEV}`);
   try {
-    if (category === "silent_comments") {
-      await sql`
-        INSERT INTO silent_comments (name, content, created_at, status) 
-        VALUES (${name}, ${content}, ${currentDate}, ${status});
-      `;
-    }
-    if (category === "starlight_comments") {
-      await sql`
-        INSERT INTO starlight_comments (name, content, created_at, status) 
-        VALUES (${name}, ${content}, ${currentDate}, ${status});
-      `;
-    }
+    const table = sql`${sql.unsafe(category)}_${sql.unsafe(locale)}`;
+    await sql`
+      INSERT INTO ${table} (name, content, created_at, status) 
+      VALUES (${name}, ${content}, ${currentDate}, ${status});
+    `;
     return {
       success: true,
       error: null,
@@ -61,6 +55,7 @@ export async function submitPost(_: SubmitState, formData: FormData) {
       },
     };
   } catch (error) {
+    console.error("Error submitting post:", error);
     return {
       success: false,
       error: error,
