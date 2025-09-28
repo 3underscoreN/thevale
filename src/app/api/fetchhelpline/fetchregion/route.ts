@@ -2,19 +2,17 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { routing } from '@/i18n/routing';
 
-import { z } from 'zod';
+import z from 'zod';
 
-const helplineSchema = z.object({
-  region: z.string().default("other"),
+const regionSchema = z.object({
   locale: z.enum(routing.locales).default(routing.defaultLocale),
 });
 
 export async function GET(request: NextRequest) {
-  
+
   const searchParams = request.nextUrl.searchParams;
 
-  const parsedData = helplineSchema.safeParse({
-    region: searchParams.get('region'),
+  const parsedData = regionSchema.safeParse({
     locale: searchParams.get('locale'),
   });
 
@@ -25,11 +23,6 @@ export async function GET(request: NextRequest) {
       data: null,
     }, { status: 400 });
   }
-  const { locale } = parsedData.success ? parsedData.data : { locale: routing.defaultLocale };
-
-  const data = await import(`@/messages/helplines_${locale}.json`);
-
-  const dataMap = new Map(Object.entries(data));
 
   if (!parsedData.success) {
     return NextResponse.json({
@@ -39,9 +32,21 @@ export async function GET(request: NextRequest) {
     });
   }
 
-  const { region } = parsedData.data;
+  const { locale } = parsedData.data;
 
-  const resultant = dataMap.get(region) ?? dataMap.get("other");
+  const data = await import(`@/messages/helplines_${locale}.json`);
 
-  return NextResponse.json(resultant);
+  const keys = Object.keys(data);
+
+  return NextResponse.json({
+    success: true,
+    error: null,
+    data: keys
+      .filter((key) => key !== "default")
+      .map((key) => ({
+        "region": key,
+        "name": data[key].name,
+      })
+    ),
+  });
 }
