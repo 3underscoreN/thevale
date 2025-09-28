@@ -31,14 +31,6 @@ export async function GET(request: NextRequest) {
 
   const dataMap = new Map(Object.entries(data));
 
-  if (!parsedData.success) {
-    return NextResponse.json({
-      success: false,
-      error: 'Error parsing parameters.',
-      data: null,
-    });
-  }
-
   const { region } = parsedData.data;
 
   const resultant = dataMap.get(region) ?? dataMap.get("other");
