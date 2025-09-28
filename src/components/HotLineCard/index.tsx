@@ -62,7 +62,7 @@ export default function HotLineCard() {
       case "website":
         return t("Types.website");
       default:
-        return t("Types.other");
+        return t("Types.others");
     }
   }
 
