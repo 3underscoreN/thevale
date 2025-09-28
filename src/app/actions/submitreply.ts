@@ -5,14 +5,17 @@
 import { neon } from "@neondatabase/serverless";
 import { z } from "zod";
 
+import { routing } from "@/i18n/routing";
+
 const FormDataSchema = z.object({
   name: z.preprocess((arg) => {
     if (typeof arg === "string" && arg.trim() === "") {
-      return '佚名';
+      return '-';
     }
     return arg;
   }, z.string().max(64)),
   content: z.string().max(2048),
+  locale: z.enum(routing.locales).default(routing.defaultLocale),
 });
 
 export type SubmitState = {
@@ -29,7 +32,7 @@ export async function submitReply(_: SubmitState, cardType: "silent" | "starligh
   if (!parsedData.success) {
     throw parsedData.error;
   }
-  const { name, content } = parsedData.data;
+  const { name, content, locale } = parsedData.data;
 
   const currentDate = new Date().toISOString();
   const status = "pending";
@@ -39,18 +42,15 @@ export async function submitReply(_: SubmitState, cardType: "silent" | "starligh
       ? neon(`${process.env.DATABASE_URL}`)
       : neon(`${process.env.DATABASE_URL_DEV}`);
   try {
-    if (cardType === "silent") {
-      await sql`
-        INSERT INTO silent_comments_replies (name, content, created_at, status, parent_id) 
-        VALUES (${name}, ${content}, ${currentDate}, ${status}, ${parentId});
-      `;
+    if (cardType !== "silent" && cardType !== "starlight") {
+      throw new Error("Invalid card type");
     }
-    if (cardType === "starlight") {
-      await sql`
-        INSERT INTO starlight_comments_replies (name, content, created_at, status, parent_id) 
-        VALUES (${name}, ${content}, ${currentDate}, ${status}, ${parentId});
-      `;
-    }
+    const table = sql`${sql.unsafe(cardType)}_comments_replies_${sql.unsafe(locale)}`;
+
+    await sql`
+      INSERT INTO ${table} (name, content, created_at, status, parent_id) 
+      VALUES (${name}, ${content}, ${currentDate}, ${status}, ${parentId});
+    `;
     return {
       success: true,
       error: null,

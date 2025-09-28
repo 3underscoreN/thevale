@@ -1,6 +1,6 @@
 {
   "hk": {
-    "chinese_name": "香港",
+    "name": "香港",
     "hotlines": [
       {
         "title": "香港撒瑪利亞會",
@@ -41,7 +41,7 @@
     ]
   },
   "tw": {
-    "chinese_name": "台灣",
+    "name": "台灣",
     "hotlines": [
       {
         "title": "衛生福利部 安心專線",
@@ -73,7 +73,7 @@
     ]
   },
   "mo": {
-    "chinese_name": "澳門",
+    "name": "澳門",
     "hotlines": [
       {
         "title": "社工局",
@@ -96,7 +96,7 @@
     ]
   },
   "sg": {
-    "chinese_name": "新加坡",
+    "name": "新加坡",
     "hotlines": [
       {
         "title": "Samaritans of Singapore",
@@ -119,7 +119,7 @@
     ]
   },
   "my": {
-    "chinese_name": "馬來西亞",
+    "name": "馬來西亞",
     "hotlines": [
       {
         "title": "Befrienders Kuala Lumpur",
@@ -142,7 +142,7 @@
     ]
   },
   "other": {
-    "chinese_name": "其他地區",
+    "name": "其他地區",
     "hotlines": [
       {
         "title": "find a helpline",

@@ -6,19 +6,23 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
 
+import { useTranslations } from "next-intl";
+
 export default function Footer(props: React.HTMLProps<HTMLDivElement>) {
+  const t = useTranslations("Footer");
+
   return (
     <div role="contentinfo" {...props}>
       <div className="w-full">
         <div className="overflow-clip text-md p-2">
-          <p>山谷 / The Vale - <Link href="https://3underscoreN.github.io" className="underline-offset-2 hover:underline text-xs">3_n</Link></p>
+          <p>{t("title")}<Link href="https://3underscoreN.github.io" className="underline-offset-2 hover:underline text-xs">3_n</Link></p>
         </div>
         <hr />
         <div className="flex flex-col items-start space-y-2 p-2">
           <div className="flex flex-col justify-start space-y-2 text-sm">
-            <Link href="/privacy" data-testid="privacy" className="underline-offset-2 hover:underline">私隱聲明</Link>
-            <Link href="/about" data-testid="about" className="underline-offset-2 hover:underline">關於山谷</Link>
-            <Link href="/admin" data-testid="admin" className="underline-offset-2 hover:underline">管理面板</Link>
+            <Link href="/privacy" data-testid="privacy" className="underline-offset-2 hover:underline">{t("privacy")}</Link>
+            <Link href="/about" data-testid="about" className="underline-offset-2 hover:underline">{t("about")}</Link>
+            <Link href="/admin" data-testid="admin" className="underline-offset-2 hover:underline">{t("admin")}</Link>
           </div>
         </div>
         <div>
@@ -42,7 +46,7 @@ export default function Footer(props: React.HTMLProps<HTMLDivElement>) {
         </div>
         <ul className="overflow-clip text-xs ps-2 my-2 space-y-2">
           <li>
-            <p>圖片來源：Freepik</p>
+            <p>{t("imageSource")}</p>
           </li>
         </ul>
       </div>

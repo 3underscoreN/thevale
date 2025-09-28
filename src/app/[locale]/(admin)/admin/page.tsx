@@ -11,7 +11,11 @@ import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
+import { useTranslations } from "next-intl";
+
 import { toast } from "sonner";
+
+import { useParams } from "next/navigation";
 
 type responseFormat = {
   success: boolean;
@@ -27,12 +31,16 @@ export default function AdminPage() {
   const [source, setSource] = useState<sourceType>("post");
   const [type, setType] = useState<fetchType>("silent");
 
+  const { locale } = useParams<{ locale: string} >();
+
+  const t = useTranslations("Admin.SignedIn");
+
   useEffect(() => {
     /* Initial fetch */
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`/api/admin/fetchpending${source}?fetchType=${type}`);
+        const res = await fetch(`/api/admin/fetchpending${source}?fetchType=${type}&locale=${locale}`);
         const resj: responseFormat = await res.json();
         if (resj.success) {
           setData(resj.data);
@@ -44,10 +52,10 @@ export default function AdminPage() {
       }
     };
     fetchData();
-  }, [type, source]);
+  }, [type, source, locale]);
 
   function approveOrDeclineCallBack(isApproved: boolean, item: Item) {
-    fetch(`/api/admin/${isApproved ? `approve${source}` : `decline${source}`}`, {
+    fetch(`/api/admin/${isApproved ? `approve${source}` : `decline${source}`}?locale=${locale}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,37 +68,37 @@ export default function AdminPage() {
       .then((res) => res.json())
       .then((resj) => {
         if (resj.success) {
-          toast.success(`已${isApproved ? "批准" : "拒絕"}留言。`);
+          toast.success(t('toastMessage', { type: isApproved ? "approve" : "delete" }));
           setData((prev) => prev.filter((d) => d.id !== item.id));
         }
       }).catch((error) => {
-        toast.error(`操作發生了錯誤！`, {action: { label: "複製錯誤訊息", onClick: () => navigator.clipboard.writeText(error.message) }});
+        toast.error(t("toastMessageException"), {action: { label: t("toastCopyMessage"), onClick: () => navigator.clipboard.writeText(error.message) }});
       });
   }
 
   return (
     <>
       <div className="flex flex-col items-center justify-center px-4 py-16 backdrop-blur-md backdrop-brightness-50">
-        <h1 className="text-4xl font-bold mt-16 mb-8">管理員介面</h1>
-        <p className="text-lg text-center mb-8">這裡是管理員介面，您可以在這裡查看和批准留言。</p>
+        <h1 className="text-4xl font-bold mt-16 mb-8">{t('title')}</h1>
+        <p className="text-lg text-center mb-8">{t('subtitle')}</p>
         <div className="my-8 w-full md:w-3/4">
           <Select onValueChange={setSource as (value: sourceType) => void} name="source" defaultValue="post">
             <SelectTrigger className="w-full backdrop-blur-xl backdrop-brightness-50">
-              <SelectValue placeholder="選擇來源..." />
+              <SelectValue placeholder={t('ReplySelector.placeholder')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="post">回聲</SelectItem>
-              <SelectItem value="reply">共鳴</SelectItem>
+              <SelectItem value="post">{t('ReplySelector.post')}</SelectItem>
+              <SelectItem value="reply">{t('ReplySelector.reply')}</SelectItem>
             </SelectContent>
           </Select>
           <div className="my-4" />
           <Select onValueChange={setType as (value: fetchType) => void} name="type" defaultValue="silent">
             <SelectTrigger className="w-full backdrop-blur-xl backdrop-brightness-50">
-              <SelectValue placeholder="選擇留言..." />
+              <SelectValue placeholder={t('TypeSelector.placeholder')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="silent">靜谷之聲</SelectItem>
-              <SelectItem value="starlight">星光之聲</SelectItem>
+              <SelectItem value="silent">{t('TypeSelector.silent')}</SelectItem>
+              <SelectItem value="starlight">{t('TypeSelector.starlight')}</SelectItem>
             </SelectContent>
           </Select>
           {loading ?
@@ -113,7 +121,7 @@ export default function AdminPage() {
                     }}
                   />
                 })
-                : <div className="text-center text-lg my-8">沒有留言。辛苦了！</div>
+                : <div className="text-center text-lg my-8">{t("noComment")}</div>
             )
           }
         </div>
