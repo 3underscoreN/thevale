@@ -77,13 +77,15 @@ export default function CommentForm() {
             />
             <span className="mt-2 text-xs text-gray-400"><FontAwesomeIcon icon={faMarkdown} />{t("markdownSupport")}</span>
           </label>
-          <p className="text-md text-gray-400">{t("Privacy.beforeLink")}
-            <Button variant="link" size="icon" className="text-blue-300 inline text-md" asChild>
-              <Link href="/privacy">
-                {t("Privacy.linkText")}
-              </Link>
-            </Button>
-            {t("Privacy.afterLink")}
+          <p className="text-md text-gray-400">
+            {t.rich("privacy", {
+              privacy: (chunk) =>
+                <Button variant="link" size="icon" className="text-blue-300 inline text-md" asChild>
+                  <Link href="/privacy">
+                    {chunk}
+                  </Link>
+                </Button>
+            })}
           </p>
           <Button type="submit" data-testid="submit-button" className="w-full mt-4 cursor-pointer" disabled={isPending}>
             {isPending ? t("sending") : t("send")}

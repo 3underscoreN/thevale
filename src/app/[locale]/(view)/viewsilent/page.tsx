@@ -10,6 +10,7 @@ import {
 import { useTranslations } from "next-intl";
 
 import ViewCards from "@/components/ViewCards";
+import { ListText } from "@/components/RichTextRenderer";
 
 export default function ViewPage() {
   const t = useTranslations("ViewPage");
@@ -25,11 +26,7 @@ export default function ViewPage() {
               {t("Rules.title")}
             </CardTitle>
             <CardDescription className="text-md">
-              <ol className="list-decimal list-inside space-y-4">
-                <li>{t("Rules.r1")}</li>
-                <li>{t("Rules.r2")}</li>
-                <li>{t("Rules.r3")}</li>
-              </ol>
+              <ListText>{(tags) => t.rich("Rules.rules", tags)}</ListText>
             </CardDescription>
           </CardHeader>
         </Card>

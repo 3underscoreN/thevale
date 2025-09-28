@@ -1,8 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 import CommentForm from "@/components/CommentForm";
+import { Button } from "@/components/ui/button";
 
 import Link from "next/link";
+
+import { ListText } from "@/components/RichTextRenderer";
 
 import { useTranslations } from "next-intl";
 
@@ -23,18 +26,16 @@ export default function CreatePage() {
               {t("Rules.title")}
             </CardTitle>
             <CardDescription className="text-md">
-              <ol className="list-decimal list-inside space-y-4">
-                <li><span className="font-semibold">{t("Rules.R1.title")}</span>{t("Rules.R1.desc")}</li>
-                <li><span className="font-semibold">{t("Rules.R2.title")}</span>{t("Rules.R2.desc")}</li>
-                <li><span className="font-semibold">{t("Rules.R3.title")}</span>{t("Rules.R3.desc")}</li>
-                <li><span className="font-semibold">{t("Rules.R4.title")}</span>{t("Rules.R4.desc")}</li>
-                <li><span className="font-semibold">{t("Rules.R5.title")}</span>{t("Rules.R5.desc")}</li>
-              </ol>
-              <p className="text-md mt-4">{t("Rules.Help.beforeLink")}
-                <Link href="/helpline" className="text-blue-300 hover:underline">
-                  {t("Rules.Help.linkText")}
-                </Link>
-                {t("Rules.Help.afterLink")}
+              <ListText>{(tags) => t.rich("Rules.rules", tags)}</ListText>
+              <p className="text-md mt-4">
+                {t.rich("Rules.help", {
+                  guide: (chunk) =>
+                    <Button variant="link" size="icon" className="text-blue-300 inline text-md" asChild>
+                      <Link href="/helpline">
+                        {chunk}
+                      </Link>
+                    </Button>
+                })}
               </p>
             </CardDescription>
           </CardHeader>

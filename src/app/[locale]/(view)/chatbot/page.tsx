@@ -3,7 +3,6 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import Link from 'next/link';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUp, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
@@ -22,6 +21,8 @@ import { useEffect } from 'react';
 import { cn, isMacLike, delay } from '@/lib/utils';
 
 import { useTranslations } from 'next-intl';
+
+import { ListText } from '@/components/RichTextRenderer';
 
 export default function Chat() {
   const t = useTranslations("ChatbotPage");
@@ -80,22 +81,7 @@ export default function Chat() {
         <CardHeader>
           <CardTitle className="text-2xl font-bold mb-2">{t("Rules.title")}</CardTitle>
           <CardDescription className="text-md">
-            <ol className="list-decimal list-inside space-y-4">
-              <li>{t("Rules.R1.beforeLink")}
-                <Link href="/helpline" className="text-blue-300 hover:underline">
-                  {t("Rules.R1.linkText")}
-                </Link>{t("Rules.R1.afterLink")}
-              </li>
-              <li>{t("Rules.r2")}</li>
-              <li>{t("Rules.R3.beforeLink")}
-                <Link href="/privacy" className="text-blue-300 hover:underline">
-                  {t("Rules.R3.linkText")}
-                </Link>
-                {t("Rules.R3.afterLink")}
-              </li>
-              <li>{t("Rules.r4")}</li>
-              <li>{t("Rules.r5")}</li>
-            </ol>
+            <ListText>{(tags) => t.rich("Rules.rules", tags)}</ListText>
           </CardDescription>
         </CardHeader>
         <hr />
