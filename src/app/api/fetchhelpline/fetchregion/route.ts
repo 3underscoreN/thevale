@@ -24,13 +24,6 @@ export async function GET(request: NextRequest) {
     }, { status: 400 });
   }
 
-  if (!parsedData.success) {
-    return NextResponse.json({
-      success: false,
-      error: 'Error parsing parameters.',
-      data: null,
-    });
-  }
 
   const { locale } = parsedData.data;
 
