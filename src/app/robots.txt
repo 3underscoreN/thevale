@@ -1,5 +1,5 @@
 User-Agent: *
-Allow: /
-Disallow: /viewsilent
-Disallow: /viewstarlight
-Disallow: /admin
+Allow: /zh
+Disallow: /zh/viewsilent
+Disallow: /zh/viewstarlight
+Disallow: /zh/admin

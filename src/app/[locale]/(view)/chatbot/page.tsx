@@ -17,6 +17,7 @@ import { Response } from '@/components/response';
 import { Loader } from '@/components/loader';
 
 import { useEffect } from 'react';
+import { useParams } from 'next/navigation';
 
 import { cn, isMacLike, delay } from '@/lib/utils';
 
@@ -27,12 +28,14 @@ import { ListText } from '@/components/RichTextRenderer';
 export default function Chat() {
   const t = useTranslations("ChatbotPage");
 
+  const { locale } = useParams<{ locale: string }>();
+  
   const [macLike, setMacLike] = useState<boolean>(false);
   const [isFormSubmitError, setIsFormSubmitError] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
   const { messages, setMessages, sendMessage, status, error, clearError } = useChat({
     transport: new DefaultChatTransport({
-      api: '/api/chatbot'
+      api: `/api/chatbot?locale=${locale}`
     }),
     onError: async (error) => {
       console.error('Error sending message:', error);

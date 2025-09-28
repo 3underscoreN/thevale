@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
 
   const { locale } = parsedData.data;
 
-  const data = await import(`@/messages/helplines_${locale}.json`);
+  const data = await import(`@/messages/${locale}/helplines_${locale}.json`);
 
   const keys = Object.keys(data);
 
