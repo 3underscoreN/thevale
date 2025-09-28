@@ -7,12 +7,9 @@ const isProtectedRoute = createRouteMatcher(['/admin(.*)', '/api/admin(.*)']);
 export const i18nMiddleware = createMiddleware(routing);
 
 export default clerkMiddleware(async (auth, req) => {
-  const { isAuthenticated, redirectToSignIn } = await auth();
+  const { isAuthenticated } = await auth();
   // Non API routes
   if (!req.nextUrl.pathname.startsWith('/api')) {
-    if (isProtectedRoute(req) && !isAuthenticated) {
-      return redirectToSignIn();
-    }
     return i18nMiddleware(req);
   }
   // API routes
