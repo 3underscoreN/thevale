@@ -7,16 +7,7 @@ import { z } from "zod";
 
 import { routing } from "@/i18n/routing";
 
-const FormDataSchema = z.object({
-  name: z.preprocess((arg) => {
-    if (typeof arg === "string" && arg.trim() === "") {
-      return '-';
-    }
-    return arg;
-  }, z.string().max(64)),
-  content: z.string().max(2048),
-  locale: z.enum(routing.locales).default(routing.defaultLocale),
-});
+import { getTranslations } from "next-intl/server";
 
 export type SubmitState = {
   success: boolean;
@@ -28,6 +19,19 @@ export type SubmitState = {
 };
 
 export async function submitReply(_: SubmitState, cardType: "silent" | "starlight", parentId: number, formData: FormData) {
+  const t = await getTranslations("ViewPage.ReplyForm");
+  const FormDataSchema = z.object({
+    name: z.preprocess((arg) => {
+      if (typeof arg === "string" && arg.trim() === "") {
+        return t('nicknameDefault');
+      }
+      return arg;
+    }, z.string().max(64)),
+    content: z.string().max(2048),
+    locale: z.enum(routing.locales).default(routing.defaultLocale),
+  });
+
+
   const parsedData = FormDataSchema.safeParse(Object.fromEntries(formData));
   if (!parsedData.success) {
     throw parsedData.error;
