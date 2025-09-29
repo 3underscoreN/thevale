@@ -224,7 +224,7 @@
     "description": "匿名抒發心聲的平台。分享低語，傾聽靜谷心聲與星光回聲，尋找共鳴與溫暖。"
   },
   "Cookies": {
-    "message": "我們使用cookies來提升你的體驗。繼續使用本網站或點擊任何按鈕即表示你同意我們的<privacy>私隱聲明</privacy>。",
+    "message": "我們使用cookies來提升你的體驗。所有cookies均為必要cookies。繼續使用本網站或點擊任何按鈕即表示你同意我們的<privacy>私隱聲明</privacy>。",
     "accept": "接受"
   }
 }
