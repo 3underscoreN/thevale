@@ -5,17 +5,17 @@
       "subtitle": "想分享心裏的思緒嗎？"
     },
     "Introduction": {
-      "p1": "你好，旅人。",
-      "p2": "日子堆疊的縫隙裡，",
-      "p3": "總有些情緒無處安放——",
-      "p4": "可能是小小的悵惘，又或者感覺",
-      "p5": "沉入無人能達的深淵。",
-      "p6": "就像對著山谷盡情大喊般，",
-      "p7": "把心中想說的，化為回聲，融入這片靜謐吧。"
+      "p1": "Greetings, weary traveler.",
+      "p2": "In the quiet crevices between the days,",
+      "p3": "there are emotions that linger, with nowhere to rest—",
+      "p4": "perhaps a fleeting pang of loss, or a feeling of",
+      "p5": "sinking into a bottomless abyss no one else can reach.",
+      "p6": "Just like shouting freely into a vast vale,",
+      "p7": "let your heart's words echo and blend into this serene stillness."
     },
     "Actions": {
       "Create": {
-        "title": "創造回聲",
+        "title": "Craft Your Echo",
         "desc": "讓心中的話語、對同路人的鼓勵，化為回聲，迴盪在山谷之中。"
       },
       "ViewSilent": {
@@ -102,7 +102,7 @@
     }
   },
   "CreatePage": {
-    "title": "創造回聲",
+    "title": "Craft Your Echo",
     "subtitle": "哪怕只是一聲嘆息，也會在這裏化作回聲。",
     "Rules": {
       "title": "須知事項",
