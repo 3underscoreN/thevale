@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@ai-sdk/azure": "^2.0.27",
-    "@ai-sdk/react": "^2.0.38",
+    "@ai-sdk/react": "^2.0.92",
     "@clerk/localizations": "^3.24.1",
     "@clerk/nextjs": "^6.31.8",
     "@clerk/themes": "^2.4.16",
@@ -36,7 +36,7 @@
     "@radix-ui/react-use-controllable-state": "^1.2.2",
     "@react-spring/web": "^10.0.1",
     "@upstash/ratelimit": "^2.0.6",
-    "ai": "^5.0.38",
+    "ai": "^5.0.92",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
