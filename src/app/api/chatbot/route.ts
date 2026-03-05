@@ -1,9 +1,6 @@
 import { createAzure } from '@ai-sdk/azure';
 import { streamText, UIMessage, convertToModelMessages } from 'ai';
 
-import { redis } from '@/app/api/redisdb';
-import { Ratelimit } from '@upstash/ratelimit';
-
 import { Laminar, getTracer } from '@lmnr-ai/lmnr';
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -28,11 +25,6 @@ const azure = createAzure({
   apiVersion: '2024-10-21',
 });
 
-const rateLimit = new Ratelimit({
-  redis: redis,
-  limiter: Ratelimit.slidingWindow(5, '1 m'),
-});
-
 export async function POST(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
 
@@ -42,13 +34,6 @@ export async function POST(request: NextRequest) {
   
   if (!parsedData.success) {
     return new NextResponse("Invalid request", { status: 400 });
-  }
-
-  const ip = request.headers.get('x-real-ip') ?? "generic-ip";
-  const { success } = await rateLimit.limit(ip);
-
-  if (!success) {
-    return new NextResponse("Rate limit exceeded", { status: 429 });
   }
 
   const { locale } = parsedData.data;
