@@ -33,11 +33,11 @@
     }
   },
   "Footer": {
-    "title": "山谷 / The Vale - ",
-    "privacy": "私隱聲明",
-    "about": "關於山谷",
-    "admin": "管理面板",
-    "imageSource": "圖片來源：Freepik"
+    "title": "The Vale / 山谷 - ",
+    "privacy": "Privacy",
+    "about": "About",
+    "admin": "Admin",
+    "imageSource": "Photo: Freepik"
   },
   "ViewPage": {
     "Rules": {
@@ -97,8 +97,8 @@
       "backToHome": "返回首頁"
     },
     "Aria": {
-      "previousPage": "上一頁",
-      "nextPage": "下一頁"
+      "previousPage": "Prev",
+      "nextPage": "Next"
     }
   },
   "CreatePage": {
@@ -136,7 +136,7 @@
     }
   },
   "AboutPage": {
-    "title": "關於山谷",
+    "title": "About",
     "desc": "這裏記載著關於山谷的故事。",
     "Content": {
       "WordsFromDev": {
@@ -171,7 +171,7 @@
     }
   },
   "Privacy": {
-    "title": "私隱聲明",
+    "title": "Privacy",
     "subtitle": "山谷收集的資料，在此一一說明。",
     "Content": {
       "title": "山谷 —— 私隱聲明",
