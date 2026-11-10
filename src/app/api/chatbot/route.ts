@@ -1,7 +1,13 @@
 import { createAzure } from '@ai-sdk/azure';
-import { streamText, UIMessage, convertToModelMessages } from 'ai';
+import {
+  streamText,
+  UIMessage,
+  convertToModelMessages,
+  createUIMessageStreamResponse,
+  toUIMessageStream,
+} from 'ai';
 
-import { Laminar, getTracer } from '@lmnr-ai/lmnr';
+import { Laminar, aiSdkTelemetry } from '@lmnr-ai/lmnr';
 
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -42,20 +48,25 @@ export async function POST(request: NextRequest) {
 
   const chatRequest: { messages: UIMessage[] } = await request.json();
 
-  const result = await streamText({
-    model: azure("gpt-4o-mini"),
-    system: prompt.systemPrompt,
-    messages: convertToModelMessages(chatRequest.messages),
+  const result = streamText({
+    // Keep using the Chat Completions API, which is what this Azure deployment
+    // was configured for. `azure()` now defaults to the Responses API.
+    model: azure.chat("gpt-4o-mini"),
+    instructions: prompt.systemPrompt,
+    messages: await convertToModelMessages(chatRequest.messages),
     maxRetries: 1,
-    experimental_telemetry: {
+    telemetry: {
       isEnabled: true,
-      tracer: getTracer(),
+      integrations: aiSdkTelemetry(),
     },
   });
 
-  return result.toUIMessageStreamResponse({
-    onFinish: async () => {
-      await Laminar.flush();
-    }
+  return createUIMessageStreamResponse({
+    stream: toUIMessageStream({
+      stream: result.stream,
+      onFinish: async () => {
+        await Laminar.flush();
+      },
+    }),
   });
 }

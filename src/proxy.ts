@@ -1,20 +1,25 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { clerkMiddleware } from "@clerk/nextjs/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 
-const isProtectedRoute = createRouteMatcher(['/admin(.*)', '/api/admin(.*)']);
+const isProtectedApiRoute = (pathname: string) => pathname.startsWith('/api/admin');
 
-export const i18nMiddleware = createMiddleware(routing);
+const i18nMiddleware = createMiddleware(routing);
 
 export default clerkMiddleware(async (auth, req) => {
-  const { isAuthenticated } = await auth();
+  const { pathname } = req.nextUrl;
+
   // Non API routes
-  if (!req.nextUrl.pathname.startsWith('/api')) {
+  if (!pathname.startsWith('/api')) {
     return i18nMiddleware(req);
   }
+
   // API routes
-  if (isProtectedRoute(req) && !isAuthenticated) {
-    return new Response(null, { status: 401 });
+  if (isProtectedApiRoute(pathname)) {
+    const { isAuthenticated } = await auth();
+    if (!isAuthenticated) {
+      return new Response(null, { status: 401 });
+    }
   }
 });
 
