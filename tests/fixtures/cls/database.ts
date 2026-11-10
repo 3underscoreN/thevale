@@ -22,10 +22,10 @@ export default class Database{
     let result: Record<string, Item>[];
     switch (table) {
       case "silent":
-        result = await this.sql`SELECT id, name, content, created_at FROM silent_comments WHERE status='pending' ORDER BY created_at DESC LIMIT 1;`;
+        result = await this.sql`SELECT id, name, content, created_at FROM silent_comments_zh WHERE status='pending' ORDER BY created_at DESC LIMIT 1;`;
         break;
       case "starlight":
-        result = await this.sql`SELECT id, name, content, created_at FROM starlight_comments WHERE status='pending' ORDER BY created_at DESC LIMIT 1;`;
+        result = await this.sql`SELECT id, name, content, created_at FROM starlight_comments_zh WHERE status='pending' ORDER BY created_at DESC LIMIT 1;`;
         break;
     }
     return result;
@@ -43,10 +43,10 @@ export default class Database{
     let result: Record<string, Item>[];
     switch (table) {
       case "silent":
-        result = await this.sql`SELECT id, name, content, status FROM silent_comments WHERE name=${name} ORDER BY created_at DESC LIMIT 1;`;
+        result = await this.sql`SELECT id, name, content, status FROM silent_comments_zh WHERE name=${name} ORDER BY created_at DESC LIMIT 1;`;
         break;
       case "starlight":
-        result = await this.sql`SELECT id, name, content, status FROM starlight_comments WHERE name=${name} ORDER BY created_at DESC LIMIT 1;`;
+        result = await this.sql`SELECT id, name, content, status FROM starlight_comments_zh WHERE name=${name} ORDER BY created_at DESC LIMIT 1;`;
         break;
     }
     return result;
@@ -67,9 +67,9 @@ export default class Database{
   async insertAndApprove(name: string, content: string, table: "silent" | "starlight") : Promise<Record<string, number>[]> {
     switch (table) {
       case "silent":
-        return await this.sql`INSERT INTO silent_comments (name, content, status) VALUES (${name}, ${content}, 'approved') RETURNING id;`;
+        return await this.sql`INSERT INTO silent_comments_zh (name, content, status) VALUES (${name}, ${content}, 'approved') RETURNING id;`;
       case "starlight":
-        return await this.sql`INSERT INTO starlight_comments (name, content, status) VALUES (${name}, ${content}, 'approved') RETURNING id;`;
+        return await this.sql`INSERT INTO starlight_comments_zh (name, content, status) VALUES (${name}, ${content}, 'approved') RETURNING id;`;
     }
   }
 
@@ -90,12 +90,12 @@ export default class Database{
     let result;
     switch (table) {
       case "silent":
-        result = await this.sql`INSERT INTO silent_comments_replies (name, content, status, parent_id) VALUES (${name}, ${content}, 'pending', ${parentId}) RETURNING id;`;
-        await this.sql`UPDATE silent_comments_replies SET status='approved' WHERE id=${result[0].id};`;
+        result = await this.sql`INSERT INTO silent_comments_replies_zh (name, content, status, parent_id) VALUES (${name}, ${content}, 'pending', ${parentId}) RETURNING id;`;
+        await this.sql`UPDATE silent_comments_replies_zh SET status='approved' WHERE id=${result[0].id};`;
         return result;
       case "starlight":
-        result = await this.sql`INSERT INTO starlight_comments_replies (name, content, status, parent_id) VALUES (${name}, ${content}, 'pending', ${parentId}) RETURNING id;`;
-        await this.sql`UPDATE starlight_comments_replies SET status='approved' WHERE id=${result[0].id};`;
+        result = await this.sql`INSERT INTO starlight_comments_replies_zh (name, content, status, parent_id) VALUES (${name}, ${content}, 'pending', ${parentId}) RETURNING id;`;
+        await this.sql`UPDATE starlight_comments_replies_zh SET status='approved' WHERE id=${result[0].id};`;
         return result;
     }
   }
@@ -113,10 +113,10 @@ export default class Database{
   async cleanupByName(name: string, table: "silent" | "starlight") {
     switch (table) {
       case "silent":
-        await this.sql`DELETE FROM silent_comments WHERE name=${name};`;
+        await this.sql`DELETE FROM silent_comments_zh WHERE name=${name};`;
         break;
       case "starlight":
-        await this.sql`DELETE FROM starlight_comments WHERE name=${name};`;
+        await this.sql`DELETE FROM starlight_comments_zh WHERE name=${name};`;
         break;
     }
   }
@@ -135,10 +135,10 @@ export default class Database{
   async cleanupById(id: number, table: "silent" | "starlight") {
     switch (table) {
       case "silent":
-        await this.sql`DELETE FROM silent_comments WHERE id=${id};`;
+        await this.sql`DELETE FROM silent_comments_zh WHERE id=${id};`;
         break;
       case "starlight":
-        await this.sql`DELETE FROM starlight_comments WHERE id=${id};`;
+        await this.sql`DELETE FROM starlight_comments_zh WHERE id=${id};`;
         break;
     }
   }
@@ -157,10 +157,10 @@ export default class Database{
   async cleanupReplyByName(name: string, table: "silent" | "starlight") {
     switch (table) {
       case "silent":
-        await this.sql`DELETE FROM silent_comments_replies WHERE name=${name};`;
+        await this.sql`DELETE FROM silent_comments_replies_zh WHERE name=${name};`;
         break;
       case "starlight":
-        await this.sql`DELETE FROM starlight_comments_replies WHERE name=${name};`;
+        await this.sql`DELETE FROM starlight_comments_replies_zh WHERE name=${name};`;
         break;
     }
   }
@@ -179,10 +179,10 @@ export default class Database{
   async cleanupReplyById(id: number, table: "silent" | "starlight") {
     switch (table) {
       case "silent":
-        await this.sql`DELETE FROM silent_comments_replies WHERE id=${id};`;
+        await this.sql`DELETE FROM silent_comments_replies_zh WHERE id=${id};`;
         break;
       case "starlight":
-        await this.sql`DELETE FROM starlight_comments_replies WHERE id=${id};`;
+        await this.sql`DELETE FROM starlight_comments_replies_zh WHERE id=${id};`;
         break;
     }
   }

@@ -5,7 +5,7 @@ import './page.css'
 
 import BentoGridMenu from "@/components/BentoGridMenu";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { toast } from "sonner";
 
 import { ListText } from "@/components/RichTextRenderer";
@@ -15,25 +15,24 @@ import { useTranslations } from "next-intl";
 export default function Home() {
   const t = useTranslations("LandingPage.Introduction");
 
-  const [ isCookiesDisplayed, setIsCookiesDisplayed ] = useState<boolean>(true);
   const tc = useTranslations("Cookies");
 
   useEffect(() => {
-    setIsCookiesDisplayed(localStorage.getItem('isCookiesDisplayed') === 'true');
-    if (!isCookiesDisplayed) {
-      toast(<ListText>{(tags) => tc.rich('message', tags)}</ListText>, {
-        action: {
-          label: tc('accept'),
-          onClick: () => {toast.dismiss()},
-        },
-        duration: Infinity,
-        richColors: true,
-        invert: true,
-      });
-      setIsCookiesDisplayed(true);
-      localStorage.setItem('isCookiesDisplayed', 'true')
+    if (localStorage.getItem('isCookiesDisplayed') === 'true') {
+      return;
     }
-  }, [tc, isCookiesDisplayed]);
+
+    toast(<ListText>{(tags) => tc.rich('message', tags)}</ListText>, {
+      action: {
+        label: tc('accept'),
+        onClick: () => {toast.dismiss()},
+      },
+      duration: Infinity,
+      richColors: true,
+      invert: true,
+    });
+    localStorage.setItem('isCookiesDisplayed', 'true')
+  }, [tc]);
 
   return (
     <>
